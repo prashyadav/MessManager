@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    public Button studentLogin,adminLogin,signUp;
+    public Button studentLogin,adminLogin,signUp,managerLogin;
     public TextView welcomeMessage;
 
     @Override
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         // test
         studentLogin =(Button)findViewById(R.id.studentLogin);
         adminLogin = (Button)findViewById(R.id.adminLogin);
+        managerLogin = (Button)findViewById(R.id.manager);
         signUp = (Button)findViewById(R.id.signUp);
         welcomeMessage = (TextView)findViewById(R.id.welcomeMessage);
         studentLogin.setOnClickListener(new View.OnClickListener() {
@@ -27,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        managerLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent  intent  = new  Intent(MainActivity.this,ManagerHome.class);
+                startActivity(intent);
+            }
+        });
     }
 }
