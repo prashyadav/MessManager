@@ -1,5 +1,6 @@
 package com.example.prashanjeet.messmanager;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,11 @@ public class AddMeal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal);
-        add = (Button) findViewById(R.id.add_meal);
+        add = (Button) findViewById(R.id.meal_add);
+        title= (EditText) findViewById(R.id.meal_title);
+        des = (EditText) findViewById(R.id.meal_description);
+        cost = (EditText) findViewById(R.id.meal_cost);
+        date = (EditText) findViewById(R.id.meal_date);
         databaseUsers = FirebaseDatabase.getInstance().getReference("meals");
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -36,11 +41,15 @@ public class AddMeal extends AppCompatActivity {
 
                 try {
                     databaseUsers.child(id).setValue(meal);
+                    Toast.makeText(AddMeal.this,"Meal Uploaded",Toast.LENGTH_LONG).show();
                 }
                 catch (Exception e){
                     e.printStackTrace();
                     Toast.makeText(AddMeal.this,"Network error please try later",Toast.LENGTH_LONG).show();
                 }
+
+                Intent intent  = new  Intent(AddMeal.this ,ManagerHome.class);
+                startActivity(intent);
 
             }
         });
@@ -48,4 +57,3 @@ public class AddMeal extends AppCompatActivity {
 
     }
 }
-g
