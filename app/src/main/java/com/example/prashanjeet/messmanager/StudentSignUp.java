@@ -1,6 +1,8 @@
 package com.example.prashanjeet.messmanager;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -40,7 +42,6 @@ public class StudentSignUp extends AppCompatActivity {
                     //progressDialog.dismiss();
 
                     String id = databaseUsers.push().getKey();
-                    //Users users = new Users(id,stu)
                     String studentN = studentName.getText().toString();
                     String studentP = studentPassword.getText().toString();
                     String studentE = studentEmail.getText().toString();
@@ -49,16 +50,22 @@ public class StudentSignUp extends AppCompatActivity {
                     String studentRegn = studentReg.getText().toString();
                     String studentH = studentHostel.getText().toString();
                     Student user =new Student(studentN,studentM,studentRegn,studentH,studentR,studentE);
-                    Users user1 = new Users(id,studentN,studentRegn);
-                    databaseUsers.child(id).setValue(user1);
-//                    databaseUser.child(id).setValue(user);
-//
-//                    SharedPreferences sharedPreferences =getSharedPreferences("myFile", Context.MODE_PRIVATE);
-//                    SharedPreferences.Editor editor =sharedPreferences.edit();
-//                    editor.putString("name", studentN);
-//                    editor.putString("email", studentE);
-//                    editor.putString("mobile", studentM);
-//                    editor.commit();
+
+
+                    try {
+                        databaseUsers.child(id).setValue(user);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                        Toast.makeText(StudentSignUp.this,"Network error please try later",Toast.LENGTH_LONG).show();
+                    }
+
+                    SharedPreferences sharedPreferences =getSharedPreferences("myFile", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor =sharedPreferences.edit();
+                    editor.putString("name", studentN);
+                    editor.putString("email", studentE);
+                    editor.putString("mobile", studentM);
+                    editor.commit();
                     Toast.makeText(StudentSignUp.this,"Registration Successful",Toast.LENGTH_LONG).show();
 
                 }
@@ -72,7 +79,7 @@ public class StudentSignUp extends AppCompatActivity {
 
     }
     public Boolean validate(){
-        Boolean result = false;
+        Boolean result = true;
         String studentN = studentName.getText().toString();
         String studentP = studentPassword.getText().toString();
         String studentE = studentEmail.getText().toString();
