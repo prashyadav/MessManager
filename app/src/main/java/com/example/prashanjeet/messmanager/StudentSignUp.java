@@ -1,19 +1,30 @@
 package com.example.prashanjeet.messmanager;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class StudentSignUp extends AppCompatActivity {
     private Button studentSignUp;
+    public ProgressDialog progressDialog;
+    public FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseUser;
+    public DatabaseReference databaseUsers;
     public EditText studentName,studentEmail,studentPassword,studentHostel,studentRoom,studentMob,studentReg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_sign_up);
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
         studentSignUp = (Button)findViewById(R.id.studentSignUp);
         studentName = (EditText)findViewById(R.id.studentName);
         studentEmail = (EditText)findViewById(R.id.studentEmail);
@@ -25,9 +36,58 @@ public class StudentSignUp extends AppCompatActivity {
         studentSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(validate()){
+                    //progressDialog.dismiss();
+
+                    String id = databaseUsers.push().getKey();
+                    //Users users = new Users(id,stu)
+                    String studentN = studentName.getText().toString();
+                    String studentP = studentPassword.getText().toString();
+                    String studentE = studentEmail.getText().toString();
+                    final String studentR = studentRoom.getText().toString().trim();
+                    final String studentM = studentMob.getText().toString().trim();
+                    String studentRegn = studentReg.getText().toString();
+                    String studentH = studentHostel.getText().toString();
+                    Student user =new Student(studentN,studentM,studentRegn,studentH,studentR,studentE);
+                    Users user1 = new Users(id,studentN,studentRegn);
+                    databaseUsers.child(id).setValue(user1);
+//                    databaseUser.child(id).setValue(user);
+//
+//                    SharedPreferences sharedPreferences =getSharedPreferences("myFile", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor =sharedPreferences.edit();
+//                    editor.putString("name", studentN);
+//                    editor.putString("email", studentE);
+//                    editor.putString("mobile", studentM);
+//                    editor.commit();
+                    Toast.makeText(StudentSignUp.this,"Registration Successful",Toast.LENGTH_LONG).show();
+
+                }
+                else
+                {
+                    Toast.makeText(StudentSignUp.this,"Registration UnSuccessful",Toast.LENGTH_LONG).show();
+                }
 
             }
         });
 
     }
+    public Boolean validate(){
+        Boolean result = false;
+        String studentN = studentName.getText().toString();
+        String studentP = studentPassword.getText().toString();
+        String studentE = studentEmail.getText().toString();
+        final String studentR = studentRoom.getText().toString().trim();
+        final String studentM = studentMob.getText().toString().trim();
+        String studentRegn = studentReg.getText().toString();
+        String studentH = studentHostel.getText().toString();
+        if(studentN.isEmpty()||studentP.isEmpty()||studentE.isEmpty()|| studentR.isEmpty() || studentM.isEmpty()|| studentRegn.isEmpty()|| studentH.isEmpty())
+        {
+            Toast.makeText(this,"Please fill all details",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            result = true;
+        }
+        return result;
+    }
+
 }
