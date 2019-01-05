@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         // test
         studentLogin =(Button)findViewById(R.id.studentLogin);
         adminLogin = (Button)findViewById(R.id.adminLogin);
-        managerLogin = (Button)findViewById(R.id.manager);
+        //managerLogin = (Button)findViewById(R.id.manager);
         signUp = (Button)findViewById(R.id.signUp);
         welcomeMessage = (TextView)findViewById(R.id.welcomeMessage);
         studentLogin.setOnClickListener(new View.OnClickListener() {
@@ -28,7 +28,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        managerLogin.setOnClickListener(new View.OnClickListener() {
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent  intent  = new  Intent(MainActivity.this,StudentSignUp.class);
+                startActivity(intent);
+            }
+        });
+        adminLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent  intent  = new  Intent(MainActivity.this ,ManagerHome.class);
