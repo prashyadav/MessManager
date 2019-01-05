@@ -7,11 +7,11 @@
     tools:context="com.example.prashanjeet.messmanager.StudentHome">
 
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="58dp"
-        android:layout_weight="1"
-        android:text="Prajjwaldygfgrufbtrughtv"
-        android:textSize="18dp" />
+    <ListView
+        android:id="@+id/listViewAppo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
 </LinearLayout>

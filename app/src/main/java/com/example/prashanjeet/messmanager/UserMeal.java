@@ -5,7 +5,7 @@ package com.example.prashanjeet.messmanager;
  */
 
 public class UserMeal {
-    public String name,regNumber,id;
+    public String name,regNumber;
     int[][] meals = new int[12][31];
     public UserMeal(){
         for(int i=0; i<12;i++){
@@ -15,8 +15,7 @@ public class UserMeal {
         }
     }
 
-    public UserMeal(String name,String regNumber, String id){
-        this.id=id;
+    public UserMeal(String name,String regNumber){
         this.name = name;
         this.regNumber= regNumber;
         for(int i=0; i<12;i++){

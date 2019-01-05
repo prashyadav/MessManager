@@ -18,7 +18,7 @@ public class StudentSignUp extends AppCompatActivity {
     private Button studentSignUp;
     public ProgressDialog progressDialog;
     public FirebaseAuth firebaseAuth;
-    private DatabaseReference databaseUser;
+    private DatabaseReference databaseUserMeals;
     public DatabaseReference databaseUsers;
     public EditText studentName,studentEmail,studentPassword,studentHostel,studentRoom,studentMob,studentReg;
 
@@ -27,6 +27,7 @@ public class StudentSignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_sign_up);
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
+        databaseUsers = FirebaseDatabase.getInstance().getReference("userMeals");
         studentSignUp = (Button)findViewById(R.id.studentSignUp);
         studentName = (EditText)findViewById(R.id.studentName);
         studentEmail = (EditText)findViewById(R.id.studentEmail);
@@ -42,6 +43,7 @@ public class StudentSignUp extends AppCompatActivity {
                     //progressDialog.dismiss();
 
                     String id = databaseUsers.push().getKey();
+                    String id1 = databaseUserMeals.push().getKey();
                     String studentN = studentName.getText().toString();
                     String studentP = studentPassword.getText().toString();
                     String studentE = studentEmail.getText().toString();
@@ -50,10 +52,12 @@ public class StudentSignUp extends AppCompatActivity {
                     String studentRegn = studentReg.getText().toString();
                     String studentH = studentHostel.getText().toString();
                     Student user =new Student(studentN,studentM,studentRegn,studentH,studentR,studentE);
+                    UserMeal userMeal = new UserMeal(studentN,studentRegn);
 
 
                     try {
                         databaseUsers.child(id).setValue(user);
+                        databaseUserMeals.child(id1).setValue(userMeal);
                     }
                     catch (Exception e){
                         e.printStackTrace();
@@ -65,6 +69,8 @@ public class StudentSignUp extends AppCompatActivity {
                     editor.putString("name", studentN);
                     editor.putString("email", studentE);
                     editor.putString("mobile", studentM);
+                    editor.putString("mealId",id1);
+                    editor.putString("id",id);
                     editor.commit();
                     Toast.makeText(StudentSignUp.this,"Registration Successful",Toast.LENGTH_LONG).show();
 
