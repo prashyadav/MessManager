@@ -73,12 +73,4 @@
         app:layout_constraintTop_toBottomOf="@+id/adminLogin"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/manager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Manager"
-        tools:layout_editor_absoluteX="146dp"
-        tools:layout_editor_absoluteY="389dp" />
-
 </android.support.constraint.ConstraintLayout>
