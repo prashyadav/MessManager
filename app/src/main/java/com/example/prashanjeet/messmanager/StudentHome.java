@@ -203,7 +203,7 @@ public class StudentHome extends AppCompatActivity {
             }
         });
 
-        //meal.list.s=val;
+
         mealref.setValue(meal);
 
 
