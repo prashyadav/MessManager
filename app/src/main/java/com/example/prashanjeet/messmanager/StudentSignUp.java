@@ -24,7 +24,7 @@ public class StudentSignUp extends AppCompatActivity {
     private Button studentSignUp;
     public ProgressDialog progressDialog;
     public FirebaseAuth firebaseAuth;
-    private DatabaseReference databaseUser;
+    private DatabaseReference databaseUserMeals;
     public DatabaseReference databaseUsers;
     public EditText studentName,studentEmail,studentPassword,studentHostel,studentRoom,studentMob,studentReg;
 
@@ -34,6 +34,7 @@ public class StudentSignUp extends AppCompatActivity {
         setContentView(R.layout.activity_student_sign_up);
         firebaseAuth = FirebaseAuth.getInstance();
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
+        databaseUserMeals = FirebaseDatabase.getInstance().getReference("userMeals");
         studentSignUp = (Button)findViewById(R.id.studentSignUp);
         studentName = (EditText)findViewById(R.id.studentName);
         studentEmail = (EditText)findViewById(R.id.studentEmail);
@@ -60,13 +61,23 @@ public class StudentSignUp extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                    //progressDialog.dismiss();
                                     String id = firebaseAuth.getCurrentUser().getUid();
+                                    String id1 = databaseUserMeals.push().getKey();
+                                    UserMeal userMeal = new UserMeal(studentN,studentRegn);
                                     Student user =new Student(studentN,studentM,studentRegn,studentH,studentR,studentE);
-                                    databaseUsers.child(id).setValue(user);
+                                    try {
+                                        databaseUsers.child(id).setValue(user);
+                                        databaseUserMeals.child(id1).setValue(userMeal);
+                                    }
+                                    catch (Exception e){
+                                        e.printStackTrace();
+                                        Toast.makeText(StudentSignUp.this,"Network error please try later",Toast.LENGTH_LONG).show();
+                                    }
 
                                     SharedPreferences sharedPreferences =getSharedPreferences("myFile", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor =sharedPreferences.edit();
                                     editor.putString("name", studentN);
                                     editor.putString("id", id);
+                                    editor.putString("mealId",id1);
                                     editor.putString("email", studentE);
                                     editor.putString("mobile", studentM);
                                     editor.commit();
