@@ -60,6 +60,7 @@ public class StudentSignUp extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                    //progressDialog.dismiss();
                                     String id = firebaseAuth.getCurrentUser().getUid();
+                                    //String id = studentE;
                                     Student user =new Student(studentN,studentM,studentRegn,studentH,studentR,studentE);
                                     databaseUsers.child(id).setValue(user);
 

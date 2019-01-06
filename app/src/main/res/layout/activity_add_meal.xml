@@ -49,7 +49,7 @@
         android:ems="10"
         android:inputType="number" />
 
-    <EditText
+    <TextView
         android:id="@+id/meal_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,7 +57,9 @@
         android:layout_below="@+id/meal_cost"
         android:layout_marginTop="37dp"
         android:ems="10"
-        android:inputType="date" />
+        android:hint="Choose Date"
+        android:inputType="date"
+        android:textSize="18sp" />
 
 
     <Button

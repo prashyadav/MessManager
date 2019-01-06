@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    tools:context="com.example.prashanjeet.messmanager.StudentActivities">
+
+    <TextView
+        android:id="@+id/totalMeals"
+        android:layout_width="match_parent"
+        android:layout_height="35sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Total Meals Taken = "
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/balance"
+        android:layout_width="match_parent"
+        android:layout_height="35sp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/totalMeals"
+        android:layout_marginTop="25dp"
+        android:text="Balance  = "
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/choosedate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/balance"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
+        android:text="Choose Date"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/showActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/choosedate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="Show activity"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
+</RelativeLayout>
