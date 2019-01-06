@@ -2,16 +2,13 @@ package com.example.prashanjeet.messmanager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,7 +47,7 @@ public class StudentHome extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 m =mealList.get(i);
 
-                    showMealDialog(m.title, m.description);
+                    //showMealDialog(m.title, m.description);
 
 
             }
@@ -114,107 +111,107 @@ public class StudentHome extends AppCompatActivity {
         Log.d("res", "on start ends here");
     }
 
-    public void showMealDialog(String title, String description){
+//    public void showMealDialog(String title, String description){
+//
+//        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+//        LayoutInflater inflator = getLayoutInflater();
+//        final View dialogView = inflator.inflate(R.layout.meal_dialog, null);
+//        dialogBuilder.setView(dialogView);
+//
+//        Log.d("res", description);
+//        Log.d("res", title);
+//
+//        TextView textViewTitle = (TextView) dialogView.findViewById(R.id.adminAppoTitle);
+//        TextView textViewDescription = (TextView) dialogView.findViewById(R.id.adminAppoDes);
+//        Button conf = (Button) dialogView.findViewById(R.id.adminDialogConfirmButton);
+//        conf.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                confirm();
+//            }
+//        });
+//        Button del = (Button) dialogView.findViewById(R.id.adminDialogCancelButton);
+//        del.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                deleteAdminAppo();
+//            }
+//        });
+//
+//        textViewTitle.setText(title);
+//        textViewDescription.setText(description);
+//
+//        dialogBuilder.setTitle("Appointment Description");
+//
+//        Log.d("res", description);
+//        Log.d("res", title);
+//        alertDialog = dialogBuilder.create();
+//        alertDialog.show();
+//    }
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflator = getLayoutInflater();
-        final View dialogView = inflator.inflate(R.layout.meal_dialog, null);
-        dialogBuilder.setView(dialogView);
+//    private void confirm(){
+//        deleteAdminAppo();
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("userMeals");
+//
+//        databaseReference.child(mealId).child(ad.getId()).setValue(ad);
+//        databaseReference.child(ad.getAdminId()).child(ad.getId()).setValue(ad);
+//
+//
+//        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//        final DatabaseReference reference = firebaseDatabase.getReference();
+//
+//
+//        Query query = reference.child("tasks").orderByChild("Description").equalTo("test2");
+//        query.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
+//                String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
+//                String path = "/" + dataSnapshot.getKey() + "/" + key;
+//                HashMap<String, Object> result = new HashMap<>();
+//                result.put("Status", "COMPLETED");
+//                reference.child(path).updateChildren(result);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Logger.error(TAG, ">>> Error:" + "find onCancelled:" + databaseError);
+//
+//            }
+//        });
+//
+//
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference mostafa = ref.child("Users").child("mostafa_farahat22@yahoo.com").child("_email");
+//
+//        mostafa.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                String email = dataSnapshot.getValue(String.class);
+//                //do what you want with the email
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//
+//        alertDialog.dismiss();
+//
+//    }
 
-        Log.d("res", description);
-        Log.d("res", title);
-
-        TextView textViewTitle = (TextView) dialogView.findViewById(R.id.adminAppoTitle);
-        TextView textViewDescription = (TextView) dialogView.findViewById(R.id.adminAppoDes);
-        Button conf = (Button) dialogView.findViewById(R.id.adminDialogConfirmButton);
-        conf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                confirm();
-            }
-        });
-        Button del = (Button) dialogView.findViewById(R.id.adminDialogCancelButton);
-        del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteAdminAppo();
-            }
-        });
-
-        textViewTitle.setText(title);
-        textViewDescription.setText(description);
-
-        dialogBuilder.setTitle("Appointment Description");
-
-        Log.d("res", description);
-        Log.d("res", title);
-        alertDialog = dialogBuilder.create();
-        alertDialog.show();
-    }
-
-    private void confirm(){
-        deleteAdminAppo();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("userMeals");
-
-        databaseReference.child(mealId).child(ad.getId()).setValue(ad);
-        databaseReference.child(ad.getAdminId()).child(ad.getId()).setValue(ad);
-
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = firebaseDatabase.getReference();
-
-
-        Query query = reference.child("tasks").orderByChild("Description").equalTo("test2");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
-                String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
-                String path = "/" + dataSnapshot.getKey() + "/" + key;
-                HashMap<String, Object> result = new HashMap<>();
-                result.put("Status", "COMPLETED");
-                reference.child(path).updateChildren(result);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Logger.error(TAG, ">>> Error:" + "find onCancelled:" + databaseError);
-
-            }
-        });
-
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mostafa = ref.child("Users").child("mostafa_farahat22@yahoo.com").child("_email");
-
-        mostafa.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String email = dataSnapshot.getValue(String.class);
-                //do what you want with the email
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-        alertDialog.dismiss();
-
-    }
-
-    private void deleteAdminAppo(){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("adminAppointments").child(ad.getAdminId()).child(ad.getId());
-        DatabaseReference dbRef =FirebaseDatabase.getInstance().getReference().child("userAppointments").child(ad.getUserId()).child(ad.getId());
-        dbRef.removeValue();
-        databaseReference.removeValue();
-        Log.d("res", "deleted");
-
-        alertDialog.dismiss();
-
-    }
+//    private void deleteAdminAppo(){
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("adminAppointments").child(ad.getAdminId()).child(ad.getId());
+//        DatabaseReference dbRef =FirebaseDatabase.getInstance().getReference().child("userAppointments").child(ad.getUserId()).child(ad.getId());
+//        dbRef.removeValue();
+//        databaseReference.removeValue();
+//        Log.d("res", "deleted");
+//
+//        alertDialog.dismiss();
+//
+//    }
 }
 
 
