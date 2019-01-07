@@ -6,7 +6,7 @@ package com.example.prashanjeet.messmanager;
 
 public class Student {
     private String name,mobile,regNumber,hostel,roomNo,email;
-    private String id,mealId;
+    private String id,mealId,status;
     public Student(){
 
     }
@@ -20,6 +20,7 @@ public class Student {
         this.email = email;
         this.id = id;
         this.mealId= mealId;
+        this.status = "pending";
     }
 
     public String getName() {
@@ -70,8 +71,16 @@ public class Student {
         this.email = email;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getId() {
         return id;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public void setId(String id) {
