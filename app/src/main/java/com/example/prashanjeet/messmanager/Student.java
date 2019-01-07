@@ -6,17 +6,20 @@ package com.example.prashanjeet.messmanager;
 
 public class Student {
     private String name,mobile,regNumber,hostel,roomNo,email;
+    private String id,mealId;
     public Student(){
 
     }
 
-    public Student(String name, String mobile, String regNumber, String hostel, String roomNo, String email) {
+    public Student(String name, String mobile, String regNumber, String hostel, String roomNo, String email, String id, String mealId) {
         this.name = name;
         this.mobile = mobile;
         this.regNumber = regNumber;
         this.hostel = hostel;
         this.roomNo = roomNo;
         this.email = email;
+        this.id = id;
+        this.mealId= mealId;
     }
 
     public String getName() {
@@ -65,5 +68,21 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getMealId() {
+        return mealId;
+    }
+
+    public void setMealId(String mealId) {
+        this.mealId = mealId;
     }
 }
