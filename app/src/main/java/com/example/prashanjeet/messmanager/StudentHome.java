@@ -52,7 +52,7 @@ public class StudentHome extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 m =mealList.get(i);
 
-                    showMealDialog(m.title, m.description,m.val);
+                    showMealDialog(m.title, m.description, m.val);
 
 
             }
@@ -162,8 +162,8 @@ public class StudentHome extends AppCompatActivity {
 //        databaseReference.child(ad.getAdminId()).child(ad.getId()).setValue(ad);
 
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = firebaseDatabase.getReference();
+//        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//        final DatabaseReference reference = firebaseDatabase.getReference();
 
 
 //        Query query = reference.child("tasks").orderByChild("Description").equalTo("test2");
@@ -186,25 +186,63 @@ public class StudentHome extends AppCompatActivity {
 //        });
 
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mealref = ref.child(mealId);
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mealref = databaseReference.child(mealId);
 
 
-        mealref.addListenerForSingleValueEvent(new ValueEventListener() {
+//        mealref.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                 List l = dataSnapshot.getValue(List.class);
+//                //do what you want with the email
+//                Log.d("name", l.toString());
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        mealref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                 meal = dataSnapshot.getValue(UserMeal.class);
-                //do what you want with the email
+                //Log.d("res", "onStart1 "+status);
+                //mealList.clear();
+
+                for(DataSnapshot mealSnapshot : dataSnapshot.getChildren()){
+                    Integer a = Integer.parseInt(mealSnapshot.getValue().toString());
+
+//                    if(a.getStatus().equals(status)){
+//                        Log.d("res","matches");
+//                        appoList.add(a);
+//                    }
+                    Log.d("jjk",a.toString());
+
+                }
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.w("res", databaseError.toException());
             }
         });
 
 
-        mealref.setValue(meal);
+
+//        int v=meal.list.get(2);
+//        String name = meal.name;
+//        Log.d("name",  name);
+//            try{
+//                int v= meal.list.get(0);
+//            }
+//            catch(Exception e){
+//                //Toast.makeText(StudentHome.this, Toast.LENGTH_LONG, e.printStackTrace()).show();
+//                e.printStackTrace();
+//            }
+//        meal.list.set(2,67);
+//        mealref.setValue(meal);
 
 
         alertDialog.dismiss();

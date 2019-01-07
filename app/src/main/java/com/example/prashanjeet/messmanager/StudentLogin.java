@@ -97,7 +97,7 @@ public class StudentLogin extends AppCompatActivity {
         {
 
             Toast.makeText(StudentLogin.this, "Login Successful   !!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(StudentLogin.this,StudentActivities.class);
+            Intent intent = new Intent(StudentLogin.this,StudentHome.class);
             startActivity(intent);
         }
         else{
