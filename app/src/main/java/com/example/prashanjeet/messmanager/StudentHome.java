@@ -29,7 +29,7 @@ import java.util.List;
 public class StudentHome extends AppCompatActivity {
 
     private ListView listViewMeal;
-    private DatabaseReference databaseMealsRef, databaseUserRef;
+    private DatabaseReference databaseMealsRef, databaseUserRef, databaseUserMealsRef;
     private FirebaseAuth firebaseAuth;
     private List<Meal> mealList;
     private Meal m;
@@ -64,16 +64,11 @@ public class StudentHome extends AppCompatActivity {
         super.onStart();
 
         firebaseAuth = FirebaseAuth.getInstance();
-
-
         userId = firebaseAuth.getCurrentUser().getUid();
-
-        //String userId = firebaseAuth.getCurrentUser().getUid();
-//        Log.d("res", "list"+userId);
 
         databaseMealsRef = FirebaseDatabase.getInstance().getReference("meals");
 
-//        databaseUserMealRef= databaseUserMealRef.child("meal");
+        databaseUserRef  = FirebaseDatabase.getInstance().getReference("users").child(userId);
 
         databaseMealsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -87,6 +82,7 @@ public class StudentHome extends AppCompatActivity {
 //                        Log.d("res","matches");
 //                        appoList.add(a);
 //                    }
+                    Log.d("name","get");
                     mealList.add(a);
 
                 }
@@ -114,6 +110,26 @@ public class StudentHome extends AppCompatActivity {
                 Log.w("res", databaseError.toException());
             }
         });
+
+        databaseUserMealsRef = FirebaseDatabase.getInstance().getReference("userMeals").child("-LVdNEdqkkFxxYwxumR2");
+
+
+        databaseUserMealsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                meal = dataSnapshot.getValue(UserMeal.class);
+                //do what you want with the email
+                Log.d("name", meal.toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+//
+
+
         Log.d("res", "on start ends here");
     }
 
@@ -199,7 +215,8 @@ public class StudentHome extends AppCompatActivity {
         databaseUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                 mealId = dataSnapshot.getValue(String.class);
+                 Student st = dataSnapshot.getValue(Student.class);
+                mealId = st.getMealId();
                 //do what you want with the email
                 Log.d("name", mealId.toString());
             }
@@ -210,7 +227,32 @@ public class StudentHome extends AppCompatActivity {
             }
         });
 
-        DatabaseReference mealref = databaseReference.child(mealId);
+
+        ValueEventListener valueListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                Student st = dataSnapshot.getValue(Student.class);
+                mealId = st.getMealId();
+                //do what you want with the email
+                Log.d("name", mealId.toString());
+                // ...
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+
+        databaseUserRef.addValueEventListener(valueListener);
+
+
+        //mealId="-LVdNEdqkkFxxYwxumR2";
+        //DatabaseReference mealref = databaseReference.child(mealId);
+
 
         databaseUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -253,7 +295,7 @@ public class StudentHome extends AppCompatActivity {
 
 
 
-        int v=meal.list.get(2);
+        int v =meal.list.get(2);
         String name = meal.name;
         Log.d("name",  name);
             try{
@@ -264,7 +306,7 @@ public class StudentHome extends AppCompatActivity {
                 e.printStackTrace();
             }
         meal.list.set(2,67);
-        mealref.setValue(meal);
+        databaseUserMealsRef.setValue(meal);
 
 
         alertDialog.dismiss();
