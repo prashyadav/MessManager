@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "349983067323-6nblcpl1205v5vjfillcq4cihqremn4n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.prashanjeet.messmanager",
+            "certificate_hash": "8a90cd8ac3de7755198e87165b35902c489a9598"
+          }
+        },
+        {
           "client_id": "349983067323-94arr6pgbe2m3rprgekpppq861r24hs7.apps.googleusercontent.com",
           "client_type": 3
         }
