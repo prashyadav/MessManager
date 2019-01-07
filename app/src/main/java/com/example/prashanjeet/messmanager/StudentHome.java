@@ -2,9 +2,9 @@ package com.example.prashanjeet.messmanager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +19,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 public class StudentHome extends AppCompatActivity {
@@ -40,17 +42,18 @@ public class StudentHome extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
-        listViewMeal =(ListView) findViewById(R.id.listViewAppo);
+        listViewMeal = (ListView) findViewById(R.id.listViewAppo);
         mealList = new ArrayList<>();
 
         listViewMeal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                m =mealList.get(i);
+                m = mealList.get(i);
 
-                    showMealDialog(m.title, m.description);
+                showMealDialog(m.title, m.description);
 
 
             }
