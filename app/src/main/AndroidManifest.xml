@@ -21,7 +21,8 @@
         <activity android:name=".StudentSignUp" />
         <activity android:name=".ManagerHome" />
         <activity android:name=".AddMeal" />
-        <activity android:name=".StudentActivities"></activity>
+        <activity android:name=".StudentActivities" />
+        <activity android:name=".FeedBack"></activity>
     </application>
 
 </manifest>

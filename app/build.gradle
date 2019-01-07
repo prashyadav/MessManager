@@ -5,7 +5,7 @@ android {
     buildToolsVersion "28.0.2"
     defaultConfig {
         applicationId "com.example.prashanjeet.messmanager"
-        minSdkVersion 24
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -33,6 +33,7 @@ dependencies {
     compile 'com.android.support:design:26.+'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 
