@@ -33,8 +33,6 @@ public class StudentHome extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private List<Meal> mealList;
     private Meal m;
-
-    UserMeal meal;
     AlertDialog alertDialog;
 
     String mealId,userId;
@@ -52,7 +50,7 @@ public class StudentHome extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 m =mealList.get(i);
 
-                    showMealDialog(m.title, m.description,m.val);
+                    showMealDialog(m.title, m.description);
 
 
             }
@@ -116,7 +114,7 @@ public class StudentHome extends AppCompatActivity {
         Log.d("res", "on start ends here");
     }
 
-    public void showMealDialog(String title, String description, final int val){
+    public void showMealDialog(String title, String description){
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflator = getLayoutInflater();
@@ -132,7 +130,7 @@ public class StudentHome extends AppCompatActivity {
         conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirm(val);
+                confirm();
             }
         });
         Button del = (Button) dialogView.findViewById(R.id.adminDialogCancelButton);
@@ -154,46 +152,45 @@ public class StudentHome extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void confirm(int val){
+    private void confirm(){
         deleteAdminAppo();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("userMeals");
 
-//        databaseReference.child(mealId).child(ad.getId()).setValue(ad);
-//        databaseReference.child(ad.getAdminId()).child(ad.getId()).setValue(ad);
+        databaseReference.child(mealId).child(ad.getId()).setValue(ad);
+        databaseReference.child(ad.getAdminId()).child(ad.getId()).setValue(ad);
 
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
 
 
-//        Query query = reference.child("tasks").orderByChild("Description").equalTo("test2");
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
-//                String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
-//                String path = "/" + dataSnapshot.getKey() + "/" + key;
-//                HashMap<String, Object> result = new HashMap<>();
-//                result.put("Status", "COMPLETED");
-//                reference.child(path).updateChildren(result);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Logger.error(TAG, ">>> Error:" + "find onCancelled:" + databaseError);
-//
-//            }
-//        });
+        Query query = reference.child("tasks").orderByChild("Description").equalTo("test2");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
+                String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
+                String path = "/" + dataSnapshot.getKey() + "/" + key;
+                HashMap<String, Object> result = new HashMap<>();
+                result.put("Status", "COMPLETED");
+                reference.child(path).updateChildren(result);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Logger.error(TAG, ">>> Error:" + "find onCancelled:" + databaseError);
+
+            }
+        });
 
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mealref = ref.child(mealId);
+        DatabaseReference mostafa = ref.child("Users").child("mostafa_farahat22@yahoo.com").child("_email");
 
-
-        mealref.addListenerForSingleValueEvent(new ValueEventListener() {
+        mostafa.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                 meal = dataSnapshot.getValue(UserMeal.class);
+                String email = dataSnapshot.getValue(String.class);
                 //do what you want with the email
             }
 
@@ -204,18 +201,15 @@ public class StudentHome extends AppCompatActivity {
         });
 
 
-        mealref.setValue(meal);
-
-
         alertDialog.dismiss();
 
     }
 
     private void deleteAdminAppo(){
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("adminAppointments").child(ad.getAdminId()).child(ad.getId());
-//        DatabaseReference dbRef =FirebaseDatabase.getInstance().getReference().child("userAppointments").child(ad.getUserId()).child(ad.getId());
-//        dbRef.removeValue();
-//        databaseReference.removeValue();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("adminAppointments").child(ad.getAdminId()).child(ad.getId());
+        DatabaseReference dbRef =FirebaseDatabase.getInstance().getReference().child("userAppointments").child(ad.getUserId()).child(ad.getId());
+        dbRef.removeValue();
+        databaseReference.removeValue();
         Log.d("res", "deleted");
 
         alertDialog.dismiss();
