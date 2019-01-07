@@ -21,9 +21,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class StudentHome extends AppCompatActivity {
@@ -52,7 +55,7 @@ public class StudentHome extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 m =mealList.get(i);
 
-                    showMealDialog(m.title, m.description, m.val);
+                    showMealDialog();
 
 
             }
@@ -78,11 +81,13 @@ public class StudentHome extends AppCompatActivity {
 
                 for(DataSnapshot mealSnapshot : dataSnapshot.getChildren()){
                     Meal a = mealSnapshot.getValue(Meal.class);
-//                    if(a.getStatus().equals(status)){
-//                        Log.d("res","matches");
-//                        appoList.add(a);
-//                    }
-                    Log.d("name","get");
+
+                    Date c = Calendar.getInstance().getTime();
+                    //System.out.println("Current time => " + c);
+
+                    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                    String formattedDate = df.format(c);
+
                     mealList.add(a);
 
                 }
@@ -133,15 +138,15 @@ public class StudentHome extends AppCompatActivity {
         Log.d("res", "on start ends here");
     }
 
-    public void showMealDialog(String title, String description, final int val){
+    public void showMealDialog(){
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflator = getLayoutInflater();
         final View dialogView = inflator.inflate(R.layout.meal_dialog, null);
         dialogBuilder.setView(dialogView);
 
-        Log.d("res", description);
-        Log.d("res", title);
+        Log.d("res", m.description);
+        Log.d("res", m.title);
 
         TextView textViewTitle = (TextView) dialogView.findViewById(R.id.adminAppoTitle);
         TextView textViewDescription = (TextView) dialogView.findViewById(R.id.adminAppoDes);
@@ -149,7 +154,7 @@ public class StudentHome extends AppCompatActivity {
         conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirm(val);
+                confirm();
             }
         });
         Button del = (Button) dialogView.findViewById(R.id.adminDialogCancelButton);
@@ -160,28 +165,17 @@ public class StudentHome extends AppCompatActivity {
             }
         });
 
-        textViewTitle.setText(title);
-        textViewDescription.setText(description);
+        textViewTitle.setText(m.title);
+        textViewDescription.setText(m.description);
 
-        dialogBuilder.setTitle("Appointment Description");
+        dialogBuilder.setTitle("Meal Description");
 
-        Log.d("res", description);
-        Log.d("res", title);
         alertDialog = dialogBuilder.create();
         alertDialog.show();
     }
 
-    private void confirm(int val){
-        //deleteAdminAppo();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("userMeals");
-        databaseUserRef  = FirebaseDatabase.getInstance().getReference().child("users");
+    private void confirm(){
 
-//        databaseReference.child(mealId).child(ad.getId()).setValue(ad);
-//        databaseReference.child(ad.getAdminId()).child(ad.getId()).setValue(ad);
-
-
-//        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//        final DatabaseReference reference = firebaseDatabase.getReference();
 
 
 //        Query query = reference.child("tasks").orderByChild("Description").equalTo("test2");
@@ -205,107 +199,10 @@ public class StudentHome extends AppCompatActivity {
 
 
 
-        databaseUserRef = databaseUserRef.child(userId);
-
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-
-
-
-
-        databaseUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                 Student st = dataSnapshot.getValue(Student.class);
-                mealId = st.getMealId();
-                //do what you want with the email
-                Log.d("name", mealId.toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-        ValueEventListener valueListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                Student st = dataSnapshot.getValue(Student.class);
-                mealId = st.getMealId();
-                //do what you want with the email
-                Log.d("name", mealId.toString());
-                // ...
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-
-        databaseUserRef.addValueEventListener(valueListener);
-
-
-        //mealId="-LVdNEdqkkFxxYwxumR2";
-        //DatabaseReference mealref = databaseReference.child(mealId);
-
-
-        databaseUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                meal = dataSnapshot.getValue(UserMeal.class);
-                //do what you want with the email
-                Log.d("name", meal.toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-//        mealref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                //Log.d("res", "onStart1 "+status);
-//                //mealList.clear();
-//
-//                for(DataSnapshot mealSnapshot : dataSnapshot.getChildren()){
-//                    Integer a = Integer.parseInt(mealSnapshot.getValue().toString());
-//
-////                    if(a.getStatus().equals(status)){
-////                        Log.d("res","matches");
-////                        appoList.add(a);
-////                    }
-//                    Log.d("jjk",a.toString());
-//
-//                }
-//
-//            }
-
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w("res", databaseError.toException());
-//            }
-//        });
-
-
-
-        int v =meal.list.get(2);
-        String name = meal.name;
-        Log.d("name",  name);
-            try{
-                v= meal.list.get(0);
-            }
-            catch(Exception e){
-                //Toast.makeText(StudentHome.this, Toast.LENGTH_LONG, e.printStackTrace()).show();
-                e.printStackTrace();
-            }
-        meal.list.set(2,67);
+        int index= (Integer.parseInt(m.date.substring(3,5))-1)*12+Integer.parseInt(m.date.substring(0,2));
+        Log.d("name", String.valueOf(index));
+        int v =meal.list.get(index);
+        meal.list.set(index,v+m.val);
         databaseUserMealsRef.setValue(meal);
 
 
