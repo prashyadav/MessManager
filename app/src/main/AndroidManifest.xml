@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.prashanjeet.messmanager">
-
+     <user-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,8 +23,12 @@
         <activity android:name=".AddMeal" />
         <activity android:name=".StudentActivities" />
         <activity android:name=".FeedBack" />
+
+        <activity android:name=".Complaint"></activity>
+
         <activity android:name=".AdminVerify" />
         <activity android:name=".AdminConfirm"></activity>
+
     </application>
 
 </manifest>
