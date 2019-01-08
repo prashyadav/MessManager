@@ -25,7 +25,8 @@
         <activity android:name=".FeedBack" />
         <activity android:name=".AdminVerify" />
         <activity android:name=".AdminConfirm" />
-        <activity android:name=".QRCode"></activity>
+        <activity android:name=".QRCode" />
+        <activity android:name=".Scan"></activity>
     </application>
 
 </manifest>

@@ -26,8 +26,6 @@ dependencies {
     })
     //compile 'com.google.firebase:firebase-admin:6.6.0'
 
-    
-
 
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -38,6 +36,7 @@ dependencies {
     compile 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 
