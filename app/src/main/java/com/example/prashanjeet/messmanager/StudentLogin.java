@@ -123,7 +123,9 @@ public class StudentLogin extends AppCompatActivity {
                 {
 
                     Toast.makeText(StudentLogin.this, "Login successfull!!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(StudentLogin.this,StudentHome.class);
+                    Intent intent = new Intent(StudentLogin.this,StudentActivities.class);
+                    String mealId = student.getMealId();
+                    intent.putExtra("mealId",mealId);
                     startActivity(intent);
                 }
                 else{

@@ -1,10 +1,8 @@
 package com.example.prashanjeet.messmanager;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +34,7 @@ public class StudentHome extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private List<Meal> mealList;
     private Meal m;
+    int cost;
 
     UserMeal meal;
     AlertDialog alertDialog;
@@ -54,7 +53,7 @@ public class StudentHome extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 m =mealList.get(i);
-
+                cost = m.getExpectedCost();
                     showMealDialog();
 
 
@@ -179,8 +178,6 @@ public class StudentHome extends AppCompatActivity {
 
     private void confirm(){
 
-
-
 //        Query query = reference.child("tasks").orderByChild("Description").equalTo("test2");
 //        query.addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
@@ -202,13 +199,17 @@ public class StudentHome extends AppCompatActivity {
 
 
 
-        int index= (Integer.parseInt(m.date.substring(3,5))-1)*12+Integer.parseInt(m.date.substring(0,2));
+        int index= (Integer.parseInt(m.date.substring(3,5))-1)*31+Integer.parseInt(m.date.substring(0,2));
         Log.d("name", String.valueOf(index));
         int v =meal.list.get(index);
         meal.list.set(index,v+m.val);
+        v=meal.getTotalMeals();
+        v++;
+        meal.setTotalMeals(v);
+        v=meal.getBalance();
+        v= v-cost;
+        meal.setBalance(v);
         databaseUserMealsRef.setValue(meal);
-
-
         alertDialog.dismiss();
 
     }

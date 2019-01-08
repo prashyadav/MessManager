@@ -54,8 +54,9 @@ public class AddMeal extends AppCompatActivity  implements DatePickerDialog.OnDa
                 String tit = title.getText().toString();
                 String desc = des.getText().toString();
                 String co = cost.getText().toString();
+                int val = Integer.parseInt(co);
                 String d = date.getText().toString();
-                Meal meal = new Meal(tit,desc,co,d);
+                Meal meal = new Meal(tit,desc,val,d);
 
                 try {
                     databaseUsers.child(id).setValue(meal);

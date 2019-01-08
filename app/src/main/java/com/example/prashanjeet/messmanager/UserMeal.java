@@ -9,6 +9,7 @@ import java.util.List;
 
 public class UserMeal {
     public String name,regNumber;
+    public int totalMeals,balance;
     //public int[][] meals = new int[12][31];
     public List<Integer> list;
 
@@ -33,6 +34,8 @@ public class UserMeal {
         this.name = name;
         this.regNumber= regNumber;
         this.list =new ArrayList<>();
+        this.totalMeals = 0;
+        this.balance = 15000;
 //        list.add(new ArrayList<Integer>());
 
         //List<Integer> list1 = new ArrayList<Integer>();
@@ -41,5 +44,21 @@ public class UserMeal {
                 list.add(0);
             }
         }
+    }
+
+    public int getTotalMeals() {
+        return totalMeals;
+    }
+
+    public void setTotalMeals(int totalMeals) {
+        this.totalMeals = totalMeals;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 }

@@ -5,13 +5,14 @@ package com.example.prashanjeet.messmanager;
  */
 
 public class Meal {
-    public String title,description,expectedCost,date;
-    public int val;
+    public String title,description,date;
+    public int val,expectedCost;
+
     Meal() {
 
     }
 
-    public Meal(String title, String description, String expectedCost, String date) {
+    public Meal(String title, String description, int expectedCost, String date) {
         this.title = title;
         this.description = description;
         this.expectedCost = expectedCost;
@@ -30,5 +31,13 @@ public class Meal {
         }
         this.val = val1;
         this.date = date;
+    }
+
+    public int getExpectedCost() {
+        return expectedCost;
+    }
+
+    public void setExpectedCost(int expectedCost) {
+        this.expectedCost = expectedCost;
     }
 }
