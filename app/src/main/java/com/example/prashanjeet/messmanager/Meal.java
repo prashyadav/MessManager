@@ -16,13 +16,13 @@ public class Meal {
         this.description = description;
         this.expectedCost = expectedCost;
         int val1;
-        if(title == "breakfast"){
+        if(title.compareTo("breakfast")==0){
             val1=1;
         }
-        else if(title == "lunch"){
+        else if(title.compareTo("lunch")==0){
             val1=2;
         }
-        else if(title == "snacks"){
+        else if(title.compareTo("snacks")==0){
             val1=4;
         }
         else {

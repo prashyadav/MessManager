@@ -63,7 +63,7 @@ public class StudentSignUp extends AppCompatActivity {
                                     String id = firebaseAuth.getCurrentUser().getUid();
                                     String id1 = databaseUserMeals.push().getKey();
                                     UserMeal userMeal = new UserMeal(studentN,studentRegn);
-                                    Student user =new Student(studentN,studentM,studentRegn,studentH,studentR,studentE);
+                                    Student user =new Student(studentN,studentM,studentRegn,studentH,studentR,studentE,id,id1);
                                     try {
                                         databaseUsers.child(id).setValue(user);
                                         databaseUserMeals.child(id1).setValue(userMeal);
