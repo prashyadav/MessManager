@@ -24,7 +24,8 @@
         <activity android:name=".StudentActivities" />
         <activity android:name=".FeedBack" />
         <activity android:name=".AdminVerify" />
-        <activity android:name=".AdminConfirm"></activity>
+        <activity android:name=".AdminConfirm" />
+        <activity android:name=".QRCode"></activity>
     </application>
 
 </manifest>

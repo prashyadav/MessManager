@@ -2,6 +2,7 @@ package com.example.prashanjeet.messmanager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -21,11 +22,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class StudentLogin extends AppCompatActivity {
     public Button loginStudent,signUpStudent;
     public EditText emailStudent,passwordStudent;
    private  FirebaseAuth firebaseAuth;
+    public  FirebaseUser firebaseUser;
     private ProgressDialog progressDialog;
     String name;
    String stat;
@@ -111,7 +117,7 @@ public class StudentLogin extends AppCompatActivity {
 
     private void checkEmailVerification(){
         Log.d("res", "in check email verify");
-        final FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
+        firebaseUser = firebaseAuth.getInstance().getCurrentUser();
         emailflag = firebaseUser.isEmailVerified();
         final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("users").child(firebaseUser.getUid());
@@ -123,7 +129,7 @@ public class StudentLogin extends AppCompatActivity {
                 {
 
                     Toast.makeText(StudentLogin.this, "Login successfull!!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(StudentLogin.this,StudentHome.class);
+                    Intent intent = new Intent(StudentLogin.this,QRCode.class);
                     startActivity(intent);
                 }
                 else{
@@ -146,5 +152,20 @@ public class StudentLogin extends AppCompatActivity {
 
 
     }
+
+//    public void generateQRCode(){
+//        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+//        try {
+//            BitMatrix bitMatrix = multiFormatWriter.encode(firebaseAuth.getInstance().getCurrentUser().getUid(), BarcodeFormat.QR_CODE,200,200);
+//            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+//            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+//
+//
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();;
+//        }
+//
+//    }
 
 }

@@ -202,7 +202,7 @@ public class StudentHome extends AppCompatActivity {
 
 
 
-        int index= (Integer.parseInt(m.date.substring(3,5))-1)*12+Integer.parseInt(m.date.substring(0,2));
+        int index= (Integer.parseInt(m.date.substring(3,5))-1)*31+Integer.parseInt(m.date.substring(0,2));
         Log.d("name", String.valueOf(index));
         int v =meal.list.get(index);
         meal.list.set(index,v+m.val);
