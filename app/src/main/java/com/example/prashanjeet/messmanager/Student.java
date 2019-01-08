@@ -6,12 +6,13 @@ package com.example.prashanjeet.messmanager;
 
 public class Student {
     private String name,mobile,regNumber,hostel,roomNo,email;
-    private String id,mealId,status;
+    private String id,mealId;
+    private String status;
     public Student(){
 
     }
 
-    public Student(String name, String mobile, String regNumber, String hostel, String roomNo, String email, String id, String mealId) {
+    public Student(String name, String mobile, String regNumber, String hostel, String roomNo, String email, String id, String mealId,String status) {
         this.name = name;
         this.mobile = mobile;
         this.regNumber = regNumber;
@@ -20,7 +21,7 @@ public class Student {
         this.email = email;
         this.id = id;
         this.mealId= mealId;
-        this.status = "pending";
+        this.status = status;
     }
 
     public String getName() {
