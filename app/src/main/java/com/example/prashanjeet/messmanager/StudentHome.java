@@ -1,10 +1,15 @@
 package com.example.prashanjeet.messmanager;
 
-import android.os.Bundle;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -47,6 +52,15 @@ public class StudentHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
         listViewMeal =(ListView) findViewById(R.id.listViewAppo);
+        //complaintbutton=(Button)findViewById(R.id.Complaint_Button);
+        //complaintbutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent  = new  Intent(StudentHome.this ,Complaint.class);
+//                startActivity(intent);
+//            }
+//        });
+
         mealList = new ArrayList<>();
 
         listViewMeal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -57,10 +71,39 @@ public class StudentHome extends AppCompatActivity {
                     showMealDialog();
 
 
+
             }
         });
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.main,menu);
+        return  true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id=item.getItemId();
+        if(id==R.id.id_profile)
+        {
+            return  true;
+        }
+        if(id==R.id.id_Comp)
+        {
+            Intent intentcompalints=new Intent(StudentHome.this,Complaint.class);
+            startActivity(intentcompalints);
+            return true;
+        }
+        if(id==R.id.id_QR)
+        {
+            return true;
+        }
+        if(id==R.id.id_feedback)
+        {
+            return true;
+        }
+        return  true;
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -111,7 +154,6 @@ public class StudentHome extends AppCompatActivity {
                 }
 
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("res", databaseError.toException());
@@ -213,7 +255,6 @@ public class StudentHome extends AppCompatActivity {
         alertDialog.dismiss();
 
     }
-
     private void deleteAdminAppo(){
 //        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("adminAppointments").child(ad.getAdminId()).child(ad.getId());
 //        DatabaseReference dbRef =FirebaseDatabase.getInstance().getReference().child("userAppointments").child(ad.getUserId()).child(ad.getId());
