@@ -24,4 +24,26 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="130dp"
         android:text="Scan" />
+
+    <EditText
+        android:id="@+id/editText_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Meal" />
+
+    <TextView
+        android:id="@+id/date_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_scan"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:textSize="15dp"
+        android:text="choose date" />
+
 </RelativeLayout>
