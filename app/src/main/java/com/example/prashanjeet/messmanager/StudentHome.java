@@ -96,9 +96,9 @@ public class StudentHome extends AppCompatActivity {
         }
         if(id==R.id.id_Comp)
         {
-            Intent intentcompalints=new Intent(StudentHome.this,Complaint.class);
-            startActivity(intentcompalints);
-            return true;
+//            Intent intentcompalints=new Intent(StudentHome.this,Complaint.class);
+//            startActivity(intentcompalints);
+//            return true;
         }
         if(id==R.id.id_QR)
         {
