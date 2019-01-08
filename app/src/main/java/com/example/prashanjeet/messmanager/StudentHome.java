@@ -1,11 +1,9 @@
 package com.example.prashanjeet.messmanager;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,6 +38,7 @@ public class StudentHome extends AppCompatActivity {
     private List<Meal> mealList;
     private Meal m;
     int cost;
+    String mealUid;
 
     UserMeal meal;
     AlertDialog alertDialog;
@@ -51,9 +50,11 @@ public class StudentHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
+        Intent intent = getIntent();
+        mealUid= intent.getStringExtra("mealId");
         listViewMeal =(ListView) findViewById(R.id.listViewAppo);
         //complaintbutton=(Button)findViewById(R.id.Complaint_Button);
-        //complaintbutton.setOnClickListener(new View.OnClickListener() {
+//        complaintbutton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Intent intent  = new  Intent(StudentHome.this ,Complaint.class);
@@ -67,10 +68,10 @@ public class StudentHome extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 m =mealList.get(i);
-                cost = m.getExpectedCost();
+                cost = Integer.valueOf(m.getExpectedCost());
+                //cost = m.getExpectedCost().
+                //cost = m.getExpectedCost();
                     showMealDialog();
-
-
 
             }
         });
@@ -86,6 +87,9 @@ public class StudentHome extends AppCompatActivity {
         int id=item.getItemId();
         if(id==R.id.id_profile)
         {
+            Intent intent = new Intent(StudentHome.this,StudentActivities.class);
+            intent.putExtra("mealId",mealUid);
+            startActivity(intent);
             return  true;
         }
         if(id==R.id.id_Comp)
@@ -156,7 +160,7 @@ public class StudentHome extends AppCompatActivity {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w("res", databaseError.toException());
+               // Log.w("res", databaseError.toException());
             }
         });
 
@@ -168,7 +172,7 @@ public class StudentHome extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 meal = dataSnapshot.getValue(UserMeal.class);
                 //do what you want with the email
-                Log.d("name", meal.toString());
+                //Log.d("name", meal.toString());
             }
 
             @Override
