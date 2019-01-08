@@ -1,12 +1,15 @@
 package com.example.prashanjeet.messmanager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -36,6 +39,8 @@ public class StudentHome extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private List<Meal> mealList;
     private Meal m;
+    int cost;
+    String mealUid;
 
     UserMeal meal;
     AlertDialog alertDialog;
@@ -47,21 +52,64 @@ public class StudentHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
+        Intent intent = getIntent();
+        mealUid= intent.getStringExtra("mealId");
         listViewMeal =(ListView) findViewById(R.id.listViewAppo);
+        //complaintbutton=(Button)findViewById(R.id.Complaint_Button);
+//        complaintbutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent  = new  Intent(StudentHome.this ,Complaint.class);
+//                startActivity(intent);
+//            }
+//        });
+
         mealList = new ArrayList<>();
 
         listViewMeal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 m =mealList.get(i);
-
+                cost = Integer.valueOf(m.getExpectedCost());
+                //cost = m.getExpectedCost().
+                //cost = m.getExpectedCost();
                     showMealDialog();
-
 
             }
         });
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.main,menu);
+        return  true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id=item.getItemId();
+        if(id==R.id.id_profile)
+        {
+            Intent intent = new Intent(StudentHome.this,StudentActivities.class);
+            intent.putExtra("mealId",mealUid);
+            startActivity(intent);
+            return  true;
+        }
+        if(id==R.id.id_Comp)
+        {
+            Intent intentcompalints=new Intent(StudentHome.this,Complaint.class);
+            startActivity(intentcompalints);
+            return true;
+        }
+        if(id==R.id.id_QR)
+        {
+            return true;
+        }
+        if(id==R.id.id_feedback)
+        {
+            return true;
+        }
+        return  true;
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -206,6 +254,12 @@ public class StudentHome extends AppCompatActivity {
         Log.d("name", String.valueOf(index));
         int v =meal.list.get(index);
         meal.list.set(index,v+m.val);
+        v=meal.getTotalMeals();
+        v++;
+        meal.setTotalMeals(v);
+        v=meal.getBalance();
+        v= v-cost;
+        meal.setBalance(v);
         databaseUserMealsRef.setValue(meal);
 
 
@@ -216,7 +270,6 @@ public class StudentHome extends AppCompatActivity {
         alertDialog.dismiss();
 
     }
-
     private void deleteAdminAppo(){
 //        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("adminAppointments").child(ad.getAdminId()).child(ad.getId());
 //        DatabaseReference dbRef =FirebaseDatabase.getInstance().getReference().child("userAppointments").child(ad.getUserId()).child(ad.getId());

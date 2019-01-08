@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -24,7 +26,6 @@ import java.util.List;
 public class ManagerHome extends AppCompatActivity {
 
     FloatingActionButton fabMeal;
-
     private ListView listViewMeal;
     private DatabaseReference databaseUserMealRef;
     private FirebaseAuth firebaseAuth;
@@ -46,7 +47,33 @@ public class ManagerHome extends AppCompatActivity {
         });
 
     }
-
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu)
+  {
+      getMenuInflater().inflate(R.menu.manager_main,menu);
+      return  true;
+  }
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id=item.getItemId();
+        if(id==R.id.id_profile)
+        {
+            return  true;
+        }
+        if(id==R.id.id_Comp)
+        {
+            return true;
+        }
+        if(id==R.id.id_QR)
+        {
+            return true;
+        }
+        if(id==R.id.id_feedback)
+        {
+            return true;
+        }
+        return  true;
+    }
     @Override
     protected void onStart() {
         super.onStart();
