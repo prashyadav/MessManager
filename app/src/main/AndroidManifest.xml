@@ -23,7 +23,12 @@
         <activity android:name=".AddMeal" />
         <activity android:name=".StudentActivities" />
         <activity android:name=".FeedBack" />
+
         <activity android:name=".Complaint"></activity>
+
+        <activity android:name=".AdminVerify" />
+        <activity android:name=".AdminConfirm"></activity>
+
     </application>
 
 </manifest>

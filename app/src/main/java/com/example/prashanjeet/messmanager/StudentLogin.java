@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,15 +16,29 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class StudentLogin extends AppCompatActivity {
     public Button loginStudent,signUpStudent;
     public EditText emailStudent,passwordStudent;
    private  FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+    String name;
+   String stat;
+    String testString;
+    Boolean emailflag,flag;
+    int y;
+    Student student;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
         loginStudent = (Button)findViewById(R.id.loginStudent);
@@ -48,6 +63,10 @@ public class StudentLogin extends AppCompatActivity {
             }
         });
     }
+
+
+
+
     public Boolean validate1(){
         Boolean result = false;
         String name = emailStudent.getText().toString();
@@ -91,20 +110,41 @@ public class StudentLogin extends AppCompatActivity {
 
 
     private void checkEmailVerification(){
-        FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
-        Boolean emailflag = firebaseUser.isEmailVerified();
-        if(emailflag)
-        {
+        Log.d("res", "in check email verify");
+        final FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
+        emailflag = firebaseUser.isEmailVerified();
+        final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("users").child(firebaseUser.getUid());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                student = dataSnapshot.getValue(Student.class);
+                if(student.getStatus().compareTo("confirm")==0)
+                {
 
-            Toast.makeText(StudentLogin.this, "Login Successful   !!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(StudentLogin.this,StudentHome.class);
-            startActivity(intent);
-        }
-        else{
-            Toast.makeText(StudentLogin.this,"Please verify email!!",Toast.LENGTH_SHORT).show();
-            firebaseAuth.signOut();
-        }
+                    Toast.makeText(StudentLogin.this, "Login successfull!!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(StudentLogin.this,StudentHome.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(StudentLogin.this,"Please verify email!!",Toast.LENGTH_SHORT).show();
+                    firebaseAuth.signOut();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(StudentLogin.this, " data base error " , Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Toast.makeText(this,name,Toast.LENGTH_SHORT).show();
+
+        y=0;
+
+
+
 
 
     }
+
 }

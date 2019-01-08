@@ -36,10 +36,10 @@ public class StudentSignUp extends AppCompatActivity {
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
         databaseUserMeals = FirebaseDatabase.getInstance().getReference("userMeals");
         studentSignUp = (Button)findViewById(R.id.studentSignUp);
-        studentName = (EditText)findViewById(R.id.studentName);
+        studentName = (EditText)findViewById(R.id.studentNam);
         studentEmail = (EditText)findViewById(R.id.studentEmail);
         studentPassword = (EditText)findViewById(R.id.studentPassword);
-        studentHostel = (EditText)findViewById(R.id.studentHostel);
+        studentHostel = (EditText)findViewById(R.id.studentHost);
         studentRoom = (EditText)findViewById(R.id.studentRoom);
         studentMob = (EditText)findViewById(R.id.studentMob);
         studentReg = (EditText)findViewById(R.id.studentRegNo);
@@ -63,7 +63,7 @@ public class StudentSignUp extends AppCompatActivity {
                                     String id = firebaseAuth.getCurrentUser().getUid();
                                     String id1 = databaseUserMeals.push().getKey();
                                     UserMeal userMeal = new UserMeal(studentN,studentRegn);
-                                    Student user =new Student(studentN,studentM,studentRegn,studentH,studentR,studentE);
+                                    Student user =new Student(studentN,studentM,studentRegn,studentH,studentR,studentE,id,id1,"pending");
                                     try {
                                         databaseUsers.child(id).setValue(user);
                                         databaseUserMeals.child(id1).setValue(userMeal);
