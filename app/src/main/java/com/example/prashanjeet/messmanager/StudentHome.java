@@ -209,6 +209,10 @@ public class StudentHome extends AppCompatActivity {
         databaseUserMealsRef.setValue(meal);
 
 
+        m.registered +=1;
+        databaseMealsRef.child(userId).setValue(m);
+
+
         alertDialog.dismiss();
 
     }

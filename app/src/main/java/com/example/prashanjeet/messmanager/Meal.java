@@ -6,7 +6,7 @@ package com.example.prashanjeet.messmanager;
 
 public class Meal {
     public String title,description,expectedCost,date;
-    public int val;
+    public int val,registered;
     Meal() {
 
     }
@@ -30,5 +30,6 @@ public class Meal {
         }
         this.val = val1;
         this.date = date;
+        this.registered = 0;
     }
 }
