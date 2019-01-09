@@ -24,4 +24,25 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="130dp"
         android:text="Scan" />
+
+    <TextView
+        android:id="@+id/date_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="79dp"
+        android:textSize="15dp"
+        android:text="Select Date" />
+
+    <EditText
+        android:id="@+id/editText_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Title" />
 </RelativeLayout>

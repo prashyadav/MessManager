@@ -56,8 +56,10 @@ public class ManagerHome extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id=item.getItemId();
-        if(id==R.id.id_profile)
+        if(id==R.id.id_verify)
         {
+            Intent intent = new Intent(ManagerHome.this,AdminVerify.class);
+            startActivity(intent);
             return  true;
         }
         if(id==R.id.id_Comp)
@@ -66,10 +68,22 @@ public class ManagerHome extends AppCompatActivity {
         }
         if(id==R.id.id_QR)
         {
+            Intent intent = new Intent(ManagerHome.this,Scan.class);
+            startActivity(intent);
             return true;
         }
         if(id==R.id.id_feedback)
         {
+            return true;
+        }
+        if(id==R.id.id_profile)
+        {
+            return true;
+        }
+        if(id==R.id.id_activity)
+        {
+//            Intent intent = new Intent(ManagerHome.this,AdminStudentActivity.class);
+//            startActivity(intent);
             return true;
         }
         return  true;

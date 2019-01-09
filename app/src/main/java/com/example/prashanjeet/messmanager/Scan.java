@@ -42,7 +42,7 @@ public class Scan extends AppCompatActivity implements DatePickerDialog.OnDateSe
         setContentView(R.layout.activity_scan);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        databaseUserMealsRef = FirebaseDatabase.getInstance().getReference("userMeals").child("-LVdNEdqkkFxxYwxumR2");
+        databaseUserMealsRef = FirebaseDatabase.getInstance().getReference("userMeals");
 
 
         me =(EditText) findViewById(R.id.editText_scan);
@@ -84,7 +84,7 @@ public class Scan extends AppCompatActivity implements DatePickerDialog.OnDateSe
             else{
                 //Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
 
-                checkStatus();
+                checkStatus(result.getContents());
 
 
 
@@ -103,21 +103,22 @@ public class Scan extends AppCompatActivity implements DatePickerDialog.OnDateSe
         c.set(Calendar.YEAR,year);
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        //String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = df.format(c.getTime());
 
         da.setText(formattedDate);
     }
 
-    public void checkStatus(){
+    public void checkStatus(String id){
 
+        databaseUserMealsRef = databaseUserMealsRef.child(id);
         databaseUserMealsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userMeal = dataSnapshot.getValue(UserMeal.class);
                 //do what you want with the email
-                Log.d("name", userMeal.toString());
+                //Log.d("name", userMeal.toString());
             }
 
             @Override

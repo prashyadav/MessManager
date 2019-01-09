@@ -26,11 +26,24 @@
         <activity android:name=".StudentActivities" />
         <activity android:name=".FeedBack" />
         <activity android:name=".Complaint" />
-        <activity android:name=".Complain_listview"></activity>
+
         <activity android:name=".AdminVerify" />
         <activity android:name=".AdminConfirm" />
         <activity android:name=".QRCode" />
-        <activity android:name=".Scan"></activity>
+        <activity android:name=".Scan" />
+
+        <service
+            android:name=".MyFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".MyFirebaseMessagingServices">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
