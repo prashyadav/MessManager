@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 public class MainActivity extends AppCompatActivity {
     public Button studentLogin,adminLogin,signUp,managerLogin;
     public TextView welcomeMessage;
@@ -39,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         adminLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  intent  = new  Intent(MainActivity.this ,ManagerHome.class);
+                Intent  intent  = new  Intent(MainActivity.this ,AdminVerify.class);
                 startActivity(intent);
             }
         });

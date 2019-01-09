@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class AddMeal extends AppCompatActivity  implements DatePickerDialog.OnDateSetListener {
@@ -80,6 +81,9 @@ public class AddMeal extends AppCompatActivity  implements DatePickerDialog.OnDa
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        date.setText(currentDate);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = df.format(c.getTime());
+
+        date.setText(formattedDate);
     }
 }

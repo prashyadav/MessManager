@@ -26,7 +26,7 @@
         android:layout_marginTop="37dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="title" />
 
     <EditText
         android:id="@+id/meal_description"
@@ -37,7 +37,7 @@
         android:layout_marginTop="34dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="desc" />
 
     <EditText
         android:id="@+id/meal_cost"
@@ -47,6 +47,7 @@
         android:layout_below="@+id/meal_description"
         android:layout_marginTop="32dp"
         android:ems="10"
+        android:hint="cost"
         android:inputType="number" />
 
     <TextView
@@ -70,4 +71,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
         android:text="Add" />
+
 </RelativeLayout>

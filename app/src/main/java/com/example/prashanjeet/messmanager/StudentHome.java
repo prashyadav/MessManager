@@ -24,15 +24,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class StudentHome extends AppCompatActivity {
 
     private ListView listViewMeal;
-    private DatabaseReference databaseMealsRef;
+    private DatabaseReference databaseMealsRef, databaseUserRef, databaseUserMealsRef;
     private FirebaseAuth firebaseAuth;
     private List<Meal> mealList;
     private Meal m;
@@ -62,6 +65,8 @@ public class StudentHome extends AppCompatActivity {
                 m =mealList.get(i);
 
                    // showMealDialog(m.title, m.description, m.val);
+                    showMealDialog();
+
 
 
             }
@@ -100,16 +105,12 @@ public class StudentHome extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("myFile", Context.MODE_PRIVATE);
-        String def = "defaul";
-        userId = sharedPreferences.getString("id",def);
-        mealId = sharedPreferences.getString("mealId",def);
-        //String userId = firebaseAuth.getCurrentUser().getUid();
-//        Log.d("res", "list"+userId);
+        firebaseAuth = FirebaseAuth.getInstance();
+        userId = firebaseAuth.getCurrentUser().getUid();
 
         databaseMealsRef = FirebaseDatabase.getInstance().getReference("meals");
 
-//        databaseUserMealRef= databaseUserMealRef.child("meal");
+        databaseUserRef  = FirebaseDatabase.getInstance().getReference("users").child(userId);
 
         databaseMealsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -119,11 +120,17 @@ public class StudentHome extends AppCompatActivity {
 
                 for(DataSnapshot mealSnapshot : dataSnapshot.getChildren()){
                     Meal a = mealSnapshot.getValue(Meal.class);
-//                    if(a.getStatus().equals(status)){
-//                        Log.d("res","matches");
-//                        appoList.add(a);
-//                    }
-                    mealList.add(a);
+
+                    Date c = Calendar.getInstance().getTime();
+                    //System.out.println("Current time => " + c);
+
+                    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                    String formattedDate = df.format(c);
+
+                    if(formattedDate.compareTo(a.date)<=0){
+                        mealList.add(a);
+                    }
+
 
                 }
 
@@ -149,17 +156,40 @@ public class StudentHome extends AppCompatActivity {
                 Log.w("res", databaseError.toException());
             }
         });
+
+        databaseUserMealsRef = FirebaseDatabase.getInstance().getReference("userMeals").child("-LVdNEdqkkFxxYwxumR2");
+
+
+        databaseUserMealsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                meal = dataSnapshot.getValue(UserMeal.class);
+                //do what you want with the email
+                Log.d("name", meal.toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+//
+
+
         Log.d("res", "on start ends here");
     }
-    public void showMealDialog(String title, String description, final int val){
+
+
+    public void showMealDialog(){
+
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflator = getLayoutInflater();
         final View dialogView = inflator.inflate(R.layout.meal_dialog, null);
         dialogBuilder.setView(dialogView);
 
-        Log.d("res", description);
-        Log.d("res", title);
+        Log.d("res", m.description);
+        Log.d("res", m.title);
 
         TextView textViewTitle = (TextView) dialogView.findViewById(R.id.adminAppoTitle);
         TextView textViewDescription = (TextView) dialogView.findViewById(R.id.adminAppoDes);
@@ -167,7 +197,7 @@ public class StudentHome extends AppCompatActivity {
         conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirm(val);
+                confirm();
             }
         });
         Button del = (Button) dialogView.findViewById(R.id.adminDialogCancelButton);
@@ -178,27 +208,17 @@ public class StudentHome extends AppCompatActivity {
             }
         });
 
-        textViewTitle.setText(title);
-        textViewDescription.setText(description);
+        textViewTitle.setText(m.title);
+        textViewDescription.setText(m.description);
 
-        dialogBuilder.setTitle("Appointment Description");
+        dialogBuilder.setTitle("Meal Description");
 
-        Log.d("res", description);
-        Log.d("res", title);
         alertDialog = dialogBuilder.create();
         alertDialog.show();
     }
 
-    private void confirm(int val){
-        deleteAdminAppo();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("userMeals");
+    private void confirm(){
 
-//        databaseReference.child(mealId).child(ad.getId()).setValue(ad);
-//        databaseReference.child(ad.getAdminId()).child(ad.getId()).setValue(ad);
-
-
-//        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//        final DatabaseReference reference = firebaseDatabase.getReference();
 
 
 //        Query query = reference.child("tasks").orderByChild("Description").equalTo("test2");
@@ -221,63 +241,12 @@ public class StudentHome extends AppCompatActivity {
 //        });
 
 
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mealref = databaseReference.child(mealId);
 
-
-//        mealref.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                 List l = dataSnapshot.getValue(List.class);
-//                //do what you want with the email
-//                Log.d("name", l.toString());
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-        mealref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //Log.d("res", "onStart1 "+status);
-                //mealList.clear();
-
-                for(DataSnapshot mealSnapshot : dataSnapshot.getChildren()){
-                    Integer a = Integer.parseInt(mealSnapshot.getValue().toString());
-
-//                    if(a.getStatus().equals(status)){
-//                        Log.d("res","matches");
-//                        appoList.add(a);
-//                    }
-                    Log.d("jjk",a.toString());
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("res", databaseError.toException());
-            }
-        });
-
-
-
-//        int v=meal.list.get(2);
-//        String name = meal.name;
-//        Log.d("name",  name);
-//            try{
-//                int v= meal.list.get(0);
-//            }
-//            catch(Exception e){
-//                //Toast.makeText(StudentHome.this, Toast.LENGTH_LONG, e.printStackTrace()).show();
-//                e.printStackTrace();
-//            }
-//        meal.list.set(2,67);
-//        mealref.setValue(meal);
+        int index= (Integer.parseInt(m.date.substring(3,5))-1)*12+Integer.parseInt(m.date.substring(0,2));
+        Log.d("name", String.valueOf(index));
+        int v =meal.list.get(index);
+        meal.list.set(index,v+m.val);
+        databaseUserMealsRef.setValue(meal);
 
 
         alertDialog.dismiss();
