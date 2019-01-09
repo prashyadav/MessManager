@@ -24,12 +24,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class StudentActivities extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    public TextView totalMealsText,balanceText,chooseDate,breakFast,lunch,snacks,dinner;
+    public TextView totalMealsText,balanceText,chooseDate,breakFast,lunch,snacks,dinner,studentReg,studentNa;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     String uid;
     UserMeal meal;
-    String formattedDate;
+    String formattedDate = new String("hello");
     String value;
     public Button showInfo;
     int date,mon;
@@ -40,6 +40,8 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
         setContentView(R.layout.activity_student_activities);
         totalMealsText = (TextView)findViewById(R.id.totalMeals);
         balanceText = (TextView)findViewById(R.id.balance);
+        studentNa = (TextView)findViewById(R.id.studentNa);
+        studentReg = (TextView)findViewById(R.id.studentReg);
         chooseDate = (TextView)findViewById(R.id.choosedate);
         breakFast = (TextView)findViewById(R.id.breakFast);
         lunch = (TextView)findViewById(R.id.lunch);
@@ -57,6 +59,10 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 meal = dataSnapshot.getValue(UserMeal.class);
+                String s = meal.getRegNumber();
+                studentReg.setText("Reg Number::" + s);
+                s=meal.getName();
+                studentNa.setText("Name  ::  "+ s);
                 int v =meal.getBalance();
                 value = String.valueOf(v);
                 balanceText.setText("Total balance is ::  " + value);
@@ -65,7 +71,6 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
                 totalMealsText.setText("Total Meals taken ::  " + value);
 
                 //Toast.makeText(StudentActivities.this,value,Toast.LENGTH_LONG).show();
-
 
             }
 
@@ -85,45 +90,45 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
         showInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 date = Integer.parseInt(formattedDate.substring(0,2));
-                 mon = Integer.parseInt(formattedDate.substring(3,5));
-                date = 31*(mon-1)+date;
-                 value = String.valueOf(date);
-                Toast.makeText(StudentActivities.this,value,Toast.LENGTH_LONG).show();
+                if (formattedDate.compareTo("hello")==0) {
+                    Toast.makeText(StudentActivities.this, "Select Date", Toast.LENGTH_LONG).show();
+                }
+                else{
+                date = Integer.parseInt(formattedDate.substring(0, 2));
+                mon = Integer.parseInt(formattedDate.substring(3, 5));
+                date = 31 * (mon - 1) + date;
+                value = String.valueOf(date);
+                //Toast.makeText(StudentActivities.this, value, Toast.LENGTH_LONG).show();
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         meal = dataSnapshot.getValue(UserMeal.class);
-                        int v =meal.list.get(date);
+                        int v = meal.list.get(date);
                         value = String.valueOf(v);
-                        Toast.makeText(StudentActivities.this,value,Toast.LENGTH_LONG).show();
-                        int b=0,l=0,s=0,d=0;
-                        b = v&1;
-                        l=v&2;
-                        s=v&4;
-                        d=v&8;
-                        if(b!=0){
+                        //Toast.makeText(StudentActivities.this, value, Toast.LENGTH_LONG).show();
+                        int b = 0, l = 0, s = 0, d = 0;
+                        b = v & 1;
+                        l = v & 2;
+                        s = v & 4;
+                        d = v & 8;
+                        if (b != 0) {
                             breakFast.setText("Breakfast :: Taken");
-                        }
-                        else {
+                        } else {
                             breakFast.setText("Breakfast :: Not Taken");
                         }
-                        if(l!=0){
+                        if (l != 0) {
                             lunch.setText("Lunch :: Taken");
-                        }
-                        else {
+                        } else {
                             lunch.setText("Lunch :: Not Taken");
                         }
-                        if(s!=0){
+                        if (s != 0) {
                             snacks.setText("Snacks  ::  Taken");
-                        }
-                        else {
+                        } else {
                             snacks.setText("Snacks ::  Not Taken");
                         }
-                        if(d!=0){
+                        if (d != 0) {
                             dinner.setText("Dinner  ::  Taken");
-                        }
-                        else {
+                        } else {
                             dinner.setText("Dinner  ::  Not Taken");
                         }
 
@@ -137,10 +142,12 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
                 });
 
             }
+        }
         });
 
 
     }
+
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

@@ -49,7 +49,7 @@ public class AdminVerify extends AppCompatActivity {
                 student =studentList.get(i);
                 String name = student.getName();
                 String uid = student.getId();
-                Toast.makeText(AdminVerify.this,name,Toast.LENGTH_LONG).show();
+                //Toast.makeText(AdminVerify.this,name,Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(AdminVerify.this,AdminConfirm.class);
                 intent.putExtra("student_uid",uid);
                 startActivity(intent);
@@ -88,8 +88,8 @@ public class AdminVerify extends AppCompatActivity {
 
                 for(DataSnapshot appoSnapshot : dataSnapshot.getChildren()){
                     Student a = appoSnapshot.getValue(Student.class);
-                    String stat = a.getStatus()+ "hello";
-                    Toast.makeText(AdminVerify.this,stat,Toast.LENGTH_LONG).show();
+                    //String stat = a.getStatus()+ "hello";
+                    //Toast.makeText(AdminVerify.this,stat,Toast.LENGTH_LONG).show();
                     int j=0;
                     if(a.getStatus().compareTo("pending")==0){
                         Log.d("res","matches");

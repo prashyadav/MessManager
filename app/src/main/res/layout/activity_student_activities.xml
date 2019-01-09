@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:text="Total Meals Taken = "
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/balance"
@@ -25,19 +25,18 @@
         android:layout_marginTop="25dp"
         android:text="Balance  = "
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="30sp" />
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/choosedate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="51dp"
         android:text="Choose Date"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="20sp"
-        android:layout_below="@+id/balance"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="37dp" />
+        android:layout_marginStart="46dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/showActivity"
@@ -54,48 +53,68 @@
         android:id="@+id/breakFast"
         android:layout_width="match_parent"
         android:layout_height="30sp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/showActivity"
-        android:layout_marginTop="41dp"
-        android:text="Breakfast"
+        android:text=" "
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:layout_above="@+id/lunch"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/lunch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/breakFast"
-        android:layout_marginTop="25dp"
 
-        android:text="Lunch"
+        android:text=" "
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:layout_above="@+id/snacks"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="12dp" />
 
     <TextView
         android:id="@+id/snacks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lunch"
-        android:layout_marginTop="30dp"
 
-        android:text="Snacks"
+        android:text=" "
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:layout_above="@+id/dinner"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="13dp" />
 
     <TextView
         android:id="@+id/dinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text=" "
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="25sp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/snacks"
-        android:layout_marginTop="25dp"
-        android:text="Dinner"
+        android:layout_marginBottom="43dp" />
+
+    <TextView
+        android:id="@+id/studentNa"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/balance"
+        android:layout_marginTop="16dp"
+        android:text="Student Name"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="25sp" />
 
+    <TextView
+        android:id="@+id/studentReg"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/studentNa"
+        android:layout_marginTop="15dp"
+        android:text="Student Reg"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="25sp" />
 
 
 </RelativeLayout>
