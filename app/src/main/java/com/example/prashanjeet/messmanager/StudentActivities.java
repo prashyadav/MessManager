@@ -98,14 +98,14 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
                 mon = Integer.parseInt(formattedDate.substring(3, 5));
                 date = 31 * (mon - 1) + date;
                 value = String.valueOf(date);
-                Toast.makeText(StudentActivities.this, value, Toast.LENGTH_LONG).show();
+                //Toast.makeText(StudentActivities.this, value, Toast.LENGTH_LONG).show();
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         meal = dataSnapshot.getValue(UserMeal.class);
                         int v = meal.list.get(date);
                         value = String.valueOf(v);
-                        Toast.makeText(StudentActivities.this, value, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(StudentActivities.this, value, Toast.LENGTH_LONG).show();
                         int b = 0, l = 0, s = 0, d = 0;
                         b = v & 1;
                         l = v & 2;

@@ -36,7 +36,7 @@ public class AdminConfirm extends AppCompatActivity {
 
         Intent intent = getIntent();
         uid = intent.getStringExtra("student_uid");
-        Toast.makeText(AdminConfirm.this,uid,Toast.LENGTH_LONG).show();
+       // Toast.makeText(AdminConfirm.this,uid,Toast.LENGTH_LONG).show();
 
         //final FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
         //emailflag = firebaseUser.isEmailVerified();
