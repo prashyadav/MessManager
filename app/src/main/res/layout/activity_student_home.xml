@@ -7,10 +7,17 @@
     tools:context="com.example.prashanjeet.messmanager.StudentHome">
 
 
+    <Button
+        android:id="@+id/Complaint_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:textSize="18sp" />
+
     <ListView
         android:id="@+id/listViewAppo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="385dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 

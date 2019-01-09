@@ -1,6 +1,7 @@
 package com.example.prashanjeet.messmanager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -33,18 +34,23 @@ public class StudentHome extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private List<Meal> mealList;
     private Meal m;
-
+    Button complaintbutton;
     UserMeal meal;
     AlertDialog alertDialog;
-
     String mealId,userId;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
         listViewMeal =(ListView) findViewById(R.id.listViewAppo);
+        complaintbutton=(Button)findViewById(R.id.Complaint_Button);
+        complaintbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent  = new  Intent(StudentHome.this ,Complaint.class);
+                startActivity(intent);
+            }
+        });
         mealList = new ArrayList<>();
 
         listViewMeal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -248,7 +254,6 @@ public class StudentHome extends AppCompatActivity {
         alertDialog.dismiss();
 
     }
-
     private void deleteAdminAppo(){
 //        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("adminAppointments").child(ad.getAdminId()).child(ad.getId());
 //        DatabaseReference dbRef =FirebaseDatabase.getInstance().getReference().child("userAppointments").child(ad.getUserId()).child(ad.getId());
