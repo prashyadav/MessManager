@@ -72,6 +72,8 @@ public class ManagerHome extends AppCompatActivity {
         }
         if(id==R.id.id_feedback)
         {
+            Intent intent = new Intent(ManagerHome.this,FeedBack.class);
+            startActivity(intent);
             return true;
         }
         if(id==R.id.id_profile)
