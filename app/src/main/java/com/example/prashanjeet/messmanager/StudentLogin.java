@@ -2,7 +2,6 @@ package com.example.prashanjeet.messmanager;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.common.BitMatrix;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class StudentLogin extends AppCompatActivity {
     public Button loginStudent,signUpStudent;
@@ -129,7 +124,7 @@ public class StudentLogin extends AppCompatActivity {
                 {
 
                     Toast.makeText(StudentLogin.this, "Login successfull!!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(StudentLogin.this, Scan.class);
+                    Intent intent = new Intent(StudentLogin.this, StudentHome.class);
                     String mealId = student.getMealId();
                     intent.putExtra("mealId",mealId);
                     startActivity(intent);

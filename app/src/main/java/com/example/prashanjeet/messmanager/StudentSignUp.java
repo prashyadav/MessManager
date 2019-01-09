@@ -66,7 +66,7 @@ public class StudentSignUp extends AppCompatActivity {
                                     Student user =new Student(studentN,studentM,studentRegn,studentH,studentR,studentE,id,id1,"pending");
                                     try {
                                         databaseUsers.child(id).setValue(user);
-                                        databaseUserMeals.child(id1).setValue(userMeal);
+                                        databaseUserMeals.child(id).setValue(userMeal);
                                     }
                                     catch (Exception e){
                                         e.printStackTrace();

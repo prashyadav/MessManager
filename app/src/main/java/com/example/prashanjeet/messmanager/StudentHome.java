@@ -1,11 +1,9 @@
 package com.example.prashanjeet.messmanager;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,6 +52,7 @@ public class StudentHome extends AppCompatActivity {
         setContentView(R.layout.activity_student_home);
         Intent intent = getIntent();
         mealUid= intent.getStringExtra("mealId");
+        firebaseAuth=FirebaseAuth.getInstance();
         listViewMeal =(ListView) findViewById(R.id.listViewAppo);
         //complaintbutton=(Button)findViewById(R.id.Complaint_Button);
 //        complaintbutton.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +89,7 @@ public class StudentHome extends AppCompatActivity {
         if(id==R.id.id_profile)
         {
             Intent intent = new Intent(StudentHome.this,StudentActivities.class);
-            intent.putExtra("mealId",mealUid);
+            intent.putExtra("mealId",firebaseAuth.getCurrentUser().getUid());
             startActivity(intent);
             return  true;
         }
@@ -102,10 +101,22 @@ public class StudentHome extends AppCompatActivity {
         }
         if(id==R.id.id_QR)
         {
+            Intent intent = new Intent(StudentHome.this,Scan.class);
+            startActivity(intent);
             return true;
         }
         if(id==R.id.id_feedback)
         {
+            Intent intent = new Intent(StudentHome.this,FeedBack.class);
+            startActivity(intent);
+            return true;
+        }
+        if(id==R.id.id_signout)
+        {
+            firebaseAuth.signOut();
+            Intent intent = new Intent(StudentHome.this,MainActivity.class);
+            startActivity(intent);
+            finish();
             return true;
         }
         return  true;
@@ -167,7 +178,7 @@ public class StudentHome extends AppCompatActivity {
             }
         });
 
-        databaseUserMealsRef = FirebaseDatabase.getInstance().getReference("userMeals").child("-LVdNEdqkkFxxYwxumR2");
+        databaseUserMealsRef = FirebaseDatabase.getInstance().getReference("userMeals").child(userId);
 
 
         databaseUserMealsRef.addValueEventListener(new ValueEventListener() {
@@ -175,7 +186,7 @@ public class StudentHome extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 meal = dataSnapshot.getValue(UserMeal.class);
                 //do what you want with the email
-                Log.d("name", meal.toString());
+                //Log.d("name", meal.toString());
             }
 
             @Override
@@ -264,7 +275,7 @@ public class StudentHome extends AppCompatActivity {
 
 
         m.registered +=1;
-        databaseMealsRef.child(userId).setValue(m);
+        databaseMealsRef.child(m.getId()).setValue(m);
 
 
         alertDialog.dismiss();

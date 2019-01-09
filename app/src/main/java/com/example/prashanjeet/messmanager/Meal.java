@@ -5,14 +5,14 @@ package com.example.prashanjeet.messmanager;
  */
 
 public class Meal {
-    public String title,description,date,expectedCost;
+    public String title,description,date,expectedCost,id;
     public int val,registered;
 
     Meal() {
 
     }
 
-    public Meal(String title, String description, String expectedCost, String date) {
+    public Meal(String title, String description, String expectedCost, String date,String id) {
         this.title = title;
         this.description = description;
         this.expectedCost = expectedCost;
@@ -32,6 +32,7 @@ public class Meal {
         this.val = val1;
         this.date = date;
         this.registered = 0;
+        this.id = id;
     }
 
     public String getExpectedCost() {
@@ -40,5 +41,53 @@ public class Meal {
 
     public void setExpectedCost(String expectedCost) {
         this.expectedCost = expectedCost;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getVal() {
+        return val;
+    }
+
+    public void setVal(int val) {
+        this.val = val;
+    }
+
+    public int getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(int registered) {
+        this.registered = registered;
     }
 }
