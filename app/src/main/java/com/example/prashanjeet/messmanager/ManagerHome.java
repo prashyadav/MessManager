@@ -64,10 +64,20 @@ public class ManagerHome extends AppCompatActivity {
         }
         if(id==R.id.id_Comp)
         {
+            Intent intent = new Intent(ManagerHome.this,AdminVerify.class);
+            startActivity(intent);
             return true;
         }
-        if(id==R.id.id_QR)
+        if(id==R.id.id_exp)
         {
+            Intent intent = new Intent(ManagerHome.this,AddExpense.class);
+            startActivity(intent);
+            return true;
+        }
+        if(id==R.id.id_allexp)
+        {
+            Intent intent = new Intent(ManagerHome.this,AdminAllExpenses.class);
+            startActivity(intent);
             return true;
         }
         if(id==R.id.id_feedback)
@@ -78,6 +88,8 @@ public class ManagerHome extends AppCompatActivity {
         }
         if(id==R.id.id_profile)
         {
+            Intent intent = new Intent(ManagerHome.this,AdminProfile.class);
+            startActivity(intent);
             return true;
         }
         if(id==R.id.id_activity)
