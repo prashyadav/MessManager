@@ -1,9 +1,11 @@
 package com.example.prashanjeet.messmanager;
 
+import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -101,7 +103,7 @@ public class StudentHome extends AppCompatActivity {
         }
         if(id==R.id.id_QR)
         {
-            Intent intent = new Intent(StudentHome.this,Scan.class);
+            Intent intent = new Intent(StudentHome.this,QRCode.class);
             startActivity(intent);
             return true;
         }

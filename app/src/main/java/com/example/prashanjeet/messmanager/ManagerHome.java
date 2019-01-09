@@ -68,6 +68,8 @@ public class ManagerHome extends AppCompatActivity {
         }
         if(id==R.id.id_QR)
         {
+            Intent intent = new Intent(ManagerHome.this,Scan.class);
+            startActivity(intent);
             return true;
         }
         if(id==R.id.id_feedback)
@@ -80,8 +82,8 @@ public class ManagerHome extends AppCompatActivity {
         }
         if(id==R.id.id_activity)
         {
-            Intent intent = new Intent(ManagerHome.this,AdminStudentActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(ManagerHome.this,AdminStudentActivity.class);
+//            startActivity(intent);
             return true;
         }
         return  true;
