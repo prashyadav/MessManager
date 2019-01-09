@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class StudentActivities extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    public TextView totalMealsText,balanceText,chooseDate,breakFast,lunch,snacks,dinner;
+    public TextView totalMealsText,balanceText,chooseDate,breakFast,lunch,snacks,dinner,studentReg,studentNa;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     String uid;
@@ -40,6 +40,8 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
         setContentView(R.layout.activity_student_activities);
         totalMealsText = (TextView)findViewById(R.id.totalMeals);
         balanceText = (TextView)findViewById(R.id.balance);
+        studentNa = (TextView)findViewById(R.id.studentNa);
+        studentReg = (TextView)findViewById(R.id.studentReg);
         chooseDate = (TextView)findViewById(R.id.choosedate);
         breakFast = (TextView)findViewById(R.id.breakFast);
         lunch = (TextView)findViewById(R.id.lunch);
@@ -57,6 +59,10 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 meal = dataSnapshot.getValue(UserMeal.class);
+                String s = meal.getRegNumber();
+                studentReg.setText("Reg Number::" + s);
+                s=meal.getName();
+                studentNa.setText("Name  ::  "+ s);
                 int v =meal.getBalance();
                 value = String.valueOf(v);
                 balanceText.setText("Total balance is ::  " + value);
@@ -65,7 +71,6 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
                 totalMealsText.setText("Total Meals taken ::  " + value);
 
                 //Toast.makeText(StudentActivities.this,value,Toast.LENGTH_LONG).show();
-
 
             }
 

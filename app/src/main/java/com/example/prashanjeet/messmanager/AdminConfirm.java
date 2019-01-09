@@ -1,7 +1,6 @@
 package com.example.prashanjeet.messmanager;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,11 +13,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class AdminConfirm extends AppCompatActivity {
     private TextView studentN,studentReg,studentRoom,studentH;
@@ -33,7 +27,7 @@ public class AdminConfirm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_confirm);
         studentN = (TextView)findViewById(R.id.studentNam);
-        studentReg = (TextView)findViewById(R.id.studentRegn);
+        studentReg = (TextView)findViewById(R.id.studentRegn1);
         studentRoom = (TextView)findViewById(R.id.studentRoom);
         studentH = (TextView)findViewById(R.id.studentHost);
         acceptBtn = (Button)findViewById(R.id.acceptBtn);

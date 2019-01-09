@@ -20,4 +20,14 @@
             android:orderInCategory="103"
             android:showAsAction="never"
             />
+        <item android:title="Verify"
+            android:id="@+id/id_verify"
+            android:orderInCategory="103"
+            android:showAsAction="never"
+            />
+        <item android:title="StudentActivity"
+            android:id="@+id/id_activity"
+            android:orderInCategory="103"
+            android:showAsAction="never"
+            />
 </menu>
