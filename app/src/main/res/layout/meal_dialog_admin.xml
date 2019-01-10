@@ -6,12 +6,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/adminAppoTitle"
+        android:id="@+id/adminAppoTitle1"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/adminAppoDes"/>
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:id="@+id/adminAppoDes1"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

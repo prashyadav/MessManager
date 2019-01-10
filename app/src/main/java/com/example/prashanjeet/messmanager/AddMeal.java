@@ -69,6 +69,7 @@ public class AddMeal extends AppCompatActivity  implements DatePickerDialog.OnDa
 
                 Intent intent  = new  Intent(AddMeal.this ,ManagerHome.class);
                 startActivity(intent);
+                finish();
 
             }
         });

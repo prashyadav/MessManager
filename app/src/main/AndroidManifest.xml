@@ -34,21 +34,22 @@
         <activity android:name=".AdminStudentActivity" />
         <activity android:name=".AdminProfile" />
         <activity android:name=".AddExpense" />
-        <activity android:name=".AdminAllExpenses"></activity>
+        <activity android:name=".AdminAllExpenses" />
 
-
-        <service
-            android:name=".MyFirebaseInstanceIdService">
+        <service android:name=".MyFirebaseInstanceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".MyFirebaseMessagingServices">
+        <service android:name=".MyFirebaseMessagingServices">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".UpdateMealActivity" />
+        <activity android:name=".FeedbackAdmin" />
+        <activity android:name=".AdminCompalinds"></activity>
     </application>
 
 </manifest>

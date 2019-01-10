@@ -33,8 +33,8 @@ public class FeedBack extends AppCompatActivity  implements DatePickerDialog.OnD
     //int day, month, year;
     String feedbackMeal;
     String feedbackText;
-    String currentDate;
-    String value;
+    String currentDate = new String("hello");
+    String value,pdate;
 
 
     @Override
@@ -42,7 +42,7 @@ public class FeedBack extends AppCompatActivity  implements DatePickerDialog.OnD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_back);
         firebaseAuth = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference("FEEDBACK");
+        //databaseReference = FirebaseDatabase.getInstance().getReference("FEEDBACK");
         mcurrentdate = (TextView) findViewById(R.id.FeedbackDate_TextView);
         feedbackmeal = (EditText) findViewById(R.id.feedbackmeal_EditText);
         feedbacktext = (EditText) findViewById(R.id.Feedback_EditText);
@@ -68,6 +68,7 @@ public class FeedBack extends AppCompatActivity  implements DatePickerDialog.OnD
                 if (validate()) {
                     feedbackMeal = feedbackmeal.getText().toString();
                     feedbackText = feedbacktext.getText().toString();
+                    pdate = mcurrentdate.getText().toString();
                     value=ratingvalue.getText().toString();
                     Toast.makeText(FeedBack.this, "your data", Toast.LENGTH_SHORT).show();
                     sendUserData();
@@ -85,12 +86,11 @@ public class FeedBack extends AppCompatActivity  implements DatePickerDialog.OnD
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = firebaseDatabase.getReference("feedback");
         String id = myRef.push().getKey();
-        feedbackprofile feedbackpro = new feedbackprofile(feedbackMeal, feedbackText,currentDate,value);
+        feedbackprofile feedbackpro = new feedbackprofile(feedbackMeal, feedbackText,pdate,value);
         myRef.child(id).setValue(feedbackpro);
         Intent intent = new Intent(FeedBack.this,StudentHome.class);
         startActivity(intent);
         finish();
-
     }
     private Boolean validate(){
         Boolean result = false;
@@ -99,9 +99,9 @@ public class FeedBack extends AppCompatActivity  implements DatePickerDialog.OnD
         //password = userPassword.getText().toString();
         //email = userEmail.getText().toString();
         feedbackText = feedbacktext.getText().toString();
+        pdate = mcurrentdate.getText().toString();
 
-
-        if(feedbackMeal.isEmpty() || feedbackText.isEmpty()){
+        if(feedbackMeal.isEmpty() || feedbackText.isEmpty()||pdate.isEmpty()){
             Toast.makeText(this, "Please enter all the details", Toast.LENGTH_SHORT).show();
         }else{
             result = true;

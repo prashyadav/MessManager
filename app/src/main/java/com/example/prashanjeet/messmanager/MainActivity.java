@@ -7,9 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
     public Button studentLogin,adminLogin,signUp,managerLogin;
     public TextView welcomeMessage;
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +23,12 @@ public class MainActivity extends AppCompatActivity {
         adminLogin = (Button)findViewById(R.id.adminLogin);
         //managerLogin = (Button)findViewById(R.id.manager);
         signUp = (Button)findViewById(R.id.signUp);
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if(firebaseUser!=null){
+            Intent intent   = new Intent(MainActivity.this,StudentHome.class);
+            startActivity(intent);
+        }
         welcomeMessage = (TextView)findViewById(R.id.welcomeMessage);
         studentLogin.setOnClickListener(new View.OnClickListener() {
             @Override

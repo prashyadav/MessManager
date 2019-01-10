@@ -93,9 +93,15 @@ public class AdminProfile extends AppCompatActivity {
                 }
                 else{
                     int m = Integer.parseInt(monthNumber.getText().toString());
-                    m = arr[m];
-                    String str = String.valueOf(m);
-                    monthExp.setText("Monthly expense is ::" + str);
+                    if(m>12&&m>0)
+                    {
+                        Toast.makeText(AdminProfile.this,"Please enter value between 1-12",Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        m = arr[m];
+                        String str = String.valueOf(m);
+                        monthExp.setText("Monthly expense is ::" + str);
+                    }
                 }
 
             }

@@ -32,11 +32,11 @@ public class ManagerHome extends AppCompatActivity {
 
     FloatingActionButton fabMeal;
     private ListView listViewMeal;
-    private DatabaseReference databaseUserMealRef;
+    private DatabaseReference databaseUserMealRef,databaseReference;
     private FirebaseAuth firebaseAuth;
     private List<Meal> mealList;
     private Meal m;
-    private Button conf;
+    private Button stop;
     AlertDialog alertDialog;
     int cost;
     int cnfstat=0,cancelstat=0;
@@ -59,9 +59,11 @@ public class ManagerHome extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 m =mealList.get(i);
                 cost = Integer.valueOf(m.getExpectedCost());
+               // Toast.makeText(ManagerHome.this,m.getExpectedCost(),Toast.LENGTH_LONG).show();
                 //cost = m.getExpectedCost().
                 //cost = m.getExpectedCost();
-                showMealDialog();
+                Log.d("res", "on click listener");
+                showMealDialog1();
             }
         });
 
@@ -83,7 +85,7 @@ public class ManagerHome extends AppCompatActivity {
         }
         if(id==R.id.id_Comp)
         {
-            Intent intent = new Intent(ManagerHome.this,AdminVerify.class);
+            Intent intent = new Intent(ManagerHome.this,AdminCompalinds.class);
             startActivity(intent);
             return true;
         }
@@ -101,7 +103,7 @@ public class ManagerHome extends AppCompatActivity {
         }
         if(id==R.id.id_feedback)
         {
-            Intent intent = new Intent(ManagerHome.this,FeedBack.class);
+            Intent intent = new Intent(ManagerHome.this,FeedbackAdmin.class);
             startActivity(intent);
             return true;
         }
@@ -184,57 +186,61 @@ public class ManagerHome extends AppCompatActivity {
         Log.d("res", "on start ends here");
     }
 
-    public void showMealDialog(){
+    public void showMealDialog1(){
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+       AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ManagerHome.this);
         LayoutInflater inflator = getLayoutInflater();
         final View dialogView = inflator.inflate(R.layout.meal_dialog, null);
         dialogBuilder.setView(dialogView);
 
         Log.d("res", m.description);
         Log.d("res", m.title);
-
-        TextView textViewTitle = (TextView) dialogView.findViewById(R.id.adminAppoTitle);
-        TextView textViewDescription = (TextView) dialogView.findViewById(R.id.adminAppoDes);
-        conf = (Button) dialogView.findViewById(R.id.adminDialogConfirmButton);
-        conf.setOnClickListener(new View.OnClickListener() {
+        TextView textViewTitle1 = (TextView) dialogView.findViewById(R.id.adminAppoTitle);
+        TextView textViewDescription1 = (TextView) dialogView.findViewById(R.id.adminAppoDes);
+        TextView textViewRegistered1 = (TextView) dialogView.findViewById(R.id.adminAppoTotalReg);
+        TextView textViewCost1 = (TextView) dialogView.findViewById(R.id.adminAppoExpCost);
+        stop = (Button) dialogView.findViewById(R.id.adminDialogConfirmButton);
+        stop.setText("Stop Reg");
+        stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cnfstat==0) {
-                    //confirm();
-                    cnfstat =1;
-                    cancelstat=1;
-                }
-                else
-                {
-                    Toast.makeText(ManagerHome.this,"Already Confirmed",Toast.LENGTH_LONG).show();
-                    alertDialog.dismiss();
-                }
-
+                //Change status from open to close
+                m.setRegistration("stop");
+                databaseReference = FirebaseDatabase.getInstance().getReference("meals").child(m.getId());
+                databaseReference.setValue(m);
+                alertDialog.dismiss();
             }
         });
         Button del = (Button) dialogView.findViewById(R.id.adminDialogCancelButton);
+        del.setText("Delete");
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cancelstat==1) {
-                    //deleteAdminAppo();
-                    cnfstat =0;
-                    cancelstat=0;
-                }
-                else
-                {
-                    Toast.makeText(ManagerHome.this,"Not Confirmed Yet",Toast.LENGTH_LONG).show();
-                    alertDialog.dismiss();
-                }
+                databaseReference = FirebaseDatabase.getInstance().getReference("meals").child(String.valueOf(m.id));
+                databaseReference.removeValue();
+                Toast.makeText(ManagerHome.this,"Removed",Toast.LENGTH_LONG).show();
+                alertDialog.dismiss();
+
+            }
+        });
+        Button update  = (Button) dialogView.findViewById(R.id.adminDialogUpdateButton);
+        update.setText("Update");
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ManagerHome.this,UpdateMealActivity.class);
+                intent.putExtra("meal_id",m.getId());
+                startActivity(intent);
             }
         });
 
-        textViewTitle.setText(m.title);
-        textViewDescription.setText(m.description);
+        textViewTitle1.setText(String.valueOf(m.title));
+        textViewDescription1.setText(String.valueOf(m.description));
+        textViewCost1.setText("Cost :: "+String.valueOf(m.expectedCost));
+        textViewRegistered1.setText("Total Registered::"+String.valueOf(m.registered));
+        Log.d("res","set text complete");
 
         dialogBuilder.setTitle("Meal Description");
-
         alertDialog = dialogBuilder.create();
         alertDialog.show();
     }

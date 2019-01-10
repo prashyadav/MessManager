@@ -11,7 +11,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:id="@+id/adminAppoDes"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adminAppoTotalReg"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/adminAppoExpCost"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,6 +39,11 @@
             android:layout_height="wrap_content"
             android:text="cancel"
             android:id="@+id/adminDialogCancelButton"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:id="@+id/adminDialogUpdateButton"/>
     </LinearLayout>
 
 </LinearLayout>

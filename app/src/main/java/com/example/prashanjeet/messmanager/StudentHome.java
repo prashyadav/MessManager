@@ -1,11 +1,9 @@
 package com.example.prashanjeet.messmanager;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -99,8 +97,10 @@ public class StudentHome extends AppCompatActivity {
         }
         if(id==R.id.id_Comp)
         {
-            Intent intentcompalints=new Intent(StudentHome.this,Complaint.class);
-            startActivity(intentcompalints);
+            Intent intent=new Intent(StudentHome.this,Complaint.class);
+            //intent.putExtra("user_id",firebaseAuth.getCurrentUser().getUid());
+            //intent.putExtra("user_name",)
+            startActivity(intent);
             return true;
         }
         if(id==R.id.id_QR)
@@ -216,7 +216,10 @@ public class StudentHome extends AppCompatActivity {
 
         TextView textViewTitle = (TextView) dialogView.findViewById(R.id.adminAppoTitle);
         TextView textViewDescription = (TextView) dialogView.findViewById(R.id.adminAppoDes);
+        TextView textViewDCost = (TextView) dialogView.findViewById(R.id.adminAppoExpCost);
+        TextView textViewDate = (TextView) dialogView.findViewById(R.id.adminAppoTotalReg);
           conf = (Button) dialogView.findViewById(R.id.adminDialogConfirmButton);
+        conf.setText("Confirm");
         conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,6 +237,7 @@ public class StudentHome extends AppCompatActivity {
             }
         });
         Button del = (Button) dialogView.findViewById(R.id.adminDialogCancelButton);
+        del.setText("Cancel");
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,9 +253,21 @@ public class StudentHome extends AppCompatActivity {
                 }
             }
         });
+        Button feedback = (Button)  dialogView.findViewById(R.id.adminDialogUpdateButton);
+        feedback.setText("Feedback");
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StudentHome.this,FeedBack.class);
+                startActivity(intent);
+                alertDialog.dismiss();
+            }
+        });
 
         textViewTitle.setText(m.title);
         textViewDescription.setText(m.description);
+        textViewDCost.setText("Expected cost ::"+m.expectedCost);
+        textViewDate.setText(m.date);
 
         dialogBuilder.setTitle("Meal Description");
 
