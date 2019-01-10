@@ -4,13 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +35,11 @@ public class ManagerHome extends AppCompatActivity {
     private DatabaseReference databaseUserMealRef;
     private FirebaseAuth firebaseAuth;
     private List<Meal> mealList;
-
+    private Meal m;
+    private Button conf;
+    AlertDialog alertDialog;
+    int cost;
+    int cnfstat=0,cancelstat=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +52,16 @@ public class ManagerHome extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent  = new  Intent(ManagerHome.this ,AddMeal.class);
                 startActivity(intent);
+            }
+        });
+        listViewMeal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                m =mealList.get(i);
+                cost = Integer.valueOf(m.getExpectedCost());
+                //cost = m.getExpectedCost().
+                //cost = m.getExpectedCost();
+                showMealDialog();
             }
         });
 
@@ -157,5 +176,60 @@ public class ManagerHome extends AppCompatActivity {
             }
         });
         Log.d("res", "on start ends here");
+    }
+
+    public void showMealDialog(){
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflator = getLayoutInflater();
+        final View dialogView = inflator.inflate(R.layout.meal_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        Log.d("res", m.description);
+        Log.d("res", m.title);
+
+        TextView textViewTitle = (TextView) dialogView.findViewById(R.id.adminAppoTitle);
+        TextView textViewDescription = (TextView) dialogView.findViewById(R.id.adminAppoDes);
+        conf = (Button) dialogView.findViewById(R.id.adminDialogConfirmButton);
+        conf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cnfstat==0) {
+                    //confirm();
+                    cnfstat =1;
+                    cancelstat=1;
+                }
+                else
+                {
+                    Toast.makeText(ManagerHome.this,"Already Confirmed",Toast.LENGTH_LONG).show();
+                    alertDialog.dismiss();
+                }
+
+            }
+        });
+        Button del = (Button) dialogView.findViewById(R.id.adminDialogCancelButton);
+        del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cancelstat==1) {
+                    //deleteAdminAppo();
+                    cnfstat =0;
+                    cancelstat=0;
+                }
+                else
+                {
+                    Toast.makeText(ManagerHome.this,"Not Confirmed Yet",Toast.LENGTH_LONG).show();
+                    alertDialog.dismiss();
+                }
+            }
+        });
+
+        textViewTitle.setText(m.title);
+        textViewDescription.setText(m.description);
+
+        dialogBuilder.setTitle("Meal Description");
+
+        alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 }

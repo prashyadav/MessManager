@@ -33,11 +33,14 @@ import java.util.List;
 public class StudentHome extends AppCompatActivity {
 
     private ListView listViewMeal;
+    public Button conf;
     private DatabaseReference databaseMealsRef, databaseUserRef, databaseUserMealsRef;
     private FirebaseAuth firebaseAuth;
     private List<Meal> mealList;
     private Meal m;
     int cost;
+    int cnfstat=0;
+    int cancelstat=0;
     String mealUid;
 
     UserMeal meal;
@@ -73,7 +76,6 @@ public class StudentHome extends AppCompatActivity {
                 //cost = m.getExpectedCost().
                 //cost = m.getExpectedCost();
                     showMealDialog();
-
             }
         });
     }
@@ -212,18 +214,37 @@ public class StudentHome extends AppCompatActivity {
 
         TextView textViewTitle = (TextView) dialogView.findViewById(R.id.adminAppoTitle);
         TextView textViewDescription = (TextView) dialogView.findViewById(R.id.adminAppoDes);
-        Button conf = (Button) dialogView.findViewById(R.id.adminDialogConfirmButton);
+          conf = (Button) dialogView.findViewById(R.id.adminDialogConfirmButton);
         conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirm();
+                if(cnfstat==0) {
+                    confirm();
+                    cnfstat =1;
+                    cancelstat=1;
+                }
+                else
+                {
+                    Toast.makeText(StudentHome.this,"Already Confirmed",Toast.LENGTH_LONG).show();
+                    alertDialog.dismiss();
+                }
+
             }
         });
         Button del = (Button) dialogView.findViewById(R.id.adminDialogCancelButton);
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteAdminAppo();
+                if(cancelstat==1) {
+                    deleteAdminAppo();
+                    cnfstat =0;
+                    cancelstat=0;
+                }
+                else
+                {
+                    Toast.makeText(StudentHome.this,"Not Confirmed Yet",Toast.LENGTH_LONG).show();
+                    alertDialog.dismiss();
+                }
             }
         });
 
@@ -279,6 +300,7 @@ public class StudentHome extends AppCompatActivity {
 
 
         alertDialog.dismiss();
+        Toast.makeText(StudentHome.this,"confirmed",Toast.LENGTH_LONG).show();
 
     }
     private void deleteAdminAppo(){
@@ -288,7 +310,25 @@ public class StudentHome extends AppCompatActivity {
 //        databaseReference.removeValue();
         Log.d("res", "deleted");
 
+        int index= (Integer.parseInt(m.date.substring(3,5))-1)*31+Integer.parseInt(m.date.substring(0,2));
+        Log.d("name", String.valueOf(index));
+        int v =meal.list.get(index);
+        meal.list.set(index,v-m.val);
+        v=meal.getTotalMeals();
+        v--;
+        meal.setTotalMeals(v);
+        v=meal.getBalance();
+        v= v+cost;
+        meal.setBalance(v);
+        databaseUserMealsRef.setValue(meal);
+
+
+        m.registered -=1;
+        databaseMealsRef.child(m.getId()).setValue(m);
+
+
         alertDialog.dismiss();
+        Toast.makeText(StudentHome.this,"cancelled",Toast.LENGTH_LONG).show();
 
     }
 }
