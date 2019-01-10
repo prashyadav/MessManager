@@ -15,8 +15,13 @@
             android:orderInCategory="102"
             android:showAsAction="never"
             />
-        <item android:title="QRcode"
-            android:id="@+id/id_QR"
+        <item android:title="Add Expense"
+            android:id="@+id/id_exp"
+            android:orderInCategory="103"
+            android:showAsAction="never"
+            />
+        <item android:title="All Expense"
+            android:id="@+id/id_allexp"
             android:orderInCategory="103"
             android:showAsAction="never"
             />

@@ -64,26 +64,44 @@ public class ManagerHome extends AppCompatActivity {
         }
         if(id==R.id.id_Comp)
         {
+            Intent intent = new Intent(ManagerHome.this,AdminVerify.class);
+            startActivity(intent);
+            return true;
+        }
+        if(id==R.id.id_exp)
+        {
+            Intent intent = new Intent(ManagerHome.this,AddExpense.class);
+            startActivity(intent);
+            return true;
+        }
+        if(id==R.id.id_allexp)
+        {
+            Intent intent = new Intent(ManagerHome.this,AdminAllExpenses.class);
+            startActivity(intent);
+            return true;
+        }
+        if(id==R.id.id_feedback)
+        {
+            Intent intent = new Intent(ManagerHome.this,FeedBack.class);
+            startActivity(intent);
+            return true;
+        }
+        if(id==R.id.id_profile)
+        {
+            Intent intent = new Intent(ManagerHome.this,AdminProfile.class);
+            startActivity(intent);
+            return true;
+        }
+        if(id==R.id.id_activity)
+        {
+            Intent intent = new Intent(ManagerHome.this,AdminStudentActivity.class);
+            startActivity(intent);
             return true;
         }
         if(id==R.id.id_QR)
         {
             Intent intent = new Intent(ManagerHome.this,Scan.class);
             startActivity(intent);
-            return true;
-        }
-        if(id==R.id.id_feedback)
-        {
-            return true;
-        }
-        if(id==R.id.id_profile)
-        {
-            return true;
-        }
-        if(id==R.id.id_activity)
-        {
-//            Intent intent = new Intent(ManagerHome.this,AdminStudentActivity.class);
-//            startActivity(intent);
             return true;
         }
         return  true;

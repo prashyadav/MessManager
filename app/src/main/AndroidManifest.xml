@@ -26,11 +26,16 @@
         <activity android:name=".StudentActivities" />
         <activity android:name=".FeedBack" />
         <activity android:name=".Complaint" />
-
+        <activity android:name=".Complain_listview" />
         <activity android:name=".AdminVerify" />
         <activity android:name=".AdminConfirm" />
         <activity android:name=".QRCode" />
         <activity android:name=".Scan" />
+        <activity android:name=".AdminStudentActivity" />
+        <activity android:name=".AdminProfile" />
+        <activity android:name=".AddExpense" />
+        <activity android:name=".AdminAllExpenses"></activity>
+
 
         <service
             android:name=".MyFirebaseInstanceIdService">
