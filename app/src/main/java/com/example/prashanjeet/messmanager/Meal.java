@@ -5,7 +5,7 @@ package com.example.prashanjeet.messmanager;
  */
 
 public class Meal {
-    public String title,description,date,expectedCost,id;
+    public String title,description,date,expectedCost,id,registration;
     public int val,registered;
 
     Meal() {
@@ -33,6 +33,7 @@ public class Meal {
         this.date = date;
         this.registered = 0;
         this.id = id;
+        this.registration="open";
     }
 
     public String getExpectedCost() {
@@ -69,6 +70,14 @@ public class Meal {
 
     public String getId() {
         return id;
+    }
+
+    public String getRegistration() {
+        return registration;
+    }
+
+    public void setRegistration(String registration) {
+        this.registration = registration;
     }
 
     public void setId(String id) {

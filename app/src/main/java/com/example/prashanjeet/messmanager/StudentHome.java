@@ -99,9 +99,9 @@ public class StudentHome extends AppCompatActivity {
         }
         if(id==R.id.id_Comp)
         {
-//            Intent intentcompalints=new Intent(StudentHome.this,Complaint.class);
-//            startActivity(intentcompalints);
-//            return true;
+            Intent intentcompalints=new Intent(StudentHome.this,Complaint.class);
+            startActivity(intentcompalints);
+            return true;
         }
         if(id==R.id.id_QR)
         {
@@ -151,7 +151,7 @@ public class StudentHome extends AppCompatActivity {
                     SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                     String formattedDate = df.format(c);
 
-                    if(formattedDate.compareTo(a.date)<=0){
+                    if(formattedDate.compareTo(a.date)<=0&&a.getRegistration().compareTo("open")==0){
                         mealList.add(a);
                     }
 

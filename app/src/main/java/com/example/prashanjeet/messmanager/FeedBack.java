@@ -87,7 +87,7 @@ public class FeedBack extends AppCompatActivity  implements DatePickerDialog.OnD
         String id = myRef.push().getKey();
         feedbackprofile feedbackpro = new feedbackprofile(feedbackMeal, feedbackText,currentDate,value);
         myRef.child(id).setValue(feedbackpro);
-        Intent intent = new Intent(FeedBack.this,ManagerHome.class);
+        Intent intent = new Intent(FeedBack.this,StudentHome.class);
         startActivity(intent);
         finish();
 
