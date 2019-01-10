@@ -117,6 +117,12 @@ public class ManagerHome extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        if(id==R.id.id_QR)
+        {
+            Intent intent = new Intent(ManagerHome.this,Scan.class);
+            startActivity(intent);
+            return true;
+        }
         return  true;
     }
     @Override
