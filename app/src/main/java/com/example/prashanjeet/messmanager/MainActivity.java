@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         if(firebaseUser!=null){
             Intent intent   = new Intent(MainActivity.this,StudentHome.class);
             startActivity(intent);
+            finish();
         }
         welcomeMessage = (TextView)findViewById(R.id.welcomeMessage);
         studentLogin.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent  intent  = new  Intent(MainActivity.this,StudentLogin.class);
                 startActivity(intent);
+                finish();
             }
         });
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         adminLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  intent  = new  Intent(MainActivity.this ,ManagerHome.class);
+                Intent  intent  = new  Intent(MainActivity.this ,AdminLogin.class);
                 startActivity(intent);
             }
         });

@@ -1,5 +1,6 @@
 package com.example.prashanjeet.messmanager;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class FeedbackAdmin extends AppCompatActivity {
     private ListView listViewFeed;
     private List<feedbackprofile> feedList;
     private feedbackprofile feedbackprofile1;
+    private ProgressDialog progressDialog;
     public DatabaseReference databaseReference;
 
 
@@ -30,6 +32,7 @@ public class FeedbackAdmin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback_admin);
         listViewFeed =(ListView) findViewById(R.id.listViewFeed);
+        progressDialog = new ProgressDialog(FeedbackAdmin.this);
         feedList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("feedback");
     }
@@ -37,6 +40,8 @@ public class FeedbackAdmin extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        progressDialog.setMessage("Fetching Feedbacks");
+        progressDialog.show();
 
         SharedPreferences sharedPreferences = getSharedPreferences("myFile", Context.MODE_PRIVATE);
         String def = "defaul";
@@ -63,6 +68,7 @@ public class FeedbackAdmin extends AppCompatActivity {
 
                 FeedbackList adapter = new FeedbackList(FeedbackAdmin.this, feedList);
                 listViewFeed.setAdapter(adapter);
+                progressDialog.dismiss();
                 if(feedList.size()==0){
                     Toast.makeText(getApplicationContext(), "No FeedBacks", Toast.LENGTH_LONG).show();
                 }

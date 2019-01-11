@@ -33,8 +33,8 @@ public class ComplaindList extends ArrayAdapter<ComplaindClass> {
         TextView textViewDate = (TextView) listViewItem.findViewById(R.id.textViewDate);
 
         ComplaindClass appo = appoList.get(position);
-        textViewTitle.setText("Compaind ::\n"+appo.getMessage());
-        textViewDate.setText("\n"+ "Name::"+appo.getName()+"\n");
+        textViewTitle.setText("Issue:-"+appo.getMessage());
+        textViewDate.setText("Name::"+appo.getName());
 
         return listViewItem;
     }

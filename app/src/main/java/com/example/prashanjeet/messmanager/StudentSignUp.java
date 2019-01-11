@@ -47,6 +47,8 @@ public class StudentSignUp extends AppCompatActivity {
         studentSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setMessage("Uploading Details!!");
+                progressDialog.show();
                 if(validate()){
                     final  String studentN = studentName.getText().toString();
                     final String studentP = studentPassword.getText().toString().trim();
@@ -85,7 +87,7 @@ public class StudentSignUp extends AppCompatActivity {
 
                                 }
                                 else{
-                                    //progressDialog.dismiss();
+                                    progressDialog.dismiss();
                                     Toast.makeText(StudentSignUp.this,"Registration Failed",Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -122,7 +124,7 @@ public class StudentSignUp extends AppCompatActivity {
     private void sendEmailVerification(){
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         String email2 = firebaseUser.getEmail();
-        Toast.makeText(StudentSignUp.this,email2,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(StudentSignUp.this,email2,Toast.LENGTH_SHORT).show();
         if(firebaseUser != null){
             firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -131,9 +133,11 @@ public class StudentSignUp extends AppCompatActivity {
                     if(task.isSuccessful()){
                         Toast.makeText(StudentSignUp.this,"Successfully Registered and Email send !!",Toast.LENGTH_SHORT).show();
                         firebaseAuth.signOut();
-                        finish();
+                        progressDialog.dismiss();
+
                         Intent intent = new Intent(StudentSignUp.this,MainActivity.class);
                         startActivity(intent);
+                        finish();
 
                     }
                     else{

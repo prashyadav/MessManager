@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/zxing_custom_possible_result_points"
     tools:context="com.example.prashanjeet.messmanager.AdminCompalinds">
 
     <ListView

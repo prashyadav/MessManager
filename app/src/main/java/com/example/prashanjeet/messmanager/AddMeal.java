@@ -1,6 +1,7 @@
 package com.example.prashanjeet.messmanager;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -25,12 +26,14 @@ public class AddMeal extends AppCompatActivity  implements DatePickerDialog.OnDa
     EditText title,cost,des;
     TextView date;
     public DatabaseReference databaseUsers;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meal);
         add = (Button) findViewById(R.id.meal_add);
+        progressDialog = new ProgressDialog(AddMeal.this);
         title= (EditText) findViewById(R.id.meal_title);
         des = (EditText) findViewById(R.id.meal_description);
         cost = (EditText) findViewById(R.id.meal_cost);
@@ -57,19 +60,26 @@ public class AddMeal extends AppCompatActivity  implements DatePickerDialog.OnDa
                 int val = Integer.parseInt(co);
                 String d = date.getText().toString();
                 Meal meal = new Meal(tit,desc,co,d,id);
-
-                try {
-                    databaseUsers.child(id).setValue(meal);
-                    Toast.makeText(AddMeal.this,"Meal Uploaded",Toast.LENGTH_LONG).show();
+                if(tit.isEmpty()||desc.isEmpty()||co.isEmpty()||d.isEmpty()){
+                    Toast.makeText(AddMeal.this,"Fill All Details",Toast.LENGTH_LONG).show();
                 }
-                catch (Exception e){
-                    e.printStackTrace();
-                    Toast.makeText(AddMeal.this,"Network error please try later",Toast.LENGTH_LONG).show();
-                }
+                else {
+                    progressDialog.setMessage("Adding Meal");
+                    progressDialog.show();
 
-                Intent intent  = new  Intent(AddMeal.this ,ManagerHome.class);
-                startActivity(intent);
-                finish();
+                    try {
+                        databaseUsers.child(id).setValue(meal);
+                        Toast.makeText(AddMeal.this, "Meal Uploaded", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(AddMeal.this, "Network error please try later", Toast.LENGTH_LONG).show();
+                    }
+                    progressDialog.dismiss();
+
+                    Intent intent = new Intent(AddMeal.this, ManagerHome.class);
+                    startActivity(intent);
+                    finish();
+                }
 
             }
         });

@@ -1,5 +1,6 @@
 package com.example.prashanjeet.messmanager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ public class AdminStudentActivity extends AppCompatActivity {
     public Button showBtn;
     String reg,mealUid;
     DatabaseReference databaseReference;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class AdminStudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_student);
         studentReg = (EditText)findViewById(R.id.studentRegn1);
         showBtn = (Button)findViewById(R.id.showBtn);
+        progressDialog = new ProgressDialog(AdminStudentActivity.this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
         showBtn.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +42,8 @@ public class AdminStudentActivity extends AppCompatActivity {
                     Toast.makeText(AdminStudentActivity.this,"Please fill all details",Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    progressDialog.setMessage("Fetching Details");
+                    progressDialog.show();
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -49,6 +54,7 @@ public class AdminStudentActivity extends AppCompatActivity {
                                 mealUid = a.getId();
                                 //Toast.makeText(AdminStudentActivity.this,stat,Toast.LENGTH_LONG).show();
                                 if(a.getRegNumber().compareTo(reg)==0){
+                                    progressDialog.dismiss();
                                     //Toast.makeText(AdminStudentActivity.this,"hii",Toast.LENGTH_LONG).show();
                                     j=1;
                                     Intent intent = new Intent(AdminStudentActivity.this,StudentActivities.class);
@@ -66,6 +72,7 @@ public class AdminStudentActivity extends AppCompatActivity {
                            // AppoArrayList adapter = new AppoArrayList(AdminVerify.this, studentList);
                            // listViewStudent.setAdapter(adapter);
                             if(j==0){
+                                progressDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "No StudentFind with this Registration Number", Toast.LENGTH_LONG).show();
                             }
                             ///Log.d("res",appoList.get(0).getTitle());

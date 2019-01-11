@@ -1,5 +1,6 @@
 package com.example.prashanjeet.messmanager;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,6 +31,7 @@ public class AdminVerify extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private List<Student> studentList;
     private Student student;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class AdminVerify extends AppCompatActivity {
         setContentView(R.layout.activity_admin_verify);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(AdminVerify.this);
 
         //Log.d("res", status);
 
@@ -53,6 +56,7 @@ public class AdminVerify extends AppCompatActivity {
                 Intent intent = new Intent(AdminVerify.this,AdminConfirm.class);
                 intent.putExtra("student_uid",uid);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -61,7 +65,8 @@ public class AdminVerify extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        progressDialog.setMessage("Fetching Details");
+        progressDialog.show();
         SharedPreferences sharedPreferences = getSharedPreferences("myFile", Context.MODE_PRIVATE);
         String def = "defaul";
 //        String userId = sharedPreferences.getString("id",def);
@@ -102,6 +107,7 @@ public class AdminVerify extends AppCompatActivity {
 
                 AppoArrayList adapter = new AppoArrayList(AdminVerify.this, studentList);
                 listViewStudent.setAdapter(adapter);
+                progressDialog.dismiss();
                 if(studentList.size()==0){
                     Toast.makeText(getApplicationContext(), "No Student Left", Toast.LENGTH_LONG).show();
                 }

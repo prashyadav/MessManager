@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_bright"
     tools:context="com.example.prashanjeet.messmanager.AddMeal">
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
         android:text="Meal"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/meal_title"
@@ -25,8 +26,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="37dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="title" />
+        android:hint="title"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/meal_description"
@@ -36,8 +37,8 @@
         android:layout_below="@+id/meal_title"
         android:layout_marginTop="34dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="desc" />
+        android:hint="desc"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/meal_cost"

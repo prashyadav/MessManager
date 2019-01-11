@@ -3,9 +3,9 @@ package com.example.prashanjeet.messmanager;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -35,6 +34,7 @@ public class Scan extends AppCompatActivity implements DatePickerDialog.OnDateSe
     private FirebaseAuth firebaseAuth;
     EditText me;
     TextView da;
+    String formattedDate = new String("hello");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +62,18 @@ public class Scan extends AppCompatActivity implements DatePickerDialog.OnDateSe
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IntentIntegrator intentIntegrator = new IntentIntegrator(activity);
-                intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-                intentIntegrator.setPrompt("Scan");
-                intentIntegrator.setCameraId(0);
-                intentIntegrator.setBeepEnabled(false);
-                intentIntegrator.setBarcodeImageEnabled(false);
-                intentIntegrator.initiateScan();
+                if(formattedDate.compareTo("hello")==0||me.getText().toString().isEmpty()){
+                    Toast.makeText(Scan.this,"Fill Details",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    IntentIntegrator intentIntegrator = new IntentIntegrator(activity);
+                    intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                    intentIntegrator.setPrompt("Scan");
+                    intentIntegrator.setCameraId(0);
+                    intentIntegrator.setBeepEnabled(false);
+                    intentIntegrator.setBarcodeImageEnabled(false);
+                    intentIntegrator.initiateScan();
+                }
             }
         });
     }
@@ -102,7 +107,7 @@ public class Scan extends AppCompatActivity implements DatePickerDialog.OnDateSe
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
         //String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        String formattedDate = df.format(c.getTime());
+         formattedDate = df.format(c.getTime());
 
         da.setText(formattedDate);
     }

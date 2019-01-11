@@ -1,5 +1,6 @@
 package com.example.prashanjeet.messmanager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ public class AdminConfirm extends AppCompatActivity {
     String uid;
     public String sname,reg,room,hostel,mobileN,email,mealId;
     public DatabaseReference databaseReference;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class AdminConfirm extends AppCompatActivity {
         studentH = (TextView)findViewById(R.id.studentHost);
         acceptBtn = (Button)findViewById(R.id.acceptBtn);
         rejectBtn = (Button)findViewById(R.id.rejectBtn);
+        progressDialog = new ProgressDialog(AdminConfirm.this);
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
         Intent intent = getIntent();
@@ -50,13 +53,13 @@ public class AdminConfirm extends AppCompatActivity {
                    student = dataSnapshot.getValue(Student.class);
 
                    sname = student.getName();
-                   studentN.setText(sname);
+                   studentN.setText("Name :: "+sname);
                    reg = student.getRegNumber();
-                   studentReg.setText(reg);
+                   studentReg.setText("Reg No. :: "+reg);
                    room = student.getRoomNo();
-                   studentRoom.setText(room);
+                   studentRoom.setText("Room No. :: "+room);
                    hostel = student.getHostel();
-                   studentH.setText(hostel);
+                   studentH.setText("Hostel  ::  "+hostel);
                    mobileN = student.getMobile();
                    email = student.getEmail();
                    mealId = student.getMealId();

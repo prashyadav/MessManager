@@ -1,5 +1,6 @@
 package com.example.prashanjeet.messmanager;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class AdminCompalinds extends AppCompatActivity {
     private List<ComplaindClass> cmpList;
     private ComplaindClass complaindClass;
     public  DatabaseReference databaseReference;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +33,14 @@ public class AdminCompalinds extends AppCompatActivity {
         listViewComp =(ListView) findViewById(R.id.listViewComp);
         cmpList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("complainds");
+        progressDialog = new ProgressDialog(AdminCompalinds.this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        progressDialog.setMessage("Fetching Details of Complainds");
+        progressDialog.show();
 
         SharedPreferences sharedPreferences = getSharedPreferences("myFile", Context.MODE_PRIVATE);
         String def = "defaul";
@@ -62,6 +67,7 @@ public class AdminCompalinds extends AppCompatActivity {
 
                 ComplaindList adapter = new ComplaindList(AdminCompalinds.this, cmpList);
                 listViewComp.setAdapter(adapter);
+                progressDialog.dismiss();
                 if(cmpList.size()==0){
                     Toast.makeText(getApplicationContext(), "No Complainds", Toast.LENGTH_LONG).show();
                 }

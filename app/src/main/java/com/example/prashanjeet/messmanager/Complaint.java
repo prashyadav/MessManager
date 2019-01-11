@@ -1,5 +1,6 @@
 package com.example.prashanjeet.messmanager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ public class Complaint extends AppCompatActivity {
     EditText namedata, EmailData, MessageData;
     Button Sendbutton, Detailsbutton;
     DatabaseReference databaseReference;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class Complaint extends AppCompatActivity {
         EmailData = (EditText) findViewById(R.id.Emailid_EditText);
         MessageData = (EditText) findViewById(R.id.Message_EditText);
         Sendbutton = (Button) findViewById(R.id.SendData_Button);
+        progressDialog = new ProgressDialog(Complaint.this);
         databaseReference = FirebaseDatabase.getInstance().getReference("complainds");
         Sendbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +43,8 @@ public class Complaint extends AppCompatActivity {
                     Toast.makeText(Complaint.this,"Fill All Details",Toast.LENGTH_LONG).show();
                 }
                 else{
+                    progressDialog.setMessage("Sending Complainds");
+                    progressDialog.show();
 
                     ComplaindClass c = new ComplaindClass(Message,name,Email);
 
@@ -51,6 +56,7 @@ public class Complaint extends AppCompatActivity {
                         e.printStackTrace();
                         Toast.makeText(Complaint.this, "Network Error Try again",Toast.LENGTH_SHORT).show();
                     }
+                    progressDialog.dismiss();
                     Intent intent = new Intent(Complaint.this,StudentHome.class);
                     startActivity(intent);
                     finish();

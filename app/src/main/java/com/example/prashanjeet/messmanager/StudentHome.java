@@ -1,5 +1,6 @@
 package com.example.prashanjeet.messmanager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -42,6 +43,8 @@ public class StudentHome extends AppCompatActivity {
     int cnfstat=0;
     int cancelstat=0;
     String mealUid;
+    private ProgressDialog progressDialog;
+
 
     UserMeal meal;
     AlertDialog alertDialog;
@@ -57,6 +60,7 @@ public class StudentHome extends AppCompatActivity {
         mealUid= intent.getStringExtra("mealId");
         firebaseAuth=FirebaseAuth.getInstance();
         listViewMeal =(ListView) findViewById(R.id.listViewAppo);
+        progressDialog = new ProgressDialog(StudentHome.this);
         //complaintbutton=(Button)findViewById(R.id.Complaint_Button);
 //        complaintbutton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -65,7 +69,6 @@ public class StudentHome extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
-
         mealList = new ArrayList<>();
 
         listViewMeal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -131,6 +134,8 @@ public class StudentHome extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();
+        progressDialog.setMessage("Fetching Details!!");
+        progressDialog.show();
 
         databaseMealsRef = FirebaseDatabase.getInstance().getReference("meals");
 
@@ -170,8 +175,10 @@ public class StudentHome extends AppCompatActivity {
 
                 MealArrayList adapter = new MealArrayList(StudentHome.this, mealList);
                 listViewMeal.setAdapter(adapter);
+                progressDialog.dismiss();
                 if(mealList.size()==0){
                     Toast.makeText(getApplicationContext(), "No Meals found", Toast.LENGTH_LONG).show();
+                   // progressDialog.dismiss();
                 }
 
             }
@@ -223,16 +230,17 @@ public class StudentHome extends AppCompatActivity {
         conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cnfstat==0) {
-                    confirm();
-                    cnfstat =1;
-                    cancelstat=1;
-                }
-                else
-                {
-                    Toast.makeText(StudentHome.this,"Already Confirmed",Toast.LENGTH_LONG).show();
-                    alertDialog.dismiss();
-                }
+                confirm();
+//                if(cnfstat==0) {
+//                    confirm();
+//                    cnfstat =1;
+//                    cancelstat=1;
+//                }
+//                else
+//                {
+//                    Toast.makeText(StudentHome.this,"Already Confirmed",Toast.LENGTH_LONG).show();
+//                    alertDialog.dismiss();
+//                }
 
             }
         });
@@ -241,16 +249,8 @@ public class StudentHome extends AppCompatActivity {
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cancelstat==1) {
-                    deleteAdminAppo();
-                    cnfstat =0;
-                    cancelstat=0;
-                }
-                else
-                {
-                    Toast.makeText(StudentHome.this,"Not Confirmed Yet",Toast.LENGTH_LONG).show();
-                    alertDialog.dismiss();
-                }
+                //confirm();
+                deleteAdminAppo();
             }
         });
         Button feedback = (Button)  dialogView.findViewById(R.id.adminDialogUpdateButton);
@@ -276,78 +276,55 @@ public class StudentHome extends AppCompatActivity {
     }
 
     private void confirm(){
-
-
-
-//        Query query = reference.child("tasks").orderByChild("Description").equalTo("test2");
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
-//                String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
-//                String path = "/" + dataSnapshot.getKey() + "/" + key;
-//                HashMap<String, Object> result = new HashMap<>();
-//                result.put("Status", "COMPLETED");
-//                reference.child(path).updateChildren(result);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Logger.error(TAG, ">>> Error:" + "find onCancelled:" + databaseError);
-//
-//            }
-//        });
-
-
-
         int index= (Integer.parseInt(m.date.substring(3,5))-1)*31+Integer.parseInt(m.date.substring(0,2));
         Log.d("name", String.valueOf(index));
         int v =meal.list.get(index);
-        meal.list.set(index,v+m.val);
-        v=meal.getTotalMeals();
-        v++;
-        meal.setTotalMeals(v);
-        v=meal.getBalance();
-        v= v-cost;
-        meal.setBalance(v);
-        databaseUserMealsRef.setValue(meal);
-
-
-        m.registered +=1;
-        databaseMealsRef.child(m.getId()).setValue(m);
-
-
-        alertDialog.dismiss();
-        Toast.makeText(StudentHome.this,"confirmed",Toast.LENGTH_LONG).show();
-
+        int p=v&m.val;
+        if(p!=0)
+        {
+            alertDialog.dismiss();
+            Toast.makeText(StudentHome.this,"Already Confirmed",Toast.LENGTH_LONG).show();
+        }
+        else {
+            meal.list.set(index, v + m.val);
+            v = meal.getTotalMeals();
+            v++;
+            meal.setTotalMeals(v);
+            v = meal.getBalance();
+            v = v - cost;
+            meal.setBalance(v);
+            databaseUserMealsRef.setValue(meal);
+            m.registered += 1;
+            databaseMealsRef.child(m.getId()).setValue(m);
+            alertDialog.dismiss();
+            Toast.makeText(StudentHome.this, "confirmed", Toast.LENGTH_LONG).show();
+        }
     }
     private void deleteAdminAppo(){
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("adminAppointments").child(ad.getAdminId()).child(ad.getId());
-//        DatabaseReference dbRef =FirebaseDatabase.getInstance().getReference().child("userAppointments").child(ad.getUserId()).child(ad.getId());
-//        dbRef.removeValue();
-//        databaseReference.removeValue();
         Log.d("res", "deleted");
-
         int index= (Integer.parseInt(m.date.substring(3,5))-1)*31+Integer.parseInt(m.date.substring(0,2));
         Log.d("name", String.valueOf(index));
         int v =meal.list.get(index);
-        meal.list.set(index,v-m.val);
-        v=meal.getTotalMeals();
-        v--;
-        meal.setTotalMeals(v);
-        v=meal.getBalance();
-        v= v+cost;
-        meal.setBalance(v);
-        databaseUserMealsRef.setValue(meal);
-
-
-        m.registered -=1;
-        databaseMealsRef.child(m.getId()).setValue(m);
-
-
-        alertDialog.dismiss();
-        Toast.makeText(StudentHome.this,"cancelled",Toast.LENGTH_LONG).show();
-
+        int p=v&m.val;
+        if(p==0)
+        {
+            alertDialog.dismiss();
+            Toast.makeText(StudentHome.this,"Not Confirmed",Toast.LENGTH_LONG).show();
+        }
+        else {
+            meal.list.set(index, v - m.val);
+            v = meal.getTotalMeals();
+            v--;
+            meal.setTotalMeals(v);
+            v = meal.getBalance();
+            v = v + cost;
+            meal.setBalance(v);
+            databaseUserMealsRef.setValue(meal);
+            m.registered -= 1;
+            databaseMealsRef.child(m.getId()).setValue(m);
+            alertDialog.dismiss();
+            Toast.makeText(StudentHome.this, "cancelled", Toast.LENGTH_LONG).show();
+        }
     }
 }
 

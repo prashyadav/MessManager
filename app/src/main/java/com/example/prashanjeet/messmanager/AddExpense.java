@@ -1,9 +1,10 @@
 package com.example.prashanjeet.messmanager;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -34,8 +35,8 @@ public class AddExpense extends AppCompatActivity implements DatePickerDialog.On
         expenseCost = (EditText) findViewById(R.id.expenseCost);
         expenseDate = (TextView)findViewById(R.id.expenseDate);
         expenseDesc = (EditText)findViewById(R.id.expenseDesc);
+       // progressDialog = new ProgressDialog(AddExpense.this);
         submitBtn = (Button)findViewById(R.id.submitBtn);
-        databaseReference = FirebaseDatabase.getInstance().getReference("expense");
         expenseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +48,10 @@ public class AddExpense extends AppCompatActivity implements DatePickerDialog.On
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //progressDialog.setMessage("Adding expense");
+                //progressDialog.show();
+               // Toast.makeText(AddExpense.this,"show pressed",Toast.LENGTH_SHORT).show();
+                databaseReference = FirebaseDatabase.getInstance().getReference("expense");
                 String id = databaseReference.push().getKey();
                 desc = expenseDesc.getText().toString();
                 cost1 = expenseCost.getText().toString();
@@ -57,15 +62,24 @@ public class AddExpense extends AppCompatActivity implements DatePickerDialog.On
                 }
                 else
                 {
-                    AdminExpense addExpense = new AdminExpense(cost,desc,formattedDate,month);
+                    //progressDialog.setMessage("Adding Expenses");
+                   // progressDialog.show();
+
                     try {
+                        AdminExpense addExpense = new AdminExpense(cost,desc,formattedDate,month);
+
                         databaseReference.child(id).setValue(addExpense);
+                        Toast.makeText(AddExpense.this,"added successfully",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(AddExpense.this,ManagerHome.class);
+                        startActivity(intent);
+                        finish();
 
                     }
                     catch (Exception e){
                         e.printStackTrace();
                         Toast.makeText(AddExpense.this,"Network error please try later",Toast.LENGTH_LONG).show();
                     }
+                    //progressDialog.dismiss();
                 }
 
 

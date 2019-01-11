@@ -1,6 +1,7 @@
 package com.example.prashanjeet.messmanager;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -27,6 +28,7 @@ public class FeedBack extends AppCompatActivity  implements DatePickerDialog.OnD
     RatingBar rating;
     public TextView mcurrentdate;
     public Button feedbacksubmit;
+    private ProgressDialog progressDialog;
     public FirebaseUser firebaseAuth;
     private DatabaseReference databaseUserMeals;
     public DatabaseReference databaseReference;
@@ -41,11 +43,13 @@ public class FeedBack extends AppCompatActivity  implements DatePickerDialog.OnD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_back);
+
         firebaseAuth = FirebaseAuth.getInstance().getCurrentUser();
         //databaseReference = FirebaseDatabase.getInstance().getReference("FEEDBACK");
         mcurrentdate = (TextView) findViewById(R.id.FeedbackDate_TextView);
         feedbackmeal = (EditText) findViewById(R.id.feedbackmeal_EditText);
         feedbacktext = (EditText) findViewById(R.id.Feedback_EditText);
+        progressDialog = new ProgressDialog(FeedBack.this);
         feedbacksubmit = (Button) findViewById(R.id.Feedback_submit_button);
         rating=(RatingBar)findViewById(R.id.Feedback_ratingBar);
         ratingvalue=(TextView)findViewById(R.id.Rating_Value);
@@ -70,7 +74,9 @@ public class FeedBack extends AppCompatActivity  implements DatePickerDialog.OnD
                     feedbackText = feedbacktext.getText().toString();
                     pdate = mcurrentdate.getText().toString();
                     value=ratingvalue.getText().toString();
-                    Toast.makeText(FeedBack.this, "your data", Toast.LENGTH_SHORT).show();
+                    progressDialog.setMessage("Sending Feedback");
+                    progressDialog.show();
+                    //Toast.makeText(FeedBack.this, "your data", Toast.LENGTH_SHORT).show();
                     sendUserData();
                     Toast.makeText(FeedBack.this, "your data sended to the server", Toast.LENGTH_SHORT).show();
                 }
@@ -89,6 +95,7 @@ public class FeedBack extends AppCompatActivity  implements DatePickerDialog.OnD
         feedbackprofile feedbackpro = new feedbackprofile(feedbackMeal, feedbackText,pdate,value);
         myRef.child(id).setValue(feedbackpro);
         Intent intent = new Intent(FeedBack.this,StudentHome.class);
+        progressDialog.dismiss();
         startActivity(intent);
         finish();
     }
@@ -100,8 +107,9 @@ public class FeedBack extends AppCompatActivity  implements DatePickerDialog.OnD
         //email = userEmail.getText().toString();
         feedbackText = feedbacktext.getText().toString();
         pdate = mcurrentdate.getText().toString();
+        //Toast.makeText(FeedBack.this,pdate,Toast.LENGTH_SHORT).show();
 
-        if(feedbackMeal.isEmpty() || feedbackText.isEmpty()||pdate.isEmpty()){
+        if(feedbackMeal.isEmpty() || feedbackText.isEmpty()||pdate.compareTo("DATE")==0){
             Toast.makeText(this, "Please enter all the details", Toast.LENGTH_SHORT).show();
         }else{
             result = true;

@@ -1,5 +1,6 @@
 package com.example.prashanjeet.messmanager;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,6 +38,7 @@ public class ManagerHome extends AppCompatActivity {
     private List<Meal> mealList;
     private Meal m;
     private Button stop;
+    private ProgressDialog progressDialog;
     AlertDialog alertDialog;
     int cost;
     int cnfstat=0,cancelstat=0;
@@ -47,6 +49,7 @@ public class ManagerHome extends AppCompatActivity {
         listViewMeal =(ListView) findViewById(R.id.listViewAppo);
         mealList = new ArrayList<>();
         fabMeal = (FloatingActionButton) findViewById(R.id.fab_add);
+        progressDialog = new ProgressDialog(ManagerHome.this);
         fabMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +86,12 @@ public class ManagerHome extends AppCompatActivity {
             startActivity(intent);
             return  true;
         }
+        if(id==R.id.id_scan)
+        {
+            Intent intent = new Intent(ManagerHome.this,Scan.class);
+            startActivity(intent);
+            return  true;
+        }
         if(id==R.id.id_Comp)
         {
             Intent intent = new Intent(ManagerHome.this,AdminCompalinds.class);
@@ -98,6 +107,9 @@ public class ManagerHome extends AppCompatActivity {
         if(id==R.id.id_allexp)
         {
             Intent intent = new Intent(ManagerHome.this,AdminAllExpenses.class);
+            int y=20;
+            String str = String.valueOf(y);
+            intent.putExtra("month",str);
             startActivity(intent);
             return true;
         }
@@ -130,6 +142,8 @@ public class ManagerHome extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        progressDialog.setMessage("Fetching Details of meals");
+        progressDialog.show();
 
         SharedPreferences sharedPreferences = getSharedPreferences("myFile", Context.MODE_PRIVATE);
         String def = "defaul";
@@ -172,6 +186,7 @@ public class ManagerHome extends AppCompatActivity {
 //                adminlist.add(b);
                 MealArrayList adapter = new MealArrayList(ManagerHome.this, mealList);
                 listViewMeal.setAdapter(adapter);
+                progressDialog.dismiss();
                 if(mealList.size()==0){
                     Toast.makeText(getApplicationContext(), "No Meals found", Toast.LENGTH_LONG).show();
                 }
@@ -205,9 +220,15 @@ public class ManagerHome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Change status from open to close
-                m.setRegistration("stop");
-                databaseReference = FirebaseDatabase.getInstance().getReference("meals").child(m.getId());
-                databaseReference.setValue(m);
+                if(m.getRegistration().compareTo("stop")==0){
+                    Toast.makeText(ManagerHome.this,"Already Stopped",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    m.setRegistration("stop");
+                    databaseReference = FirebaseDatabase.getInstance().getReference("meals").child(m.getId());
+                    databaseReference.setValue(m);
+                    Toast.makeText(ManagerHome.this, "Registrations Stopped", Toast.LENGTH_LONG).show();
+                }
                 alertDialog.dismiss();
             }
         });
@@ -230,6 +251,7 @@ public class ManagerHome extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ManagerHome.this,UpdateMealActivity.class);
                 intent.putExtra("meal_id",m.getId());
+                alertDialog.dismiss();
                 startActivity(intent);
             }
         });

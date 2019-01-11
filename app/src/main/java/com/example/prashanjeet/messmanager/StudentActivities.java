@@ -1,6 +1,7 @@
 package com.example.prashanjeet.messmanager;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -32,6 +33,7 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
     String formattedDate = new String("hello");
     String value;
     public Button showInfo;
+    private ProgressDialog progressDialog;
     int date,mon;
 
     @Override
@@ -41,6 +43,7 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
         totalMealsText = (TextView)findViewById(R.id.totalMeals);
         balanceText = (TextView)findViewById(R.id.balance);
         studentNa = (TextView)findViewById(R.id.studentNa);
+        progressDialog = new ProgressDialog(StudentActivities.this);
         studentReg = (TextView)findViewById(R.id.studentReg);
         chooseDate = (TextView)findViewById(R.id.choosedate);
         breakFast = (TextView)findViewById(R.id.breakFast);
@@ -50,6 +53,8 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
         showInfo = (Button)findViewById(R.id.showActivity);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getInstance().getCurrentUser();
+        progressDialog.setMessage("Fetching Details");
+        progressDialog.show();
         //uid = firebaseUser.getUid();
         Intent intent = getIntent();
         uid = intent.getStringExtra("mealId");
@@ -69,6 +74,7 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
                 v = meal.getTotalMeals();
                 value = String.valueOf(v);
                 totalMealsText.setText("Total Meals taken ::  " + value);
+                progressDialog.dismiss();
 
                 //Toast.makeText(StudentActivities.this,value,Toast.LENGTH_LONG).show();
 
@@ -95,6 +101,8 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
                     Toast.makeText(StudentActivities.this, "Select Date", Toast.LENGTH_LONG).show();
                 }
                 else{
+                    progressDialog.setMessage("Fetching Details");
+                    progressDialog.show();
                 date = Integer.parseInt(formattedDate.substring(0, 2));
                 mon = Integer.parseInt(formattedDate.substring(3, 5));
                 date = 31 * (mon - 1) + date;
@@ -132,6 +140,7 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
                         } else {
                             dinner.setText("Dinner  ::  Not Taken");
                         }
+                        progressDialog.dismiss();
 
 
                     }

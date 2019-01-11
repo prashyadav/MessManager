@@ -1,5 +1,7 @@
 package com.example.prashanjeet.messmanager;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,14 +18,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class AdminProfile extends AppCompatActivity {
-    public TextView totalAmount,totalSpent,totalStudent,monthExp;
+    public TextView totalAmount,totalSpent,totalStudent,monthExp,monthExpShow;
     public EditText monthNumber;
     public Button showBtn;
     public DatabaseReference databaseReference,databaseReference1;
+    private ProgressDialog progressDialog;
     int j=0;
     int x=0;
     int totalexp=0;
     int[]  arr = new int[20];
+    int m;
+    String str;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +37,14 @@ public class AdminProfile extends AppCompatActivity {
         totalAmount = (TextView)findViewById(R.id.totalAmount);
         totalSpent = (TextView)findViewById(R.id.totalSpent);
         totalStudent = (TextView)findViewById(R.id.totalStudent);
+        monthExpShow = (TextView)findViewById(R.id.monthExpshow);
         monthNumber = (EditText)findViewById(R.id.month);
         monthExp = (TextView)findViewById(R.id.monthExp);
         showBtn = (Button)findViewById(R.id.showBtn);
+       // monthBtn = (Button)findViewById(R.id.monthBtn) ;
+        progressDialog = new ProgressDialog(AdminProfile.this);
+        progressDialog.setMessage("Fetching Details");
+        progressDialog.show();
         databaseReference = FirebaseDatabase.getInstance().getReference("userMeals");
         databaseReference1 = FirebaseDatabase.getInstance().getReference("expense");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -55,7 +65,7 @@ public class AdminProfile extends AppCompatActivity {
                 totalStudent.setText("Total Students :: "  + s);
                 s = String.valueOf(x);
                 totalAmount.setText("Total Amount coll:: "  + s);
-
+                progressDialog.dismiss();
 
 
             }
@@ -68,6 +78,8 @@ public class AdminProfile extends AppCompatActivity {
         databaseReference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                progressDialog.setMessage("Fetching Details");
+                progressDialog.show();
                 for(DataSnapshot appoSnapshot : dataSnapshot.getChildren()){
                     AdminExpense a = appoSnapshot.getValue(AdminExpense.class);
                     if(a!=null){
@@ -78,6 +90,7 @@ public class AdminProfile extends AppCompatActivity {
                 }
                 String s=String.valueOf(totalexp);
                 totalSpent.setText("Total spent::"+s);
+                progressDialog.dismiss();
             }
 
             @Override
@@ -92,18 +105,31 @@ public class AdminProfile extends AppCompatActivity {
                     Toast.makeText(AdminProfile.this,"Enter Month",Toast.LENGTH_LONG).show();
                 }
                 else{
-                    int m = Integer.parseInt(monthNumber.getText().toString());
+                    m = Integer.parseInt(monthNumber.getText().toString());
                     if(m>12&&m>0)
                     {
                         Toast.makeText(AdminProfile.this,"Please enter value between 1-12",Toast.LENGTH_LONG).show();
                     }
                     else {
+                        str = String.valueOf(m);
                         m = arr[m];
-                        String str = String.valueOf(m);
-                        monthExp.setText("Monthly expense is ::" + str);
+
+                        monthExp.setText("Monthly expense is ::" + String.valueOf(m));
+                        monthExpShow.setText("See Monthly Expense");
                     }
                 }
 
+            }
+        });
+        monthExpShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminProfile.this,AdminAllExpenses.class);
+                //Toast.makeText(AdminProfile.this, "Month is "+str,Toast.LENGTH_SHORT).show();
+                intent.putExtra("month",str);
+                monthExp.setText("");
+                monthExpShow.setText("");
+                startActivity(intent);
             }
         });
 

@@ -92,11 +92,12 @@ public class StudentLogin extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if(task.isSuccessful()){
-                    progressDialog.dismiss();
+
                     //Toast.makeText(MainActivity.this, "Login Successful   !!", Toast.LENGTH_SHORT).show();
                     // Intent intent = new Intent(MainActivity.this,Second.class);
                     //   startActivity(intent);
                     checkEmailVerification();
+
 
                 }
                 else{
@@ -124,13 +125,20 @@ public class StudentLogin extends AppCompatActivity {
                 {
 
                     Toast.makeText(StudentLogin.this, "Login successfull!!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                    emailStudent.setText("");
+                    passwordStudent.setText("");
                     Intent intent = new Intent(StudentLogin.this, StudentHome.class);
                     String mealId = student.getMealId();
                     intent.putExtra("mealId",mealId);
                     startActivity(intent);
+                    finish();
                 }
                 else{
-                    Toast.makeText(StudentLogin.this,"Please verify email!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StudentLogin.this,"Please get you email verified!!",Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                    progressDialog.dismiss();
+                    emailStudent.setText("");
                     firebaseAuth.signOut();
                 }
             }

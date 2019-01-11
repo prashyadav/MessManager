@@ -34,7 +34,7 @@ public class ExpArrayList extends ArrayAdapter<AdminExpense>  {
         TextView textViewDate = (TextView) listViewItem.findViewById(R.id.textViewDate);
 
         AdminExpense appo = appoList.get(position);
-        textViewTitle.setText(appo.getDesc() +"and  cost is   " +  appo.getCost());
+        textViewTitle.setText(appo.getDesc() +"\nCost:: " +  appo.getCost());
         textViewDate.setText(appo.getDate());
 
         return listViewItem;

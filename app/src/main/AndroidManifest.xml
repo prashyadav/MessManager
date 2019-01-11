@@ -49,7 +49,8 @@
 
         <activity android:name=".UpdateMealActivity" />
         <activity android:name=".FeedbackAdmin" />
-        <activity android:name=".AdminCompalinds"></activity>
+        <activity android:name=".AdminCompalinds" />
+        <activity android:name=".AdminLogin"></activity>
     </application>
 
 </manifest>

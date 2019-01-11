@@ -15,7 +15,7 @@
         android:layout_marginTop="62dp"
         android:text="Student Name"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/studentHost"
@@ -26,7 +26,7 @@
         android:layout_marginTop="28dp"
         android:text="Student Hostel"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/studentRoom"
@@ -37,7 +37,7 @@
         android:layout_marginTop="26dp"
         android:text="Student Room "
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/studentRegn1"
@@ -48,7 +48,7 @@
         android:layout_marginTop="27dp"
         android:text="Student Regn"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/acceptBtn"
