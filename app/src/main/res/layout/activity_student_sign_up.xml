@@ -97,17 +97,17 @@
         app:layout_constraintTop_toBottomOf="@+id/studentPassword"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
+    <Spinner
+
         android:id="@+id/studentHost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="210dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="7dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Hostel Name"
-        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintLeft_toLeftOf="parent"

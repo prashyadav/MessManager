@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,14 +65,13 @@ public class AdminProfile extends AppCompatActivity {
                 totalStudent.setText("Total Students :: "  + s);
                 s = String.valueOf(x);
                 totalAmount.setText("Total Amount coll:: "  + s);
-                progressDialog.dismiss();
 
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w("res", databaseError.toException());
+               Toast.makeText(AdminProfile.this,"Network Error!!",Toast.LENGTH_SHORT);
             }
         });
         databaseReference1.addValueEventListener(new ValueEventListener() {
@@ -96,7 +94,7 @@ public class AdminProfile extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w("res", databaseError.toException());
+                Toast.makeText(AdminProfile.this,"Network Error!!",Toast.LENGTH_SHORT);
             }
         });
         showBtn.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +107,7 @@ public class AdminProfile extends AppCompatActivity {
                     m = Integer.parseInt(monthNumber.getText().toString());
                     if(m>12&&m>0)
                     {
-                        Toast.makeText(AdminProfile.this,"Please enter value between 1-12",Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminProfile.this,"Please enter value between 1-12",Toast.LENGTH_SHORT).show();
                     }
                     else {
                         str = String.valueOf(m);
@@ -131,6 +129,7 @@ public class AdminProfile extends AppCompatActivity {
                 intent.putExtra("month",str);
                 monthExp.setText("");
                 monthExpShow.setText("");
+                monthExpShow.setEnabled(false);
                 startActivity(intent);
             }
         });

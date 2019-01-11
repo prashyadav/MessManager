@@ -68,9 +68,9 @@ public class FeedbackAdmin extends AppCompatActivity {
 
                 FeedbackList adapter = new FeedbackList(FeedbackAdmin.this, feedList);
                 listViewFeed.setAdapter(adapter);
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
                 if(feedList.size()==0){
-                    Toast.makeText(getApplicationContext(), "No FeedBacks", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No FeedBacks", Toast.LENGTH_SHORT).show();
                 }
                 ///Log.d("res",appoList.get(0).getTitle());
             }
@@ -81,5 +81,6 @@ public class FeedbackAdmin extends AppCompatActivity {
             }
         });
         Log.d("res", "on start ends here");
+        progressDialog.dismiss();
     }
 }

@@ -178,7 +178,7 @@ public class StudentHome extends AppCompatActivity {
                 listViewMeal.setAdapter(adapter);
                 progressDialog.dismiss();
                 if(mealList.size()==0){
-                    Toast.makeText(getApplicationContext(), "No Meals found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No Meals found", Toast.LENGTH_SHORT).show();
                    // progressDialog.dismiss();
                 }
 
@@ -187,6 +187,7 @@ public class StudentHome extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("res", databaseError.toException());
+                Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -203,12 +204,13 @@ public class StudentHome extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
 
             }
         });
 //
 
-
+        progressDialog.dismiss();
         Log.d("res", "on start ends here");
     }
 
@@ -284,7 +286,7 @@ public class StudentHome extends AppCompatActivity {
         if(p!=0)
         {
             alertDialog.dismiss();
-            Toast.makeText(StudentHome.this,"Already Confirmed",Toast.LENGTH_LONG).show();
+            Toast.makeText(StudentHome.this,"Already Confirmed",Toast.LENGTH_SHORT).show();
         }
         else {
             meal.list.set(index, v + m.val);
@@ -298,7 +300,7 @@ public class StudentHome extends AppCompatActivity {
             m.registered += 1;
             databaseMealsRef.child(m.getId()).setValue(m);
             alertDialog.dismiss();
-            Toast.makeText(StudentHome.this, "confirmed", Toast.LENGTH_LONG).show();
+            Toast.makeText(StudentHome.this, "confirmed", Toast.LENGTH_SHORT).show();
         }
     }
     private void deleteAdminAppo(){
@@ -310,7 +312,7 @@ public class StudentHome extends AppCompatActivity {
         if(p==0)
         {
             alertDialog.dismiss();
-            Toast.makeText(StudentHome.this,"Not Confirmed",Toast.LENGTH_LONG).show();
+            Toast.makeText(StudentHome.this,"Not Confirmed",Toast.LENGTH_SHORT).show();
         }
         else {
             meal.list.set(index, v - m.val);
@@ -324,7 +326,7 @@ public class StudentHome extends AppCompatActivity {
             m.registered -= 1;
             databaseMealsRef.child(m.getId()).setValue(m);
             alertDialog.dismiss();
-            Toast.makeText(StudentHome.this, "cancelled", Toast.LENGTH_LONG).show();
+            Toast.makeText(StudentHome.this, "cancelled", Toast.LENGTH_SHORT).show();
         }
     }
 }

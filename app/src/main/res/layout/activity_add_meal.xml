@@ -18,10 +18,10 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <EditText
+    <Spinner
         android:id="@+id/meal_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="30dp"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="37dp"

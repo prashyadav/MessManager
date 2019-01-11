@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,13 +23,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StudentSignUp extends AppCompatActivity {
     private Button studentSignUp;
     public ProgressDialog progressDialog;
     public FirebaseAuth firebaseAuth;
     private DatabaseReference databaseUserMeals;
     public DatabaseReference databaseUsers;
-    public EditText studentName,studentEmail,studentPassword,studentHostel,studentRoom,studentMob,studentReg;
+    private Spinner spinner,studentHostel;
+    public EditText studentName,studentEmail,studentPassword,studentRoom,studentMob,studentReg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +46,31 @@ public class StudentSignUp extends AppCompatActivity {
         studentName = (EditText)findViewById(R.id.studentNam);
         studentEmail = (EditText)findViewById(R.id.studentEmail);
         studentPassword = (EditText)findViewById(R.id.studentPassword);
-        studentHostel = (EditText)findViewById(R.id.studentHost);
+        //studentHostel = (EditText)findViewById(R.id.studentHost);
+        studentHostel = (Spinner)findViewById(R.id.studentHost);
         studentRoom = (EditText)findViewById(R.id.studentRoom);
         studentMob = (EditText)findViewById(R.id.studentMob);
         studentReg = (EditText)findViewById(R.id.studentRegNo);
+        List<String> list  = new ArrayList<String>();
+        list.add("Select Hostel");
+        list.add("Tandon");
+        list.add("Malviya");
+        list.add("Tilak");
+        list.add("Patel");
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(StudentSignUp.this,android.R.layout.simple_spinner_item,list);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        studentHostel.setAdapter(arrayAdapter);
+        studentHostel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               studentHostel.setSelection(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         progressDialog = new ProgressDialog(StudentSignUp.this);
         studentSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +84,9 @@ public class StudentSignUp extends AppCompatActivity {
                     final String studentR = studentRoom.getText().toString().trim();
                     final String studentM = studentMob.getText().toString().trim();
                     final String studentRegn = studentReg.getText().toString();
-                    final String studentH = studentHostel.getText().toString();
+                    //final String studentH = studentHostel.getC
+                    final String studentH = studentHostel.getSelectedItem().toString();
+                    //Toast.makeText(StudentSignUp.this,studentH,Toast.LENGTH_SHORT).show();
                     firebaseAuth.createUserWithEmailAndPassword(studentE,studentP).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -69,10 +99,11 @@ public class StudentSignUp extends AppCompatActivity {
                                     try {
                                         databaseUsers.child(id).setValue(user);
                                         databaseUserMeals.child(id).setValue(userMeal);
+                                        sendEmailVerification();
                                     }
                                     catch (Exception e){
                                         e.printStackTrace();
-                                        Toast.makeText(StudentSignUp.this,"Network error please try later",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(StudentSignUp.this,"Network error please try later",Toast.LENGTH_SHORT).show();
                                     }
 
                                     SharedPreferences sharedPreferences =getSharedPreferences("myFile", Context.MODE_PRIVATE);
@@ -83,12 +114,12 @@ public class StudentSignUp extends AppCompatActivity {
                                     editor.putString("email", studentE);
                                     editor.putString("mobile", studentM);
                                     editor.commit();
-                                    sendEmailVerification();
+
 
                                 }
                                 else{
                                     progressDialog.dismiss();
-                                    Toast.makeText(StudentSignUp.this,"Registration Failed",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(StudentSignUp.this,"Registration Failed",Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -96,8 +127,9 @@ public class StudentSignUp extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(StudentSignUp.this,"Fill all details",Toast.LENGTH_LONG).show();
+                    Toast.makeText(StudentSignUp.this,"Fill all details",Toast.LENGTH_SHORT).show();
                 }
+                progressDialog.dismiss();
 
             }
         });
@@ -111,10 +143,12 @@ public class StudentSignUp extends AppCompatActivity {
         final String studentR = studentRoom.getText().toString().trim();
         final String studentM = studentMob.getText().toString().trim();
         String studentRegn = studentReg.getText().toString();
-        String studentH = studentHostel.getText().toString();
-        if(studentN.isEmpty()||studentP.isEmpty()||studentE.isEmpty()|| studentR.isEmpty() || studentM.isEmpty()|| studentRegn.isEmpty()|| studentH.isEmpty())
+       // String studentH = studentHostel.getText().toString();
+        String studentH =studentHostel.getSelectedItem().toString();
+        if(studentN.isEmpty()||studentP.isEmpty()||studentE.isEmpty()|| studentR.isEmpty() || studentM.isEmpty()|| studentRegn.isEmpty()|| studentH.compareTo("Select Hostel")==0)
         {
-            Toast.makeText(this,"Please fill all details",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"Please fill all details",Toast.LENGTH_SHORT).show();
+           // progressDialog.dismiss();
         }
         else{
             result = true;

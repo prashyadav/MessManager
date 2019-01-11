@@ -121,11 +121,11 @@ public class StudentLogin extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 student = dataSnapshot.getValue(Student.class);
-                if(student.getStatus().compareTo("confirm")==0)
+                if(student.getStatus().compareTo("confirm")==0&&emailflag)
                 {
 
                     Toast.makeText(StudentLogin.this, "Login successfull!!", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
+                    //progressDialog.dismiss();
                     emailStudent.setText("");
                     passwordStudent.setText("");
                     Intent intent = new Intent(StudentLogin.this, StudentHome.class);
@@ -137,9 +137,8 @@ public class StudentLogin extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(StudentLogin.this,"Please get you email verified!!",Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                    progressDialog.dismiss();
                     emailStudent.setText("");
+                    passwordStudent.setText("");
                     firebaseAuth.signOut();
                 }
             }
@@ -152,6 +151,7 @@ public class StudentLogin extends AppCompatActivity {
         //Toast.makeText(this,name,Toast.LENGTH_SHORT).show();
 
         y=0;
+        progressDialog.dismiss();
 
 
 

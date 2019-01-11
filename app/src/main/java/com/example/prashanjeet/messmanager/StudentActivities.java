@@ -83,7 +83,7 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
 
                     }
                 }
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
 
 
             }
@@ -91,6 +91,7 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("res", databaseError.toException());
+                Toast.makeText(StudentActivities.this,"Network Error",Toast.LENGTH_SHORT).show();
             }
         });
         databaseReference1.addValueEventListener(new ValueEventListener() {
@@ -108,12 +109,13 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
                 }
                 //String s=String.valueOf(totalexp);
                 //totalSpent.setText("Total spent::"+s);
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("res", databaseError.toException());
+                Toast.makeText(StudentActivities.this,"Network Error",Toast.LENGTH_SHORT).show();
             }
         });
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -136,15 +138,16 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
                 v = meal.getTotalMeals();
                 value = String.valueOf(v);
                 totalMealsText.setText("Total Meals taken ::  " + value);
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(StudentActivities.this,"Network Error",Toast.LENGTH_LONG).show();
+                Toast.makeText(StudentActivities.this,"Network Error",Toast.LENGTH_SHORT).show();
 
             }
         });
+        progressDialog.dismiss();
         chooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +160,7 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
             @Override
             public void onClick(View v) {
                 if (formattedDate.compareTo("hello")==0) {
-                    Toast.makeText(StudentActivities.this, "Select Date", Toast.LENGTH_LONG).show();
+                    Toast.makeText(StudentActivities.this, "Select Date", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     progressDialog.setMessage("Fetching Details");
@@ -199,7 +202,7 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
                         } else {
                             dinner.setText("Dinner  ::  Not Taken");
                         }
-                        progressDialog.dismiss();
+                        //progressDialog.dismiss();
 
 
                     }
@@ -210,6 +213,7 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
 
                     }
                 });
+                    progressDialog.dismiss();
 
             }
         }

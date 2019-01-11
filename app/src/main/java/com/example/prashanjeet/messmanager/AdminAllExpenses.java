@@ -48,21 +48,8 @@ public class AdminAllExpenses extends AppCompatActivity {
         progressDialog.show();
         SharedPreferences sharedPreferences = getSharedPreferences("myFile", Context.MODE_PRIVATE);
         String def = "defaul";
-//        String userId = sharedPreferences.getString("id",def);
-        //String userId = firebaseAuth.getCurrentUser().getUid();
-        //Log.d("res", "list"+userId);
-//
-//        if(admin.equals("true")){
-//            databaseUserAppoRef = FirebaseDatabase.getInstance().getReference("adminAppointments");
-//
-//        }
-//        else{
-//            databaseUserAppoRef = FirebaseDatabase.getInstance().getReference("userAppointments");
-//        }
+
         databaseReference= FirebaseDatabase.getInstance().getReference("expense");
-
-
-        //databaseUserRef= databaseUserRef.child(userId);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -95,18 +82,19 @@ public class AdminAllExpenses extends AppCompatActivity {
 
                 ExpArrayList adapter = new ExpArrayList(AdminAllExpenses.this, expList);
                 listViewExp.setAdapter(adapter);
-                progressDialog.dismiss();
+
                 if(expList.size()==0){
-                    Toast.makeText(getApplicationContext(), "No Expenses Done", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No Expenses Done", Toast.LENGTH_SHORT).show();
                 }
                 ///Log.d("res",appoList.get(0).getTitle());
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w("res", databaseError.toException());
+                Toast.makeText(AdminAllExpenses.this,"Network Error Try Again",Toast.LENGTH_SHORT).show();
             }
         });
+        progressDialog.dismiss();
         Log.d("res", "on start ends here");
     }
 

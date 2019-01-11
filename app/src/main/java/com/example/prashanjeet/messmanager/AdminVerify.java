@@ -69,17 +69,6 @@ public class AdminVerify extends AppCompatActivity {
         progressDialog.show();
         SharedPreferences sharedPreferences = getSharedPreferences("myFile", Context.MODE_PRIVATE);
         String def = "defaul";
-//        String userId = sharedPreferences.getString("id",def);
-        //String userId = firebaseAuth.getCurrentUser().getUid();
-        //Log.d("res", "list"+userId);
-//
-//        if(admin.equals("true")){
-//            databaseUserAppoRef = FirebaseDatabase.getInstance().getReference("adminAppointments");
-//
-//        }
-//        else{
-//            databaseUserAppoRef = FirebaseDatabase.getInstance().getReference("userAppointments");
-//        }
         databaseUserRef = FirebaseDatabase.getInstance().getReference("users");
 
 
@@ -107,9 +96,9 @@ public class AdminVerify extends AppCompatActivity {
 
                 AppoArrayList adapter = new AppoArrayList(AdminVerify.this, studentList);
                 listViewStudent.setAdapter(adapter);
-                progressDialog.dismiss();
+
                 if(studentList.size()==0){
-                    Toast.makeText(getApplicationContext(), "No Student Left", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No Student Left", Toast.LENGTH_SHORT).show();
                 }
                 ///Log.d("res",appoList.get(0).getTitle());
             }
@@ -119,6 +108,7 @@ public class AdminVerify extends AppCompatActivity {
                 Log.w("res", databaseError.toException());
             }
         });
+        progressDialog.dismiss();
         Log.d("res", "on start ends here");
     }
 }

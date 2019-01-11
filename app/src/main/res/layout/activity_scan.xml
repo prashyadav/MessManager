@@ -36,7 +36,7 @@
         android:text="Select Date"
         android:textSize="15dp" />
 
-    <EditText
+    <Spinner
         android:id="@+id/editText_scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

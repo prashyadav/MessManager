@@ -73,14 +73,14 @@ public class AdminStudentActivity extends AppCompatActivity {
                            // listViewStudent.setAdapter(adapter);
                             if(j==0){
                                 progressDialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "No StudentFind with this Registration Number", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "No StudentFind with this Registration Number", Toast.LENGTH_SHORT).show();
                             }
                             ///Log.d("res",appoList.get(0).getTitle());
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Log.w("res", databaseError.toException());
+                            Toast.makeText(AdminStudentActivity.this,"Network Error!!",Toast.LENGTH_SHORT);
                         }
                     });
 

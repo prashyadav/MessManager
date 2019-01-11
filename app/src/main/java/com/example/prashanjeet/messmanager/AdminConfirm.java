@@ -83,7 +83,7 @@ public class AdminConfirm extends AppCompatActivity {
             public void onClick(View v) {
                 student.setStatus("confirm");
                 databaseReference.setValue(student);
-                Toast.makeText(AdminConfirm.this,"Confirmed",Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminConfirm.this,"Confirmed",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AdminConfirm.this,AdminVerify.class);
                 startActivity(intent);
                 finish();
@@ -94,7 +94,7 @@ public class AdminConfirm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 databaseReference.removeValue();
-                Toast.makeText(AdminConfirm.this,"Rejected ",Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminConfirm.this,"Rejected ",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AdminConfirm.this,AdminVerify.class);
                 startActivity(intent);
                 finish();
@@ -102,7 +102,5 @@ public class AdminConfirm extends AppCompatActivity {
         });
 
     }
-
-
 
 }

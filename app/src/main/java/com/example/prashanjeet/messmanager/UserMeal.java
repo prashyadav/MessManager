@@ -46,6 +46,14 @@ public class UserMeal {
         }
     }
 
+    public UserMeal(String name, String regNumber, int totalMeals, int balance, List<Integer> list) {
+        this.name = name;
+        this.regNumber = regNumber;
+        this.totalMeals = totalMeals;
+        this.balance = balance;
+        this.list = list;
+    }
+
     public int getTotalMeals() {
         return totalMeals;
     }
@@ -76,5 +84,13 @@ public class UserMeal {
 
     public void setRegNumber(String regNumber) {
         this.regNumber = regNumber;
+    }
+
+    public List<Integer> getList() {
+        return list;
+    }
+
+    public void setList(List<Integer> list) {
+        this.list = list;
     }
 }

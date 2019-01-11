@@ -186,9 +186,9 @@ public class ManagerHome extends AppCompatActivity {
 //                adminlist.add(b);
                 MealArrayList adapter = new MealArrayList(ManagerHome.this, mealList);
                 listViewMeal.setAdapter(adapter);
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
                 if(mealList.size()==0){
-                    Toast.makeText(getApplicationContext(), "No Meals found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No Meals found", Toast.LENGTH_SHORT).show();
                 }
                 ///Log.d("res",appoList.get(0).getTitle());
             }
@@ -196,9 +196,11 @@ public class ManagerHome extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w("res", databaseError.toException());
+                Toast.makeText(getApplicationContext(), "Network Error ", Toast.LENGTH_SHORT).show();
             }
         });
         Log.d("res", "on start ends here");
+        progressDialog.dismiss();
     }
 
     public void showMealDialog1(){
@@ -221,13 +223,13 @@ public class ManagerHome extends AppCompatActivity {
             public void onClick(View v) {
                 //Change status from open to close
                 if(m.getRegistration().compareTo("stop")==0){
-                    Toast.makeText(ManagerHome.this,"Already Stopped",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ManagerHome.this,"Already Stopped",Toast.LENGTH_SHORT).show();
                 }
                 else {
                     m.setRegistration("stop");
                     databaseReference = FirebaseDatabase.getInstance().getReference("meals").child(m.getId());
                     databaseReference.setValue(m);
-                    Toast.makeText(ManagerHome.this, "Registrations Stopped", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ManagerHome.this, "Registrations Stopped", Toast.LENGTH_SHORT).show();
                 }
                 alertDialog.dismiss();
             }
@@ -239,7 +241,7 @@ public class ManagerHome extends AppCompatActivity {
             public void onClick(View v) {
                 databaseReference = FirebaseDatabase.getInstance().getReference("meals").child(String.valueOf(m.id));
                 databaseReference.removeValue();
-                Toast.makeText(ManagerHome.this,"Removed",Toast.LENGTH_LONG).show();
+                Toast.makeText(ManagerHome.this,"Removed",Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
 
             }

@@ -44,27 +44,7 @@ public class Complaint extends AppCompatActivity {
         //namedata.setText(userName);
         databaseReference = FirebaseDatabase.getInstance().getReference("complainds");
         databaseReference1 = FirebaseDatabase.getInstance().getReference("users").child(userId);
-//                    databaseReference1.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    student = dataSnapshot.getValue(Student.class);
-//                    String name = student.getName();
-//                    intent.putExtra("user_name",name);
-//                    name = student.getMealId();
-//                    intent.putExtra("mealId",name);
-//                    progressDialog.dismiss();
-//                    startActivity(intent);
-//                    finish();
-//
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                    Toast.makeText(MainActivity.this,"Network Error",Toast.LENGTH_SHORT).show();
-//                    progressDialog.dismiss();
-//                }
-//            });
+
         databaseReference1.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -72,16 +52,17 @@ public class Complaint extends AppCompatActivity {
                 student = dataSnapshot.getValue(Student.class);
                     String name = student.getName();
                 namedata.setText(name);
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
                 Toast.makeText(Complaint.this,"Network Error Please Try Again",Toast.LENGTH_SHORT).show();
             }
         });
+        progressDialog.dismiss();
         Sendbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +72,7 @@ public class Complaint extends AppCompatActivity {
                 final String Message = MessageData.getText().toString();
                 String id  = databaseReference.push().getKey();
                 if(name.isEmpty()||Email.isEmpty()||Message.isEmpty()){
-                    Toast.makeText(Complaint.this,"Fill All Details",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Complaint.this,"Fill All Details",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     progressDialog.setMessage("Sending Complainds");

@@ -58,7 +58,7 @@ public class AddExpense extends AppCompatActivity implements DatePickerDialog.On
                 month = Integer.parseInt(formattedDate.substring(3, 5));
                 cost = Integer.parseInt(cost1);
                 if (formattedDate.compareTo("hello")==0||desc.isEmpty()||cost1.isEmpty()) {
-                    Toast.makeText(AddExpense.this, "Fill All details", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddExpense.this, "Fill All details", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -69,7 +69,7 @@ public class AddExpense extends AppCompatActivity implements DatePickerDialog.On
                         AdminExpense addExpense = new AdminExpense(cost,desc,formattedDate,month);
 
                         databaseReference.child(id).setValue(addExpense);
-                        Toast.makeText(AddExpense.this,"added successfully",Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddExpense.this,"added successfully",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddExpense.this,ManagerHome.class);
                         startActivity(intent);
                         finish();
@@ -77,7 +77,7 @@ public class AddExpense extends AppCompatActivity implements DatePickerDialog.On
                     }
                     catch (Exception e){
                         e.printStackTrace();
-                        Toast.makeText(AddExpense.this,"Network error please try later",Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddExpense.this,"Network error please try later",Toast.LENGTH_SHORT).show();
                     }
                     //progressDialog.dismiss();
                 }

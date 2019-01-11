@@ -67,9 +67,9 @@ public class AdminCompalinds extends AppCompatActivity {
 
                 ComplaindList adapter = new ComplaindList(AdminCompalinds.this, cmpList);
                 listViewComp.setAdapter(adapter);
-                progressDialog.dismiss();
+
                 if(cmpList.size()==0){
-                    Toast.makeText(getApplicationContext(), "No Complainds", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No Complainds", Toast.LENGTH_SHORT).show();
                 }
                 ///Log.d("res",appoList.get(0).getTitle());
             }
@@ -79,6 +79,7 @@ public class AdminCompalinds extends AppCompatActivity {
                 Log.w("res", databaseError.toException());
             }
         });
+        progressDialog.dismiss();
         Log.d("res", "on start ends here");
     }
 }
