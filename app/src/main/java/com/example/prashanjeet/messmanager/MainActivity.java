@@ -1,5 +1,6 @@
 package com.example.prashanjeet.messmanager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,10 +10,14 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
 public class MainActivity extends AppCompatActivity {
     public Button studentLogin,adminLogin,signUp,managerLogin;
     public TextView welcomeMessage;
+    private DatabaseReference databaseReference;
+    private Student student;
+    private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +29,10 @@ public class MainActivity extends AppCompatActivity {
         //managerLogin = (Button)findViewById(R.id.manager);
         signUp = (Button)findViewById(R.id.signUp);
         firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(MainActivity.this);
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if(firebaseUser!=null){
-            Intent intent   = new Intent(MainActivity.this,StudentHome.class);
+            final Intent intent   = new Intent(MainActivity.this,StudentHome.class);
             startActivity(intent);
             finish();
         }

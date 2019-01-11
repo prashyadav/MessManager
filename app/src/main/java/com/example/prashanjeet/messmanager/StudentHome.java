@@ -42,7 +42,7 @@ public class StudentHome extends AppCompatActivity {
     int cost;
     int cnfstat=0;
     int cancelstat=0;
-    String mealUid;
+    String mealUid,userName;
     private ProgressDialog progressDialog;
 
 
@@ -58,6 +58,7 @@ public class StudentHome extends AppCompatActivity {
         setContentView(R.layout.activity_student_home);
         Intent intent = getIntent();
         mealUid= intent.getStringExtra("mealId");
+        userName = intent.getStringExtra("user_name");
         firebaseAuth=FirebaseAuth.getInstance();
         listViewMeal =(ListView) findViewById(R.id.listViewAppo);
         progressDialog = new ProgressDialog(StudentHome.this);
@@ -101,8 +102,8 @@ public class StudentHome extends AppCompatActivity {
         if(id==R.id.id_Comp)
         {
             Intent intent=new Intent(StudentHome.this,Complaint.class);
-            //intent.putExtra("user_id",firebaseAuth.getCurrentUser().getUid());
-            //intent.putExtra("user_name",)
+            //intent.putExtra("userId",firebaseAuth.getCurrentUser().getUid());
+            intent.putExtra("userId",firebaseAuth.getCurrentUser().getUid());
             startActivity(intent);
             return true;
         }

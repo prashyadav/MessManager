@@ -18,9 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class AdminProfile extends AppCompatActivity {
-    public TextView totalAmount,totalSpent,totalStudent,monthExp,monthExpShow;
+    public TextView totalAmount,totalSpent,totalStudent,monthExp;
     public EditText monthNumber;
-    public Button showBtn;
+    public Button showBtn,monthExpShow;
     public DatabaseReference databaseReference,databaseReference1;
     private ProgressDialog progressDialog;
     int j=0;
@@ -37,7 +37,8 @@ public class AdminProfile extends AppCompatActivity {
         totalAmount = (TextView)findViewById(R.id.totalAmount);
         totalSpent = (TextView)findViewById(R.id.totalSpent);
         totalStudent = (TextView)findViewById(R.id.totalStudent);
-        monthExpShow = (TextView)findViewById(R.id.monthExpshow);
+        monthExpShow = (Button) findViewById(R.id.monthExpShow);
+        monthExpShow.setEnabled(false);
         monthNumber = (EditText)findViewById(R.id.month);
         monthExp = (TextView)findViewById(R.id.monthExp);
         showBtn = (Button)findViewById(R.id.showBtn);
@@ -116,6 +117,7 @@ public class AdminProfile extends AppCompatActivity {
 
                         monthExp.setText("Monthly expense is ::" + String.valueOf(m));
                         monthExpShow.setText("See Monthly Expense");
+                        monthExpShow.setEnabled(true);
                     }
                 }
 

@@ -7,30 +7,81 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 //import com.firebase.client.Firebase;
 
 public class Complaint extends AppCompatActivity {
     //Firebase firebase;
-    EditText namedata, EmailData, MessageData;
+    EditText  EmailData, MessageData;
+    TextView namedata;
     Button Sendbutton, Detailsbutton;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference,databaseReference1;
     ProgressDialog progressDialog;
+    String userName,userId;
+    private Student student;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaint);
-        namedata = (EditText) findViewById(R.id.Name_EditText);
+        namedata = (TextView) findViewById(R.id.Name_EditText);
         EmailData = (EditText) findViewById(R.id.Emailid_EditText);
         MessageData = (EditText) findViewById(R.id.Message_EditText);
         Sendbutton = (Button) findViewById(R.id.SendData_Button);
         progressDialog = new ProgressDialog(Complaint.this);
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();
+        Intent intent = getIntent();
+        userId = intent.getStringExtra("userId");
+        //namedata.setText(userName);
         databaseReference = FirebaseDatabase.getInstance().getReference("complainds");
+        databaseReference1 = FirebaseDatabase.getInstance().getReference("users").child(userId);
+//                    databaseReference1.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    student = dataSnapshot.getValue(Student.class);
+//                    String name = student.getName();
+//                    intent.putExtra("user_name",name);
+//                    name = student.getMealId();
+//                    intent.putExtra("mealId",name);
+//                    progressDialog.dismiss();
+//                    startActivity(intent);
+//                    finish();
+//
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//                    Toast.makeText(MainActivity.this,"Network Error",Toast.LENGTH_SHORT).show();
+//                    progressDialog.dismiss();
+//                }
+//            });
+        databaseReference1.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                student = dataSnapshot.getValue(Student.class);
+                    String name = student.getName();
+                namedata.setText(name);
+                progressDialog.dismiss();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                progressDialog.dismiss();
+                Toast.makeText(Complaint.this,"Network Error Please Try Again",Toast.LENGTH_SHORT).show();
+            }
+        });
         Sendbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

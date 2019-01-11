@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class StudentActivities extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    public TextView totalMealsText,balanceText,chooseDate,breakFast,lunch,snacks,dinner,studentReg,studentNa;
+    public TextView totalMealsText,balanceText,chooseDate,breakFast,lunch,snacks,dinner,studentReg,studentNa,expectedRef;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     String uid;
@@ -34,7 +35,8 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
     String value;
     public Button showInfo;
     private ProgressDialog progressDialog;
-    int date,mon;
+    private DatabaseReference databaseReference2,databaseReference1;
+    int date,mon,x,totalexp,z,totalStu,totalColl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -50,6 +52,7 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
         lunch = (TextView)findViewById(R.id.lunch);
         snacks = (TextView)findViewById(R.id.snacks);
         dinner = (TextView)findViewById(R.id.dinner);
+        expectedRef = (TextView)findViewById(R.id.expectedRef);
         showInfo = (Button)findViewById(R.id.showActivity);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getInstance().getCurrentUser();
@@ -60,6 +63,59 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
         uid = intent.getStringExtra("mealId");
          FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = firebaseDatabase.getReference("userMeals").child(uid);
+
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("userMeals");
+        databaseReference1 = FirebaseDatabase.getInstance().getReference("expense");
+        databaseReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                progressDialog.setMessage("Fetching Details");
+                progressDialog.show();
+                 totalStu=0;
+                totalColl=0;
+                for(DataSnapshot appoSnapshot : dataSnapshot.getChildren()){
+                    UserMeal a = appoSnapshot.getValue(UserMeal.class);
+                    if(a!=null){
+                        totalStu++;
+                        totalColl+=(15000-a.getBalance());
+                        // int v = a.list.get(0);
+
+
+                    }
+                }
+                progressDialog.dismiss();
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("res", databaseError.toException());
+            }
+        });
+        databaseReference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                progressDialog.setMessage("Fetching Details");
+                progressDialog.show();
+                for(DataSnapshot appoSnapshot : dataSnapshot.getChildren()){
+                    AdminExpense a = appoSnapshot.getValue(AdminExpense.class);
+                    if(a!=null){
+                        totalexp+=a.getCost();
+                        //arr[a.getMonth()]+=a.getCost();
+                    }
+
+                }
+                //String s=String.valueOf(totalexp);
+                //totalSpent.setText("Total spent::"+s);
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("res", databaseError.toException());
+            }
+        });
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -70,14 +126,17 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
                 studentNa.setText("Name  ::  "+ s);
                 int v =meal.getBalance();
                 value = String.valueOf(v);
-                balanceText.setText("Total balance is ::  " + value);
+                balanceText.setText("Total balance ::  " + value);
+                if(totalStu!=0)
+                    v +=(totalColl-totalexp)/totalStu;
+                if(v>13500)
+                    v=13500;
+                value = String.valueOf(v);
+                expectedRef.setText("Expected Refund::  " + value);
                 v = meal.getTotalMeals();
                 value = String.valueOf(v);
                 totalMealsText.setText("Total Meals taken ::  " + value);
                 progressDialog.dismiss();
-
-                //Toast.makeText(StudentActivities.this,value,Toast.LENGTH_LONG).show();
-
             }
 
             @Override
@@ -167,9 +226,10 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        chooseDate.setText(currentDate);
+
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
          formattedDate = df.format(c.getTime());
+        chooseDate.setText(formattedDate);
 
     }
 }

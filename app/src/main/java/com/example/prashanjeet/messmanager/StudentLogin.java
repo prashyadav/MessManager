@@ -131,6 +131,7 @@ public class StudentLogin extends AppCompatActivity {
                     Intent intent = new Intent(StudentLogin.this, StudentHome.class);
                     String mealId = student.getMealId();
                     intent.putExtra("mealId",mealId);
+                    intent.putExtra("user_name",student.getName());
                     startActivity(intent);
                     finish();
                 }
