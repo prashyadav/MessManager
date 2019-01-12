@@ -56,8 +56,7 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
         showInfo = (Button)findViewById(R.id.showActivity);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getInstance().getCurrentUser();
-        progressDialog.setMessage("Fetching Details");
-        progressDialog.show();
+
         //uid = firebaseUser.getUid();
         Intent intent = getIntent();
         uid = intent.getStringExtra("mealId");
@@ -97,8 +96,6 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
         databaseReference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                progressDialog.setMessage("Fetching Details");
-                progressDialog.show();
                 for(DataSnapshot appoSnapshot : dataSnapshot.getChildren()){
                     AdminExpense a = appoSnapshot.getValue(AdminExpense.class);
                     if(a!=null){
