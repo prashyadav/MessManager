@@ -1,0 +1,23 @@
+<resources>
+
+    <!-- Base application theme. 11-13 -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- Customize your theme here.14+ -->
+        <item name="android:windowBackground">#ffedeba6</item>
+        <item name="android:editTextColor">#ffb62a23</item>
+        <item name="android:textColorPrimary">#ffb62a23</item>
+        <item name="android:textColorSecondary">#ffb62a23</item>
+        <item name="android:textColorTertiary">#ffb62a23</item>
+        <item name="android:textColorTertiaryInverse">#ffb62a23</item>
+        <item name="android:textColorSecondaryInverse">#ffb62a23</item>
+        <item name="android:textColorPrimaryInverse">#ffb62a23</item>
+        android:fontFamily="sans-serif"
+        android:fontFamily="sans-serif-condensed"
+        android:fontFamily="sans-serif-light"
+        android:fontFamily="sans-serif-thin"-->
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+
+
+    </style>
+</resources>

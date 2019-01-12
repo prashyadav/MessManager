@@ -26,7 +26,6 @@
         <activity android:name=".StudentActivities" />
         <activity android:name=".FeedBack" />
         <activity android:name=".Complaint" />
-        <activity android:name=".Complain_listview" />
         <activity android:name=".AdminVerify" />
         <activity android:name=".AdminConfirm" />
         <activity android:name=".QRCode" />
