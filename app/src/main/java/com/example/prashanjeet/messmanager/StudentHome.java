@@ -142,77 +142,87 @@ public class StudentHome extends AppCompatActivity {
 
         databaseMealsRef = FirebaseDatabase.getInstance().getReference("meals");
 
-        databaseUserRef  = FirebaseDatabase.getInstance().getReference("users").child(userId);
+        try {
 
-        databaseMealsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            databaseUserRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
 
-                progressDialog.show();
-                //Log.d("res", "onStart1 "+status);
-                mealList.clear();
+            databaseMealsRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot mealSnapshot : dataSnapshot.getChildren()){
-                    Meal a = mealSnapshot.getValue(Meal.class);
+                    progressDialog.show();
+                    //Log.d("res", "onStart1 "+status);
+                    mealList.clear();
 
-                    Date c = Calendar.getInstance().getTime();
-                    //System.out.println("Current time => " + c);
+                    for (DataSnapshot mealSnapshot : dataSnapshot.getChildren()) {
+                        Meal a = mealSnapshot.getValue(Meal.class);
 
-                    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                    String formattedDate = df.format(c);
+                        Date c = Calendar.getInstance().getTime();
+                        //System.out.println("Current time => " + c);
 
-                    if(formattedDate.compareTo(a.date)<=0&&a.getRegistration().compareTo("open")==0){
-                        mealList.add(a);
+                        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                        String formattedDate = df.format(c);
+
+                        if (formattedDate.compareTo(a.date) <= 0 && a.getRegistration().compareTo("open") == 0) {
+                            mealList.add(a);
+                        }
+
+
                     }
 
+                    Collections.sort(mealList, new Comparator() {
+                        @Override
+                        public int compare(Object o1, Object o2) {
+                            Meal a1 = (Meal) o1;
+                            Meal a2 = (Meal) o2;
+                            return a1.date.compareToIgnoreCase(a2.date);
+                        }
+                    });
+
+
+                    MealArrayList adapter = new MealArrayList(StudentHome.this, mealList);
+                    listViewMeal.setAdapter(adapter);
+                    progressDialog.dismiss();
+                    if (mealList.size() == 0) {
+                        Toast.makeText(getApplicationContext(), "No Meals found", Toast.LENGTH_SHORT).show();
+                        // progressDialog.dismiss();
+                    }
 
                 }
 
-                Collections.sort(mealList, new Comparator() {
-                    @Override
-                    public int compare(Object o1, Object o2) {
-                        Meal a1 = (Meal) o1;
-                        Meal a2 = (Meal) o2;
-                        return a1.date.compareToIgnoreCase(a2.date);
-                    }
-                });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.w("res", databaseError.toException());
+                    Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            databaseUserMealsRef = FirebaseDatabase.getInstance().getReference("userMeals").child(userId);
 
 
-                MealArrayList adapter = new MealArrayList(StudentHome.this, mealList);
-                listViewMeal.setAdapter(adapter);
-                progressDialog.dismiss();
-                if(mealList.size()==0){
-                    Toast.makeText(getApplicationContext(), "No Meals found", Toast.LENGTH_SHORT).show();
-                  // progressDialog.dismiss();
+            databaseUserMealsRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    meal = dataSnapshot.getValue(UserMeal.class);
+                    //do what you want with the email
+                    //Log.d("name", meal.toString());
                 }
 
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("res", databaseError.toException());
-                Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        databaseUserMealsRef = FirebaseDatabase.getInstance().getReference("userMeals").child(userId);
-
-
-        databaseUserMealsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                meal = dataSnapshot.getValue(UserMeal.class);
-                //do what you want with the email
-                //Log.d("name", meal.toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(), "Network Error", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-//
+                }
+            });
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
 //        progressDialog.dismiss();
         Log.d("res", "on start ends here");
@@ -237,7 +247,12 @@ public class StudentHome extends AppCompatActivity {
         conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try{
                 confirm();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
 //                if(cnfstat==0) {
 //                    confirm();
 //                    cnfstat =1;
@@ -257,7 +272,12 @@ public class StudentHome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //confirm();
+                try{
                 deleteAdminAppo();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
         Button feedback = (Button)  dialogView.findViewById(R.id.adminDialogUpdateButton);

@@ -112,8 +112,12 @@ public class Scan extends AppCompatActivity implements DatePickerDialog.OnDateSe
             }
             else{
                 //Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
-
+                try{
                 checkStatus(result.getContents());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
 
             }
         }

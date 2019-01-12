@@ -203,7 +203,6 @@ public class StudentActivities extends AppCompatActivity implements DatePickerDi
 
 
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         Toast.makeText(StudentActivities.this,"Network Error",Toast.LENGTH_LONG).show();
