@@ -5,6 +5,7 @@
     android:id="@+id/studentHostel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#edeba6"
     tools:context="com.example.prashanjeet.messmanager.AdminConfirm">
 
     <TextView

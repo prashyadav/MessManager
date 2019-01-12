@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#edeba6"
     tools:context="com.example.prashanjeet.messmanager.MainActivity">
 
 
@@ -51,11 +52,11 @@
         android:layout_marginTop="8dp"
         android:text="Admin Login"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/studentLogin"
-        app:layout_constraintVertical_bias="0.083"
-        app:layout_constraintHorizontal_bias="0.501" />
+        app:layout_constraintVertical_bias="0.083" />
 
     <Button
         android:id="@+id/signUp"

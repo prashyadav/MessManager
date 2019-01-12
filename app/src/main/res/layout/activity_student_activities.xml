@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:background="#edeba6"
     tools:context="com.example.prashanjeet.messmanager.StudentActivities">
 
     <TextView
@@ -29,37 +30,31 @@
         android:textSize="25sp" />
 
 
+    <TextView
+        android:id="@+id/choosedate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/breakFast"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="13dp"
+        android:layout_marginStart="32dp"
+        android:text="Choose Date"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/choosedate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/breakFast"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="13dp"
-            android:layout_marginStart="32dp"
-            android:text="Choose Date"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/showActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/choosedate"
-            android:layout_alignBottom="@+id/choosedate"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="48dp"
-            android:text="Show activity"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
-
+    <Button
+        android:id="@+id/showActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/choosedate"
+        android:layout_alignBottom="@+id/choosedate"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="48dp"
+        android:text="Show activity"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
 
-
-
-
-
-<TextView
+    <TextView
         android:id="@+id/breakFast"
         android:layout_width="match_parent"
         android:layout_height="30sp"

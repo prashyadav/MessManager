@@ -1,44 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#edeba6"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/adminAppoTitle1"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:id="@+id/adminAppoDes1"/>
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
     <TextView
+        android:id="@+id/adminAppoDes1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+    <TextView
         android:id="@+id/adminAppoTotalReg"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+    <TextView
         android:id="@+id/adminAppoExpCost"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/adminDialogConfirmButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="confirm"
-            android:id="@+id/adminDialogConfirmButton"/>
+            android:text="confirm" />
+
         <Button
+            android:id="@+id/adminDialogCancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="cancel"
-            android:id="@+id/adminDialogCancelButton"/>
+            android:text="cancel" />
     </LinearLayout>
 
 </LinearLayout>
