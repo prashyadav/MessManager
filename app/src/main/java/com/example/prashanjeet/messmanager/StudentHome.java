@@ -62,8 +62,8 @@ public class StudentHome extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         listViewMeal =(ListView) findViewById(R.id.listViewAppo);
         progressDialog = new ProgressDialog(StudentHome.this);
-        progressDialog.setMessage("Fetching details of available meals");
-        progressDialog.show();
+//        progressDialog.setMessage("Fetching details of available meals");
+//        progressDialog.show();
         //complaintbutton=(Button)findViewById(R.id.Complaint_Button);
 //        complaintbutton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -84,7 +84,7 @@ public class StudentHome extends AppCompatActivity {
                     showMealDialog();
             }
         });
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -138,7 +138,7 @@ public class StudentHome extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         userId = firebaseAuth.getCurrentUser().getUid();
-
+        progressDialog.setMessage("Fetching Details!!");
 
         databaseMealsRef = FirebaseDatabase.getInstance().getReference("meals");
 
@@ -147,7 +147,7 @@ public class StudentHome extends AppCompatActivity {
         databaseMealsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                progressDialog.setMessage("Fetching Details!!");
+
                 progressDialog.show();
                 //Log.d("res", "onStart1 "+status);
                 mealList.clear();
@@ -214,7 +214,7 @@ public class StudentHome extends AppCompatActivity {
         });
 //
 
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
         Log.d("res", "on start ends here");
     }
 

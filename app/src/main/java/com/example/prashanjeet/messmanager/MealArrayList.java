@@ -38,8 +38,8 @@ public class MealArrayList extends ArrayAdapter<Meal> {
         TextView textViewDate = (TextView) listViewItem.findViewById(R.id.textViewDesc);
 
         Meal meal = appoList.get(position);
-        textViewTitle.setText(meal.title + "\n" + meal.getDate());
-        textViewDate.setText(meal.description);
+        textViewTitle.setText(meal.title );
+        textViewDate.setText(meal.description+ "\n" + meal.getDate());
 
         return listViewItem;
     }
