@@ -48,13 +48,14 @@ public class AdminAllExpenses extends AppCompatActivity {
         progressDialog.show();
         SharedPreferences sharedPreferences = getSharedPreferences("myFile", Context.MODE_PRIVATE);
         String def = "defaul";
-
+        try{
         databaseReference= FirebaseDatabase.getInstance().getReference("expense");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Log.d("res", "onStart1 "+status);
+                try{
                 expList.clear();
 
                 for(DataSnapshot appoSnapshot : dataSnapshot.getChildren()){
@@ -86,6 +87,10 @@ public class AdminAllExpenses extends AppCompatActivity {
                 if(expList.size()==0){
                     Toast.makeText(getApplicationContext(), "No Expenses Done", Toast.LENGTH_SHORT).show();
                 }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
                 ///Log.d("res",appoList.get(0).getTitle());
             }
 
@@ -96,7 +101,12 @@ public class AdminAllExpenses extends AppCompatActivity {
         });
         progressDialog.dismiss();
         Log.d("res", "on start ends here");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
 
 
 }

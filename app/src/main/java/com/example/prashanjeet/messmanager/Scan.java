@@ -146,6 +146,7 @@ public class Scan extends AppCompatActivity implements DatePickerDialog.OnDateSe
         databaseUserMealsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                try{
                 userMeal = dataSnapshot.getValue(UserMeal.class);
                 //do what you want with the email
                 Log.d("name", userMeal.getName());
@@ -213,6 +214,11 @@ public class Scan extends AppCompatActivity implements DatePickerDialog.OnDateSe
                 Intent intent = new Intent(Scan.this,Scan.class);
                 startActivity(intent);
                 finish();
+
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             @Override

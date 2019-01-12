@@ -47,6 +47,7 @@ public class AdminStudentActivity extends AppCompatActivity {
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            try{
                             int j=0;
                             for(DataSnapshot appoSnapshot : dataSnapshot.getChildren()){
                                 Student a = appoSnapshot.getValue(Student.class);
@@ -74,6 +75,10 @@ public class AdminStudentActivity extends AppCompatActivity {
                             if(j==0){
                                 progressDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "No StudentFind with this Registration Number", Toast.LENGTH_SHORT).show();
+                            }
+                            }
+                            catch (Exception e){
+                                e.printStackTrace();
                             }
                             ///Log.d("res",appoList.get(0).getTitle());
                         }
