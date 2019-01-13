@@ -25,12 +25,7 @@ public class MyFirebaseMessagingServices extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-//        super.onMessageReceived(remoteMessage);
-//        if(remoteMessage.getData()!=null) {
-//            sendNotification(remoteMessage);
-//            Log.d("token","data not null");
-//        }
-//        Log.d("token","data null");
+
 
         Intent intent =new Intent (this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ManagerHome extends AppCompatActivity {
@@ -171,19 +173,15 @@ public class ManagerHome extends AppCompatActivity {
 
                 }
 
-//                Collections.sort(appoList, new Comparator() {
-//                    @Override
-//                    public int compare(Object o1, Object o2) {
-//                        Appointment a1 = (Appointment) o1;
-//                        Appointment a2 = (Appointment) o2;
-//                        return a1.getDate().compareToIgnoreCase(a2.getDate());
-//                    }
-//                });
+               Collections.sort(mealList, new Comparator() {
+                @Override
+                public int compare(Object o1, Object o2) {
+                    Meal a1 = (Meal) o1;
+                    Meal a2 = (Meal) o2;
+                    return a1.date.compareToIgnoreCase(a2.date);
+                }
+            });
 
-//                Admin a =new Admin("a","sd","sd","sd","sd","sd","sd");
-//                adminlist.add(a);
-//                Admin b =new Admin("a","sad","asd","asd","sd","sd","sd");
-//                adminlist.add(b);
                 MealArrayList adapter = new MealArrayList(ManagerHome.this, mealList);
                 listViewMeal.setAdapter(adapter);
                 //progressDialog.dismiss();
