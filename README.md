@@ -12,3 +12,9 @@ Features:
 6. Add a complaint or suggestion regarding any mess activity.
 7. Feedback can be given on any meal with ratings.
 8. The managers should be able to view each students activity.
+
+## Contibutors
+* [Prajjwal Yadav] (https://github.com/prajjyadav)
+* [Prashanjeet] (https://github.com/prashyadav)
+* [Shravan Kumar Sahani] (https://github.com/Shravankumarsahani)
+
