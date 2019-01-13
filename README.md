@@ -14,7 +14,7 @@ Features:
 8. The managers should be able to view each students activity.
 
 ## Contibutors
-* [Prajjwal Yadav] (https://github.com/prajjyadav)
-* [Prashanjeet] (https://github.com/prashyadav)
-* [Shravan Kumar Sahani] (https://github.com/Shravankumarsahani)
+* [Prajjwal Yadav](https://github.com/prajjyadav)
+* [Prashanjeet](https://github.com/prashyadav)
+* [Shravan Kumar Sahani](https://github.com/Shravankumarsahani)
 
