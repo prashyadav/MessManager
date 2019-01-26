@@ -181,7 +181,6 @@ public class ManagerHome extends AppCompatActivity {
                     return a1.date.compareToIgnoreCase(a2.date);
                 }
             });
-
                 MealArrayList adapter = new MealArrayList(ManagerHome.this, mealList);
                 listViewMeal.setAdapter(adapter);
                 //progressDialog.dismiss();
