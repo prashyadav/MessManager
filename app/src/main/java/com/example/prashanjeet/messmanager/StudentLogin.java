@@ -159,19 +159,6 @@ public class StudentLogin extends AppCompatActivity {
 
     }
 
-//    public void generateQRCode(){
-//        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-//        try {
-//            BitMatrix bitMatrix = multiFormatWriter.encode(firebaseAuth.getInstance().getCurrentUser().getUid(), BarcodeFormat.QR_CODE,200,200);
-//            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-//            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-//
-//
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();;
-//        }
-//
-//    }
+
 
 }

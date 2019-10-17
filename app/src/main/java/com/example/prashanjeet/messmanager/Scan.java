@@ -228,35 +228,6 @@ public class Scan extends AppCompatActivity implements DatePickerDialog.OnDateSe
             }
         });
 
-//        String date = da.getText().toString();
-//
-//        int index= (Integer.parseInt(date.substring(3,5))-1)*31+Integer.parseInt(date.substring(0,2));
-//        int v =userMeal.list.get(index);
-//        String usermeal = me.getText().toString();
-//        int b=0,l=0,s=0,d=0;
-//        b = v&1;
-//        l=v&2;
-//        s=v&4;
-//        d=v&8;
-//        if(b!=0&&usermeal.compareTo("breakfast")==0){
-//            Toast.makeText(this, "yes, he is registered for meal", Toast.LENGTH_LONG).show();
-//        }
-//        else if(l!=0&&usermeal.compareTo("lunch")==0){
-//            Toast.makeText(this, "yes, he is registered for meal", Toast.LENGTH_LONG).show();
-//        }
-//        else if(s!=0&&usermeal.compareTo("snacks")==0){
-//            Toast.makeText(this, "yes, he is registered for meal", Toast.LENGTH_LONG).show();
-//        }
-//        else if(d!=0&&usermeal.compareTo("dinner")==0){
-//            Toast.makeText(this, "yes, he is registered for meal", Toast.LENGTH_LONG).show();
-//        }
-//        else {
-//
-//                Toast.makeText(this, "No, he is not  registered for meal", Toast.LENGTH_LONG).show();
-//
-//        }
-
-
 
     }
 

@@ -43,8 +43,7 @@ public class FeedbackAdmin extends AppCompatActivity {
         progressDialog.setMessage("Fetching Feedbacks");
         progressDialog.show();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("myFile", Context.MODE_PRIVATE);
-        String def = "defaul";
+
         //databaseReference= FirebaseDatabase.getInstance().getReference("complainds");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
