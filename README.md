@@ -12,6 +12,7 @@ Features:
 6. Add a complaint or suggestion regarding any mess activity.
 7. Feedback can be given on any meal with ratings.
 8. The managers should be able to view each students activity.
+9. this app helps a lot for mess manager to manage all the expense.
 
 ## Contibutors
 * [Prajjwal Yadav](https://github.com/prajjyadav)
